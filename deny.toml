@@ -1,0 +1,39 @@
+# cargo-deny policy foundation for MsgRiver (A-02.2 / A-02.3).
+#
+# The A-07.1 protocol preflight adds the architecture-budgeted serde and
+# serde_json crates. Their MIT/Unlicense transitive licenses are explicitly
+# admitted here after the cargo-deny review; each later dependency still needs
+# a written rationale and a separate policy review. This file states the
+# structural policy, not provider or platform support.
+
+[graph]
+all-features = false
+no-default-features = false
+
+[advisories]
+# A yanked version or a known advisory on a future dependency fails the gate.
+yanked = "deny"
+
+[licenses]
+# Apache-2.0 is the project license; MIT and Unlicense are required only by the
+# reviewed serde_json dependency closure used for protocol JSON syntax. ISC and
+# CDLA-Permissive-2.0 are required only by the reviewed rustls/WebPKI TLS
+# closure that enforces verified WhatsApp Cloud egress.
+allow = ["Apache-2.0", "MIT", "Unlicense", "ISC", "CDLA-Permissive-2.0"]
+# Task 0013: hmac 0.12.1's required digest-MAC utility. Keep this versioned so
+# no other BSD-3-Clause package becomes admissible by policy drift.
+exceptions = [{ allow = ["BSD-3-Clause"], name = "subtle", version = "2.6.1" }]
+confidence-threshold = 0.93
+
+[bans]
+multiple-versions = "warn"
+# Deny lazy `*` version requirements on registry crates, while still allowing
+# version-less local path dependencies (the workspace's own internal crates).
+wildcards = "deny"
+allow-wildcard-paths = true
+
+[sources]
+# A-02.2: registry crates only, no git dependencies.
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

@@ -1,0 +1,18 @@
+# MsgRiver core oracle — CORE-PREC-ACCEPT-WINS (PR-087).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-PREC-ACCEPT-WINS
+kind: precedence
+clause: PR-087
+clause_span_digest: ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42
+known_acceptance: true
+cancel_committed: true
+expiry_eligible: true
+attempt_exhausted: false
+late_verifiable_ack: false
+expect: ok
+expect_winner: provider_accepted

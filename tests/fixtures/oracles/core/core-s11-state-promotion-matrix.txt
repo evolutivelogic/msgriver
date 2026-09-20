@@ -1,0 +1,6 @@
+case_id: CORE-S11-STATE-PROMOTION-MATRIX
+kind: late_ack
+expect: ok
+eligible: queued,held,delivering,retry_scheduled,failed,cancelled,expired
+refused: provider_accepted
+history_digest: 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f

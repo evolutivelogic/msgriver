@@ -1,0 +1,3 @@
+case_id: CORE-S11-READY-EXHAUSTIVE-MATRIX
+expect: ok
+expect_rows: ready,generation_exhausted,incarnation_exhausted

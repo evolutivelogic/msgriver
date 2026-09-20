@@ -1,0 +1,2 @@
+case_id: CORE-S11-CLOCK-CHECKPOINT-TRANSITION
+expect: ok

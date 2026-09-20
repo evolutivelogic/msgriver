@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-OPS-UNDER-EXHAUST
+expect: ok
+expect_admissible_count: 7

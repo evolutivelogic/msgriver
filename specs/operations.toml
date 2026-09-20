@@ -1,0 +1,896 @@
+# MsgRiver first-slice operation catalog.
+#
+# This file is normative source data. Tests freeze its digest before implementation and prove exact
+# set equality against the API router, authorization dispatcher, API client, CLI parser, and generated
+# documentation. One record represents exactly one method/path/action and exactly one CLI command.
+
+catalog_version = 1
+product_spec = "0.3.46"
+architecture_spec = "0.3.62"
+api_prefix = "/v1"
+fixed_root_journaled_operations = [
+  "configuration.activate",
+  "clock.acknowledge",
+  "state_key.rotate",
+  "state_key.retire",
+  "recovery_key.generate",
+  "recovery_key.import",
+  "recovery_key.retire",
+  "bootstrap.create",
+  "restore.create",
+  "state_generation.delete",
+  "upgrade.prepare",
+  "upgrade.migrate",
+  "upgrade.activate",
+  "upgrade.rollback",
+  "system.shutdown",
+]
+
+[[operation]]
+id = "provider.list"
+method = "GET"
+path = "/v1/providers"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "authenticated_catalog"
+cli = "provider list"
+request_codec = "query.provider_list.v1"
+response_codec = "json.provider_page.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "provider.show"
+method = "GET"
+path = "/v1/providers/{provider_id}"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "authenticated_catalog"
+cli = "provider show"
+request_codec = "path.provider_id.v1"
+response_codec = "json.provider.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "provider.schema"
+method = "GET"
+path = "/v1/providers/{provider_id}/schemas/{schema_id}"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "authenticated_catalog"
+cli = "provider schema"
+request_codec = "path.provider_schema_id.v1"
+response_codec = "json.provider_schema.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "message.submit"
+method = "POST"
+path = "/v1/messages"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "submit"
+cli = "send"
+request_codec = "json.message_submit.v1"
+response_codec = "json.message_acceptance.v1"
+idempotency = "domain_key"
+risk = "external_effect"
+
+[[operation]]
+id = "message.list"
+method = "GET"
+path = "/v1/messages"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "status_own_or_operator"
+cli = "message list"
+request_codec = "query.message_list.v1"
+response_codec = "json.message_page.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "message.show"
+method = "GET"
+path = "/v1/messages/{message_id}"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "status_own_or_operator"
+cli = "message show"
+request_codec = "path.message_id.v1"
+response_codec = "json.message_status.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "message.attempt.list"
+method = "GET"
+path = "/v1/messages/{message_id}/attempts"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "status_own_or_operator"
+cli = "message attempts"
+request_codec = "query.message_attempt_list.v1"
+response_codec = "json.attempt_page.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "message.cancel"
+method = "POST"
+path = "/v1/messages/{message_id}/cancel"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "cancel_own_or_operator"
+cli = "message cancel"
+request_codec = "json.message_cancel.v1"
+response_codec = "json.message_status.v1"
+idempotency = "idempotent_action"
+risk = "mutation"
+
+[[operation]]
+id = "dead_letter.list"
+method = "GET"
+path = "/v1/dead-letters"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "operator"
+cli = "dead-letter list"
+request_codec = "query.dead_letter_list.v1"
+response_codec = "json.dead_letter_page.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "dead_letter.replay"
+method = "POST"
+path = "/v1/dead-letters/{message_id}/replays"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "dead-letter replay"
+request_codec = "json.dead_letter_replay.v1"
+response_codec = "json.message_acceptance.v1"
+idempotency = "domain_key"
+risk = "external_effect"
+
+[[operation]]
+id = "payload.purge"
+method = "DELETE"
+path = "/v1/messages/{message_id}/payload"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "payload purge"
+request_codec = "json.payload_purge.v1"
+response_codec = "json.payload_purge_result.v1"
+idempotency = "idempotent_action"
+risk = "destructive"
+
+[[operation]]
+id = "queue.list"
+method = "GET"
+path = "/v1/admin/queue"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "operator"
+cli = "queue list"
+request_codec = "query.queue_list.v1"
+response_codec = "json.queue_page.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "connector.list"
+method = "GET"
+path = "/v1/admin/connectors"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "connector list"
+request_codec = "query.connector_list.v1"
+response_codec = "json.connector_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "connector.show"
+method = "GET"
+path = "/v1/admin/connectors/{connector_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "connector show"
+request_codec = "path.connector_id.v1"
+response_codec = "json.connector_status.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "audit.list"
+method = "GET"
+path = "/v1/admin/audit-events"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "audit list"
+request_codec = "query.audit_list.v1"
+response_codec = "json.audit_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "admission.show"
+method = "GET"
+path = "/v1/admin/admission"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "operator"
+cli = "admission show"
+request_codec = "none"
+response_codec = "json.admission.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "admission.set"
+method = "PUT"
+path = "/v1/admin/admission"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "operator"
+cli = "admission set"
+request_codec = "json.admission_set.v1"
+response_codec = "json.admission.v1"
+idempotency = "generation_guarded"
+risk = "reversible_control"
+
+[[operation]]
+id = "drain.start"
+method = "POST"
+path = "/v1/admin/drains"
+bindings = ["normal_uds", "normal_tcp"]
+authorization = "operator"
+cli = "drain"
+request_codec = "json.drain.v1"
+response_codec = "json.drain_result.v1"
+idempotency = "command_key"
+risk = "reversible_control"
+
+[[operation]]
+id = "clock.show"
+method = "GET"
+path = "/v1/admin/clock"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "clock show"
+request_codec = "none"
+response_codec = "json.clock_status.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "clock.acknowledge"
+method = "POST"
+path = "/v1/admin/clock-acknowledgements"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "clock acknowledge"
+request_codec = "json.clock_acknowledgement.v1"
+response_codec = "json.clock_status.v1"
+idempotency = "addressed_state"
+risk = "safety_override"
+
+[[operation]]
+id = "principal.list"
+method = "GET"
+path = "/v1/admin/principals"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal list"
+request_codec = "query.principal_list.v1"
+response_codec = "json.principal_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "principal.create"
+method = "POST"
+path = "/v1/admin/principals"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal create"
+request_codec = "json.principal_create.v1"
+response_codec = "json.principal.v1"
+idempotency = "command_key"
+risk = "authorization_change"
+
+[[operation]]
+id = "principal.show"
+method = "GET"
+path = "/v1/admin/principals/{principal_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal show"
+request_codec = "path.principal_id.v1"
+response_codec = "json.principal.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "principal.update"
+method = "PATCH"
+path = "/v1/admin/principals/{principal_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal update"
+request_codec = "json.principal_update.v1"
+response_codec = "json.principal.v1"
+idempotency = "command_key"
+risk = "authorization_change"
+
+[[operation]]
+id = "principal.enable"
+method = "POST"
+path = "/v1/admin/principals/{principal_id}/enable"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal enable"
+request_codec = "json.generation_guarded_action.v1"
+response_codec = "json.principal.v1"
+idempotency = "generation_guarded"
+risk = "authorization_change"
+
+[[operation]]
+id = "principal.disable"
+method = "POST"
+path = "/v1/admin/principals/{principal_id}/disable"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal disable"
+request_codec = "json.generation_guarded_action.v1"
+response_codec = "json.principal.v1"
+idempotency = "generation_guarded"
+risk = "authorization_change"
+
+[[operation]]
+id = "grant.list"
+method = "GET"
+path = "/v1/admin/principals/{principal_id}/provider-grants"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal grant list"
+request_codec = "query.grant_list.v1"
+response_codec = "json.grant_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "grant.put"
+method = "PUT"
+path = "/v1/admin/principals/{principal_id}/provider-grants/{provider_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal grant set"
+request_codec = "json.grant_set.v1"
+response_codec = "json.grant.v1"
+idempotency = "generation_guarded"
+risk = "authorization_change"
+
+[[operation]]
+id = "grant.delete"
+method = "DELETE"
+path = "/v1/admin/principals/{principal_id}/provider-grants/{provider_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "principal grant revoke"
+request_codec = "json.generation_guarded_action.v1"
+response_codec = "json.grant_delete_result.v1"
+idempotency = "generation_guarded"
+risk = "authorization_change"
+
+[[operation]]
+id = "api_key.list"
+method = "GET"
+path = "/v1/admin/api-keys"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "api-key list"
+request_codec = "query.api_key_list.v1"
+response_codec = "json.api_key_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "api_key.issue"
+method = "POST"
+path = "/v1/admin/api-keys"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "api-key issue"
+request_codec = "json.api_key_issue.v1"
+response_codec = "json.api_key_secret_once.v1"
+idempotency = "one_time_secret"
+one_time_mode = "single_phase"
+risk = "credential_issue"
+
+[[operation]]
+id = "api_key.rotate"
+method = "POST"
+path = "/v1/admin/api-keys/{key_id}/rotations"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "api-key rotate"
+request_codec = "json.api_key_rotate.v1"
+response_codec = "json.api_key_secret_once.v1"
+idempotency = "one_time_secret"
+one_time_mode = "single_phase"
+risk = "credential_issue"
+
+[[operation]]
+id = "api_key.revoke"
+method = "DELETE"
+path = "/v1/admin/api-keys/{key_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "api-key revoke"
+request_codec = "json.admin_action.v1"
+response_codec = "json.api_key_revoke_result.v1"
+idempotency = "idempotent_action"
+risk = "authorization_change"
+
+[[operation]]
+id = "peer_mapping.list"
+method = "GET"
+path = "/v1/admin/peer-mappings"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "peer-mapping list"
+request_codec = "query.peer_mapping_list.v1"
+response_codec = "json.peer_mapping_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "peer_mapping.create"
+method = "POST"
+path = "/v1/admin/peer-mappings"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "peer-mapping create"
+request_codec = "json.peer_mapping_create.v1"
+response_codec = "json.peer_mapping.v1"
+idempotency = "command_key"
+risk = "authorization_change"
+
+[[operation]]
+id = "peer_mapping.show"
+method = "GET"
+path = "/v1/admin/peer-mappings/{mapping_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "peer-mapping show"
+request_codec = "path.peer_mapping_id.v1"
+response_codec = "json.peer_mapping.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "peer_mapping.update"
+method = "PATCH"
+path = "/v1/admin/peer-mappings/{mapping_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "peer-mapping update"
+request_codec = "json.peer_mapping_update.v1"
+response_codec = "json.peer_mapping.v1"
+idempotency = "command_key"
+risk = "authorization_change"
+
+[[operation]]
+id = "peer_mapping.delete"
+method = "DELETE"
+path = "/v1/admin/peer-mappings/{mapping_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "peer-mapping delete"
+request_codec = "json.admin_action.v1"
+response_codec = "json.peer_mapping_delete_result.v1"
+idempotency = "idempotent_action"
+risk = "authorization_change"
+
+[[operation]]
+id = "configuration.show"
+method = "GET"
+path = "/v1/admin/configuration"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "config show"
+request_codec = "none"
+response_codec = "json.configuration.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "configuration.validate"
+method = "POST"
+path = "/v1/admin/config-validations"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "config check"
+request_codec = "bytes.configuration_candidate.v1"
+response_codec = "json.configuration_validation.v1"
+idempotency = "safe_calculation"
+risk = "sensitive_read"
+
+[[operation]]
+id = "configuration.activate"
+method = "PUT"
+path = "/v1/admin/configuration"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance config activate"
+request_codec = "bytes.configuration_activation.v1"
+response_codec = "json.configuration_activation.v1"
+idempotency = "command_key"
+risk = "configuration_change"
+
+[[operation]]
+id = "state_key.list"
+method = "GET"
+path = "/v1/admin/state-keys"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance state-key list"
+request_codec = "query.state_key_list.v1"
+response_codec = "json.state_key_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "state_key.rotate"
+method = "POST"
+path = "/v1/admin/state-keys/{purpose}/rotations"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance state-key rotate"
+request_codec = "json.state_key_rotate.v1"
+response_codec = "json.state_key_rotation.v1"
+idempotency = "command_key"
+risk = "cryptographic_change"
+
+[[operation]]
+id = "state_key.retire"
+method = "DELETE"
+path = "/v1/admin/state-keys/{purpose}/{generation_id}"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance state-key retire"
+request_codec = "json.key_retirement.v1"
+response_codec = "json.key_retirement_result.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "recovery_key.list"
+method = "GET"
+path = "/v1/admin/recovery-keys"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance recovery-key list"
+request_codec = "query.recovery_key_list.v1"
+response_codec = "json.recovery_key_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "recovery_key.generate"
+method = "POST"
+path = "/v1/admin/recovery-keys"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance recovery-key generate"
+request_codec = "json.recovery_key_generate_phase.v1"
+response_codec = "json.recovery_key_generate_phase_result.v1"
+idempotency = "one_time_secret"
+one_time_mode = "escrow_acknowledgement"
+risk = "credential_issue"
+
+[[operation]]
+id = "recovery_key.import"
+method = "POST"
+path = "/v1/admin/recovery-key-imports"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance recovery-key import"
+request_codec = "json.recovery_key_import.v1"
+response_codec = "json.recovery_key_metadata.v1"
+idempotency = "command_key"
+risk = "cryptographic_change"
+
+[[operation]]
+id = "recovery_key.retire"
+method = "DELETE"
+path = "/v1/admin/recovery-keys/{generation_id}"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance recovery-key retire"
+request_codec = "json.key_retirement.v1"
+response_codec = "json.key_retirement_result.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "backup.list"
+method = "GET"
+path = "/v1/admin/backups"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup list"
+request_codec = "query.backup_list.v1"
+response_codec = "json.backup_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "backup.create"
+method = "POST"
+path = "/v1/admin/backups"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup create"
+request_codec = "json.backup_create.v1"
+response_codec = "json.backup_job.v1"
+idempotency = "command_key"
+risk = "resource_intensive"
+
+[[operation]]
+id = "backup.show"
+method = "GET"
+path = "/v1/admin/backups/{backup_id}"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup show"
+request_codec = "path.backup_id.v1"
+response_codec = "json.backup_job.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "backup.manifest"
+method = "GET"
+path = "/v1/admin/backups/{backup_id}/manifest"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup manifest"
+request_codec = "path.backup_id.v1"
+response_codec = "json.backup_manifest.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "backup.download"
+method = "GET"
+path = "/v1/admin/backups/{backup_id}/artifact"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup download"
+request_codec = "path.backup_id.v1"
+response_codec = "stream.backup_artifact.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "backup.cancel"
+method = "POST"
+path = "/v1/admin/backups/{backup_id}/cancel"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "backup cancel"
+request_codec = "json.admin_action.v1"
+response_codec = "json.backup_job.v1"
+idempotency = "idempotent_action"
+risk = "mutation"
+
+[[operation]]
+id = "bootstrap.create"
+method = "POST"
+path = "/v1/admin/bootstrap"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance bootstrap"
+request_codec = "json.bootstrap.v1"
+response_codec = "json.bootstrap_result.v1"
+idempotency = "command_key"
+risk = "configuration_change"
+
+[[operation]]
+id = "restore.create"
+method = "POST"
+path = "/v1/admin/restores"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance restore"
+request_codec = "stream.restore_artifact.v1"
+response_codec = "json.restore_job.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "restore.show"
+method = "GET"
+path = "/v1/admin/restores/{restore_id}"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance restore show"
+request_codec = "path.restore_id.v1"
+response_codec = "json.restore_job.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "restore.report"
+method = "GET"
+path = "/v1/admin/restores/current"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "restore report"
+request_codec = "query.restore_report_page.v1"
+response_codec = "json.restore_report_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "restore.resume"
+method = "POST"
+path = "/v1/admin/restores/current/resume"
+bindings = ["normal_uds"]
+authorization = "local_recovery_operator"
+cli = "restore resume"
+request_codec = "json.restore_resume.v1"
+response_codec = "json.restore_resume_result.v1"
+idempotency = "command_key"
+risk = "safety_override"
+
+[[operation]]
+id = "state_generation.list"
+method = "GET"
+path = "/v1/admin/state-generations"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance state-generation list"
+request_codec = "query.state_generation_list.v1"
+response_codec = "json.state_generation_page.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "state_generation.delete"
+method = "DELETE"
+path = "/v1/admin/state-generations/{generation_id}"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance state-generation delete"
+request_codec = "json.state_generation_delete.v1"
+response_codec = "json.state_generation_delete_result.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "upgrade.show"
+method = "GET"
+path = "/v1/admin/upgrade"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "upgrade show"
+request_codec = "none"
+response_codec = "json.upgrade_status.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "upgrade.prepare"
+method = "POST"
+path = "/v1/admin/upgrades"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "upgrade prepare"
+request_codec = "json.upgrade_prepare.v1"
+response_codec = "json.upgrade_status.v1"
+idempotency = "command_key"
+risk = "safety_control"
+
+[[operation]]
+id = "upgrade.migrate"
+method = "POST"
+path = "/v1/admin/upgrades/{upgrade_id}/migration"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance upgrade migrate"
+request_codec = "json.upgrade_migrate.v1"
+response_codec = "json.upgrade_status.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "upgrade.activate"
+method = "POST"
+path = "/v1/admin/upgrades/{upgrade_id}/activation"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "upgrade activate"
+request_codec = "json.upgrade_activate.v1"
+response_codec = "json.upgrade_status.v1"
+idempotency = "command_key"
+risk = "safety_override"
+
+[[operation]]
+id = "upgrade.rollback"
+method = "POST"
+path = "/v1/admin/upgrades/{upgrade_id}/rollback"
+bindings = ["maintenance_uds"]
+authorization = "state_owner_peer"
+cli = "maintenance upgrade rollback"
+request_codec = "json.upgrade_rollback.v1"
+response_codec = "json.upgrade_status.v1"
+idempotency = "command_key"
+risk = "destructive"
+
+[[operation]]
+id = "system.health"
+method = "GET"
+path = "/v1/system/health"
+bindings = ["normal_uds", "normal_tcp", "maintenance_uds"]
+authorization = "probe_by_binding"
+cli = "health"
+request_codec = "none"
+response_codec = "json.health.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "system.readiness"
+method = "GET"
+path = "/v1/system/readiness"
+bindings = ["normal_uds", "normal_tcp", "maintenance_uds"]
+authorization = "probe_by_binding"
+cli = "readiness"
+request_codec = "none"
+response_codec = "json.readiness.v1"
+idempotency = "safe"
+risk = "read"
+
+[[operation]]
+id = "system.metrics"
+method = "GET"
+path = "/v1/system/metrics"
+bindings = ["normal_uds"]
+authorization = "local_operator"
+cli = "metrics"
+request_codec = "none"
+response_codec = "text.metrics.v1"
+idempotency = "safe"
+risk = "sensitive_read"
+
+[[operation]]
+id = "system.shutdown"
+method = "POST"
+path = "/v1/system/shutdown"
+bindings = ["normal_uds", "maintenance_uds"]
+authorization = "local_operator_or_state_owner_peer"
+cli = "shutdown"
+request_codec = "json.shutdown.v1"
+response_codec = "json.shutdown_accepted.v1"
+idempotency = "addressed_state"
+risk = "safety_control"
+
+[[provider_ingress]]
+id = "whatsapp.challenge"
+provider = "whatsapp_cloud"
+method = "GET"
+route_family = "phase0.whatsapp.webhook"
+verification_mode = "verification_token_challenge"
+request_codec = "query.provider_verification.v1"
+response_class = "bounded_challenge_or_safe_rejection"
+idempotency = "no_mutation"
+body_limit = 0
+deadline_ms = 1000
+risk = "provider_ingress"
+
+[[provider_ingress]]
+id = "whatsapp.callback"
+provider = "whatsapp_cloud"
+method = "POST"
+route_family = "phase0.whatsapp.webhook"
+verification_mode = "raw_body_signature"
+request_codec = "bytes.whatsapp_callback.v1"
+response_class = "durable_ack_or_retryable_failure"
+idempotency = "provider_event_key"
+body_limit = 262144
+deadline_ms = 5000
+risk = "provider_ingress"

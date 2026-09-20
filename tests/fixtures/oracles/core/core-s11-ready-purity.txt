@@ -1,0 +1,3 @@
+case_id: CORE-S11-READY-PURITY
+expect: ok
+expect_presentation: absent

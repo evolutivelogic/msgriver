@@ -1,0 +1,3 @@
+case_id: CORE-S11-SAFETIME-MAX-CARRY
+expect: ok
+expect_value: 950

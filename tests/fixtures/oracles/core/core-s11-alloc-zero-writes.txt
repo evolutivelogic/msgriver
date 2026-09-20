@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-ZERO-WRITES
+expect: ok
+expect_allocator_write: false

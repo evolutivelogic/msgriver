@@ -1,0 +1,186 @@
+# Frozen authority for the operational live-authority successor.  The causal
+# RED does not read this file until its distinct controller exists.
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-operational-live-authority/v1"
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+max_attempts = 1
+tools = []
+window_seconds = 30
+retry = false
+fallback = false
+raw_only = true
+
+[authority]
+
+[authority.adjudication]
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-authority-adjudication.md"
+bytes = 3137
+sha256 = "f7ea851f68389219b96367f6bb46181eb456fad5028b58b01486610146deabc2"
+
+[authority.timeout_correction]
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-authority-timeout-correction.md"
+bytes = 1100
+sha256 = "1865af2d6487a7521cf738782b89e03d88a4b7b7dc3ab6b7ffa1766e6eaea41f"
+
+[authority.artifact_matrix_correction]
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-authority-artifact-matrix-correction.md"
+bytes = 2128
+sha256 = "48b5451e2c2cda682045e24c404b8f81ce3bb8a6f1d88b13c8c18ea9f59f756a"
+
+[authority.implementation_records]
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-authority-implementation-records.json"
+bytes = 1037
+sha256 = "cca2652f49c66e2ad8ea066429f82ec9dcfbac3c8851658b6c56356e6530612a"
+
+[authority.publication_correction]
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-authority-publication-correction.md"
+bytes = 1401
+sha256 = "1369d9c6e13cd24e2eb50f28c53a1a18cf9cf243487b9e1192181f00fbd2963a"
+
+[authority.prior_fixture]
+path = "tests/fixtures/s9-rationale-chunk05-part03-operational-authority-v1.toml"
+bytes = 7243
+sha256 = "5da787c1aa5c99bbca3c713870a2ab29c360979ff1a91298a0ce2246d6b22dfd"
+
+[authority.prior_selftest]
+path = "scripts/check_s9_rationale_chunk05_part03_operational_authority_selftest.py"
+bytes = 87481
+sha256 = "b08b671060cac799a2bb023605009ed3fb7669825e67c20404c466c64c9a8d8b"
+
+[authority.installer]
+path = "scripts/install_s9_rationale_chunk05_part03_operational_live_controller_release.py"
+bytes = 10328
+sha256 = "4df78986ae936bcfc6d17125c2fac9714e41518b96553b08b817c239b648c058"
+
+[authority.launcher]
+path = "scripts/launch_s9_rationale_chunk05_part03_operational_live_controller_release.py"
+bytes = 10600
+sha256 = "e2f2384c2c3da7f60783dfddcf91b56ad3c619d0c05b3e8372ec1b8884282020"
+
+[release]
+runtime_owner = "root:root"
+runtime_mode = 457
+release_mode = 448
+program_mode = 365
+manifest_mode = 292
+programs = ["controller", "issuer", "broker", "adapter", "gateway", "checker", "launcher"]
+
+[receipt]
+canonical = true
+single_use = true
+state_mode = 384
+key = ["receipt_sha256", "call_id", "readiness_sha256", "authority_sha256"]
+write_ahead = "started-fsync-before-child"
+terminal = ["success", "failure", "unknown"]
+
+[child]
+stdin = "exact-part03-bundle"
+private_profile = true
+empty_mcp = true
+environment = ["HOME", "LANG", "LC_ALL", "PATH", "ANTHROPIC_BASE_URL", "ANTHROPIC_MODEL", "ANTHROPIC_AUTH_TOKEN"]
+flags = ["-p", "--bare", "--safe-mode", "--strict-mcp-config", "--mcp-config", "<root-private-empty-mcp>", "--tools", "", "--no-session-persistence", "--disable-slash-commands", "--no-chrome", "--model", "glm-5.3", "--output-format", "json", "--permission-mode", "dontAsk", "--max-turns", "1"]
+network = "private-child-loopback-exact-port-seccomp"
+
+[gateway]
+capability_bytes = 32
+capability_ttl_seconds = 30
+capability_binds = ["call_id", "receipt_sha256", "readiness_sha256", "authority_sha256"]
+local_head_path = "/api/anthropic/api/hello"
+local_post_path = "/api/anthropic/v1/messages?beta=true"
+upstream_host = "api.z.ai"
+upstream_post_path = "/api/anthropic/v1/messages?beta=true"
+forwarded_provider_requests = 1
+local_head_upstream_requests = 0
+
+[capture]
+spool = "root-sealed-renameat2-noreplace"
+checker_fd = 3
+records = ["receipt", "receipt-validation", "readiness", "readiness-validation", "authority", "adapter", "envelope", "stderr", "transport", "validation", "ledger-projection"]
+
+[controller]
+arguments = ["--check", "--fixture-dir"]
+green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-CONTROLLER check=complete terminal=success spool_id=<32hex>"
+pre_reservation_red = "RED S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-CONTROLLER <code>"
+post_reservation_red = "RED S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-CONTROLLER <code> spool_id=<32hex>"
+
+[broker]
+state_inspect = ["--selftest", "--inspect-state", "--spool-id"]
+receipt_inspect = ["--selftest", "--inspect-receipt-sha", "--receipt-sha"]
+registry_inspect = ["--selftest", "--inspect-registry"]
+spool_handoff = ["--selftest", "--handoff-spool-fd", "--spool-id", "<32hex>", "--control-fd", "3"]
+state_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-BROKER state spool_id=<32hex> terminal=<terminal> child_invocations=<nonnegative> ledger_delta=<0|1>"
+receipt_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-BROKER state receipt_sha256=<64hex> terminal=<terminal> spool_id=<32hex-or-null> child_invocations=<nonnegative> ledger_delta=<0|1>"
+registry_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-BROKER registry entries=<nonnegative> sha256=<64hex>"
+handoff_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-BROKER handoff spool_id=<32hex>"
+
+[checker]
+arguments = ["--spool-fd", "3"]
+green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-LIVE-AUTHORITY-CHECKER spool_sha256=<64hex>"
+
+[promotion]
+semantic_credit = false
+canonical_ownership_installation = false
+production_rust = false
+service = false
+publication = false
+tag = false
+
+[[case]]
+name = "positive"
+phase = "post-start"
+expected = "green"
+artifact = "canonical-fixture"
+
+[[case]]
+name = "authority"
+phase = "pre-transport"
+expected = "authority"
+artifact = "release-record-drift"
+
+[[case]]
+name = "authorization"
+phase = "pre-transport"
+expected = "authorization"
+artifact = "receipt-drift"
+
+[[case]]
+name = "transport"
+phase = "pre-transport"
+expected = "transport"
+artifact = "adapter-or-gateway-drift"
+
+[[case]]
+name = "replay-concurrency-recovery"
+phase = "pre-transport"
+expected = "authorization"
+artifact = "receipt-state"
+
+[[case]]
+name = "isolation"
+phase = "post-start"
+expected = "isolation"
+artifact = "child-probe"
+
+[[case]]
+name = "ledger"
+phase = "post-start"
+expected = "ledger"
+artifact = "projection-drift"
+
+[[case]]
+name = "failure-timeout"
+phase = "post-start"
+expected = "terminal"
+artifact = "raw-terminal"
+
+[[case]]
+name = "publication"
+phase = "post-start"
+expected = "output_path"
+artifact = "competitor-topology"
+
+[[case]]
+name = "raw-only"
+phase = "post-publish"
+expected = "scope"
+artifact = "promotion-reachability"

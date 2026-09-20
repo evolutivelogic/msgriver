@@ -1,0 +1,70 @@
+schema_version = 1
+contract = "core-generation-arithmetic-v1"
+baseline_state = "3-causal-red"
+target_state = "3-contract-pass"
+transition_case_count = 3
+transition_frontier = "generation_arithmetic"
+historical_commit = "b7b900f9ba988f7a67bf0f0062aeabf5f475c900"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_generation_arithmetic.rs"
+role = "transition-target"
+sha256 = "13066e0b4c5c667a89c9be11c53314040e88e56e56fa6780e7b726c365cd5a08"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "specs/product.md"
+role = "pr109-product-contract"
+sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[authority]]
+path = "specs/contract-cases.toml"
+role = "pr109-case-authority"
+sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[authority]]
+path = "scripts/check_core_backoff_transition_promotion.py"
+role = "historical-checkpoint-runner"
+sha256 = "7d0dc38ba6ae9169323dddcea5affd025d588c7140b8717b04f764002184bc53"
+
+[[case]]
+case_id = "CORE-GEN-INCREMENT"
+symbol = "core_generation_arithmetic_increment"
+oracle = "tests/fixtures/oracles/core/core-gen-increment.txt"
+oracle_sha256 = "7012907203594f539d333d52463aa4c5751b7d0631f6981c64bec137c4fd684f"
+source = "specs/contract-cases.toml"
+source_sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[case]]
+case_id = "CORE-GEN-EXHAUST"
+symbol = "core_generation_arithmetic_exhaust"
+oracle = "tests/fixtures/oracles/core/core-gen-exhaust.txt"
+oracle_sha256 = "8972152eca2d8ca7c063774ec870ed75c011dcc824acd124bac1c96490d38c2d"
+source = "specs/contract-cases.toml"
+source_sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[case]]
+case_id = "CORE-GEN-LIMBS"
+symbol = "core_generation_arithmetic_limbs"
+oracle = "tests/fixtures/oracles/core/core-gen-limbs.txt"
+oracle_sha256 = "1128f722c9c8e8437e857ab65332ff4438f42992a99883108741c7bbfe0bd681"
+source = "specs/contract-cases.toml"
+source_sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion.py"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[historical_authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"

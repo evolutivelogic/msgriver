@@ -1,0 +1,3 @@
+case_id: CORE-S11-SURFACE-PURE-INVENTORY
+expect: ok
+expect_functions: 10

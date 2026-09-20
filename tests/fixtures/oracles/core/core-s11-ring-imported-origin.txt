@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-IMPORTED-ORIGIN
+expect: ok
+expect_origin: imported_key_origin

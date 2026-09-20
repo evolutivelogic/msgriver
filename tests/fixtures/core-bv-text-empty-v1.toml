@@ -1,0 +1,102 @@
+schema_version = 1
+contract = "core-bv-text-empty-v1"
+baseline_state = "3-causal-red"
+target_state = "3-contract-pass"
+case_count = 3
+frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_promotion.py"
+role = "v1-checker"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+role = "v1-selftest"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+role = "v1-fixture"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"
+
+[[authority]]
+path = "scripts/check_core_bv_edges_promotion.py"
+role = "edges-checker"
+sha256 = "c186e3d19dc5c691cd8d62da0ed463d58f62e94dc210bdb96052ebc60d52034f"
+
+[[authority]]
+path = "scripts/check_core_bv_edges_promotion_selftest.py"
+role = "edges-selftest"
+sha256 = "fb1ab642c1ced6b112e7bef1ca8113577effbe9d1af4154712ff16607865a8e0"
+
+[[authority]]
+path = "tests/fixtures/core-bv-edges-v1.toml"
+role = "edges-fixture"
+sha256 = "459db156d056a61fc28ae60fbdefef4f7b26070067a6ea4d67fcea9b42d446bd"
+
+[[authority]]
+path = "scripts/check_core_bv_expiry_boundaries_promotion.py"
+role = "expiry-checker"
+sha256 = "8925c49bb568819b0701a896c349e1112e1848745c1b38411c2c0d04a5f2f143"
+
+[[authority]]
+path = "scripts/check_core_bv_expiry_boundaries_promotion_selftest.py"
+role = "expiry-selftest"
+sha256 = "9e88511be87837a1dfd1621a9bc33196e41ccb22a5c5d09e7c36061679dcf4a2"
+
+[[authority]]
+path = "tests/fixtures/core-bv-expiry-boundaries-v1.toml"
+role = "expiry-fixture"
+sha256 = "972f89a3a02ed7ba5697d9b3139afab60e4e74ced2d190ad25eee1c44cff1f44"
+
+[[authority]]
+path = "scripts/check_core_canon_transition_promotion.py"
+role = "canonical-checker"
+sha256 = "4b46baa1791e50650581f1eea3c34f690dafe2fa7b79949af0922d40f7d8f9bd"
+
+[[authority]]
+path = "scripts/check_core_canon_transition_promotion_selftest.py"
+role = "canonical-selftest"
+sha256 = "834e1087f8fe5180f8b63ccdd91b7b7d0c59c78dd114d8e76b7bb43d5c487e8d"
+
+[[authority]]
+path = "tests/fixtures/core-canon-transition-v1.toml"
+role = "canonical-fixture"
+sha256 = "c553ffa5190dfc83c59189de22c014136ac535359647bbc3f5ec9c53c029b1a0"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_text_empty.rs"
+role = "empty-text-target"
+sha256 = "464e3b7d2bff5d130deba8a0ffdc00a4674d9c6b4a302a85d1c339729e7f649a"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[case]]
+case_id = "CORE-BV-TEXT-EMPTY-TITLE-ABSENT"
+symbol = "core_bv_text_empty_title_absent"
+oracle = "tests/fixtures/oracles/core-bv-text-empty/title-absent.txt"
+oracle_sha256 = "ca01683272e5fb7cefdcb6d8c7620fe066ccb65ff04056989275647e8823ba70"
+source = "git:6be9d8488fb0cd2cd3520fa571595eadff1335f6:tasks/0001-bootstrap.md"
+source_sha256 = "5aa5f6c1f4c40f61769875f3b6ffc84ccf292155937a08f00c3109b0e9b60597"
+
+[[case]]
+case_id = "CORE-BV-TEXT-EMPTY-TITLE-ASCII"
+symbol = "core_bv_text_empty_title_ascii"
+oracle = "tests/fixtures/oracles/core-bv-text-empty/title-ascii.txt"
+oracle_sha256 = "2880a7a2bcc422dfb22a90e2088364faa02a0a381c26c6158243bf805be30734"
+source = "git:6be9d8488fb0cd2cd3520fa571595eadff1335f6:tasks/0001-bootstrap.md"
+source_sha256 = "5aa5f6c1f4c40f61769875f3b6ffc84ccf292155937a08f00c3109b0e9b60597"
+
+[[case]]
+case_id = "CORE-BV-TEXT-EMPTY-TITLE-BADUTF8"
+symbol = "core_bv_text_empty_title_bad_utf8"
+oracle = "tests/fixtures/oracles/core-bv-text-empty/title-badutf8.txt"
+oracle_sha256 = "6f7b40987a7adc8975b92f8cb24aa736ba2537986416acdbdb0cf59f8faad0e3"
+source = "git:6be9d8488fb0cd2cd3520fa571595eadff1335f6:tasks/0001-bootstrap.md"
+source_sha256 = "5aa5f6c1f4c40f61769875f3b6ffc84ccf292155937a08f00c3109b0e9b60597"

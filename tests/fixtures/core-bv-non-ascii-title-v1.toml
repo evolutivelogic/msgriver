@@ -1,0 +1,41 @@
+schema_version = 1
+contract = "core-bv-non-ascii-title-v1"
+baseline_state = "1-causal-red"
+target_state = "1-contract-pass"
+case_count = 1
+frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_normative_submit_title_promotion.py"
+role = "normative-submit-title-checker"
+sha256 = "e8e89f5e8032f3f91edd6bc340dc7ee279295009f1541f1c910b615468336325"
+
+[[authority]]
+path = "scripts/check_core_bv_normative_submit_title_promotion_selftest.py"
+role = "normative-submit-title-selftest"
+sha256 = "e1e46decb63c2eb947c474d47bfd111d45db8d984d828af8de4ca1b7ac2ebf28"
+
+[[authority]]
+path = "tests/fixtures/core-bv-normative-submit-title-v1.toml"
+role = "normative-submit-title-fixture"
+sha256 = "98ee5a394da50ba271195fa3fb1231aa4e6ed906a8b8d673d202d22b28fffb59"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_non_ascii_title.rs"
+role = "non-ascii-title-target"
+sha256 = "08ffc14c29a67f3539e711fa3d89085e141bffe3824220779bcdfcc0c422a16c"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[case]]
+case_id = "CORE-BV-NON-ASCII-TITLE"
+symbol = "core_bv_non_ascii_title_cafe"
+oracle = "tests/fixtures/oracles/core-bv-non-ascii-title/non-ascii-title.txt"
+oracle_sha256 = "507e2d263c2aa185a42704ee3cb30d08668272870ac0c0d0c13aaa1543f43707"
+source = "git:ec35a6f35a26b26f2711af62fb3d75da0ba998bb:tasks/0001-bootstrap.md"
+source_sha256 = "da679a67ab0c4dc46fb691d8e49ebfe50e73e9c9bdb805ae502ea73edf00917f"

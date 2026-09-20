@@ -1,0 +1,9 @@
+# MsgRiver bounded edge oracle — CORE-BV-EDGE-TAGS-INVALID.
+# Source: PR-063.
+
+case_id: CORE-BV-EDGE-TAGS-INVALID
+kind: bv_tags
+clause: PR-063
+tag_hex: 2b616c657274
+expect: reject
+expect_class: invalid_tag

@@ -1,0 +1,13 @@
+# MsgRiver core oracle — CORE-BV-NON-ASCII-TITLE (A-04.2, A-12.3).
+#
+# Hand-authored frozen vector. Expected values are computed independently and
+# never through MsgRiver production code.
+
+case_id: CORE-BV-NON-ASCII-TITLE
+kind: bv_text
+clause: A-04.2,A-12.3
+text_hex: 68656c6c6f
+title_hex: 436166c3a9
+text_limit: 4096
+title_limit: 256
+expect: ok

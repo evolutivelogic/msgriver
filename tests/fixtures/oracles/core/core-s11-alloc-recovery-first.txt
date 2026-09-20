@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-RECOVERY-FIRST
+expect: ok
+expect_decision: exact_recovery

@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-CAPACITY-RECOVERY
+expect: ok
+expect_capacity_recovered: true

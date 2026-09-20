@@ -1,0 +1,227 @@
+# Hermetic fixture authority for the receipt-bound execution RED.  This file
+# intentionally models only a fake adapter and a synthetic ledger; it never
+# grants a production provider invocation.
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-execution-fixture/v1"
+clock_now = "2026-08-30T20:30:00Z"
+fixture_mode = "hermetic-fake-adapter"
+
+[authority]
+preflight_commit = "59d6ec2450d0135ce237e730b29a20e7c109a6ae"
+readiness_commit = "11fef22db0dcda141e4e8528b3b40af145026722"
+guard_contract_commit = "a9dbdb60b189e9642ceed8c4ec26a9e225fe1868"
+guard_implementation_commit = "34d3d908fd939f364f843fb0ec2e1e344c5161b6"
+guard_implementation = { path = "scripts/guard_s9_rationale_chunk05_part03_inference.py", bytes = 25021, sha256 = "85754b1dc0302eff00ecb9866146fd21bf0777b1568ab0d6eceb50f89cf04817" }
+execution_checker = { path = "scripts/check_s9_rationale_chunk05_part03_execution.py", bytes = 14554, sha256 = "a1accfde5e253d13c712b67742d55f49f36d332a399f0c3c59c041b32d8007f2" }
+
+[preflight]
+bundle = { path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-bundle.md", bytes = 14881, sha256 = "98e624913f8f055f183a43779a1553ba3971c83d5487c14038016b76bd632789" }
+plan = { path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-plan.json", bytes = 2933, sha256 = "50ba991bb9e01d70731b7a6a49c3e75062f68b60bc33ba3815d5e1b092e826db" }
+validation = { path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-validation.txt", bytes = 385, sha256 = "d590f5ce7bf016531a8ceaa4d64fb7f4ea6b32133f702603b0f4ca983cc8888b" }
+logical_chunk = 5
+child_part = 3
+rationale_count = 23
+
+[receipt]
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-guard-receipt/v1"
+validation_name = "guard-validation.txt"
+json_name = "guard-receipt.json"
+authorized_window_seconds = 30
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+max_attempts = 1
+tools = []
+retry = false
+fallback = false
+single_use = true
+
+[adapter]
+# The future test creates this tiny executable inside the fixture.  The target
+# must pin its bytes/mode and must refuse all other adapter paths, including
+# the real GLM wrapper.
+relative_path = "adapter/fake-glm-adapter.py"
+mode = 493
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+prompt_source = "preflight.bundle"
+flags = ["--bare", "--safe-mode", "--strict-mcp-config", "--tools", "", "--no-session-persistence", "--disable-slash-commands", "--no-chrome", "--max-turns", "1", "--output-format", "json", "--permission-mode", "dontAsk"]
+empty_mcp_name = "empty-mcp.json"
+workdir_mode = 448
+environment_allowlist = ["HOME", "LANG", "LC_ALL", "PATH"]
+probe_environment_allowlist = ["HOME", "LANG", "LC_ALL", "PATH", "MSGRIVER_FIXTURE_PROMPT_SHA256", "MSGRIVER_FIXTURE_ADAPTER_MODE", "MSGRIVER_FIXTURE_STDOUT", "MSGRIVER_FIXTURE_STDERR"]
+probe_environment = { HOME = "/nonexistent", LANG = "C", LC_ALL = "C", PATH = "/usr/bin:/bin" }
+
+[adapter.protocol]
+stdin = "exact-preflight-bundle-bytes"
+stdout = "fixture.stdout"
+stderr = "fixture.stderr"
+mode = "fixture.adapter_mode"
+secret_sentinel = "fixture.secret_sentinel"
+forbidden_paths = ["repository", "receipt", "state", "spool", "ledger", "output"]
+
+[state]
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-execution-state/v1"
+mode = 384
+link_count = 1
+key = ["receipt_sha256", "call_id", "readiness_sha256", "authority_sha256"]
+write_ahead = "started"
+terminal = ["success", "failure", "unknown"]
+recovery = "never_reinvoke"
+lock = "exclusive"
+empty = { format = "msgriver/s9-total-ownership-rationale-chunk05-part03-execution-state/v1", entries = [] }
+entry_keys = ["key", "status", "started_at", "terminal_at", "spool_id"]
+entry_types = { key = "64-lowercase-hex", status = "started|success|failure|unknown", started_at = "utc-rfc3339", terminal_at = "utc-rfc3339-or-null", spool_id = "32-lowercase-hex-or-null" }
+entry_state_invariants = { started = "terminal_at=null,spool_id=null", success = "terminal_at=utc,spool_id=32hex", failure = "terminal_at=utc,spool_id=32hex", unknown = "terminal_at=utc,spool_id=32hex" }
+
+[ledger]
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-execution-ledger-projection/v1"
+initial_count = 41
+expected_delta = 1
+record_fields = ["provider", "model", "lane", "task", "cwd"]
+expose_raw_bytes = false
+
+[capture]
+spool_mode = 488
+file_mode = 288
+spool_handle = "opaque-32hex-id"
+checker_capability = "spool-fd-3"
+checker_fd = 3
+inventory = ["execution-receipt.json", "execution-receipt-validation.txt", "execution-readiness.json", "execution-readiness-validation.txt", "execution-authority.json", "execution-envelope.json", "execution-stderr.txt", "execution-transport.json", "execution-validation.txt"]
+publish = "renameat2-noreplace"
+raw_only = true
+promotion = { semantic_credit = false, launch = false, canonical_ownership_installation = false, production_rust = false, service = false, publication = false, tag = false, later_parts_merged = false }
+
+[checker]
+program = "scripts/check_s9_rationale_chunk05_part03_execution.py"
+argument = "--spool-fd"
+fd = 3
+user = "msgriver-check"
+group = "msgriver-check"
+stdout_prefix = "GREEN S9-RATIONALE-CHUNK05-PART03-EXECUTION-CHECKER spool_sha256="
+stderr = ""
+provisioning = "root-controlled-reversible-harness-or-service-install-dco"
+
+[controller]
+stdout_prefix = "GREEN S9-RATIONALE-CHUNK05-PART03-EXECUTION mode=check provider_calls=1 model_calls=1 ledger_delta=1 spool_id="
+spool_id = "32-lowercase-hex"
+post_reservation_red_spool_id = true
+stderr = ""
+
+[broker]
+# Root-only post-crash verification resolves this opaque value inside the
+# broker's own registry.  No controller, adapter or checker receives a
+# runtime/state/spool path.
+program = "scripts/execute_s9_rationale_chunk05_part03_broker.py"
+state_projection_argument = "--inspect-state"
+registry_projection_argument = "--inspect-registry"
+checker_argument = "--verify-spool-id"
+publication_projection_argument = "--inspect-publication"
+spool_id_argument = "--spool-id"
+requires_root = true
+state_projection_fields = ["entries", "statuses", "sha256"]
+publication_projection_fields = ["competitor", "stage_count", "worktree_unchanged"]
+stdout_path_forbidden = true
+
+[fixture]
+adapter_mode = "success"
+stdout = "{\"fixture\":\"raw-envelope\"}\n"
+stderr = ""
+secret_sentinel = "EXECUTION_SECRET_MUST_NOT_ESCAPE"
+timeout_seconds = 1
+concurrency_barrier = "fixture-barrier"
+failpoints = ["before_started_fsync", "after_started_fsync", "before_publish", "after_publish"]
+publication_drift = ["none", "destination-existing", "destination-partial", "destination-file", "destination-final-symlink", "destination-parent-symlink"]
+isolation_probe = ["none", "repository", "receipt", "state", "spool", "ledger", "output"]
+recovery_drift = ["none", "revoked", "expired"]
+
+# Every row below becomes an executable, named mutation in the self-test.  The
+# expected code is target-facing; a fixture/setup fault is never allowed to be
+# counted as one of these REDs.
+[[case]]
+name = "authority-drift"
+phase = "pre_spawn"
+expected = "authority"
+mutation = "preflight_or_controller_record"
+
+[[case]]
+name = "receipt-drift"
+phase = "pre_spawn"
+expected = "authorization"
+mutation = "receipt_identity_or_freshness"
+
+[[case]]
+name = "state-malformed"
+phase = "pre_spawn"
+expected = "authorization"
+mutation = "state_schema_or_owner_mode_link"
+
+[[case]]
+name = "replay"
+phase = "pre_spawn"
+expected = "authorization"
+mutation = "same_receipt_other_parent"
+
+[[case]]
+name = "concurrent-first-use"
+phase = "reservation"
+expected = "one_green_one_authorization"
+mutation = "barrier"
+
+[[case]]
+name = "crash-recovery"
+phase = "reservation"
+expected = "authorization"
+mutation = "failpoint"
+
+[[case]]
+name = "adapter-drift"
+phase = "pre_spawn"
+expected = "transport"
+mutation = "adapter_record_or_flags"
+
+[[case]]
+name = "isolation"
+phase = "post_started"
+expected = "isolation"
+mutation = "fake_adapter_forbidden_access"
+
+[[case]]
+name = "recovery"
+phase = "post_publish"
+expected = "authorization"
+mutation = "opaque_spool_id_recovery_boundary"
+
+[[case]]
+name = "ledger"
+phase = "post_started"
+expected = "ledger"
+mutation = "synthetic_projection"
+
+[[case]]
+name = "capture-nonzero"
+phase = "post_started"
+expected = "terminal_failure"
+mutation = "adapter_nonzero"
+
+[[case]]
+name = "capture-timeout"
+phase = "post_started"
+expected = "terminal_unknown"
+mutation = "adapter_timeout"
+
+[[case]]
+name = "publication-race"
+phase = "post_started"
+expected = "output_path"
+mutation = "destination_before_rename"
+
+[[case]]
+name = "spool-checker"
+phase = "post_publish"
+expected = "output"
+mutation = "sealed_output_drift"
+
+[[case]]
+name = "raw-only-scope"
+phase = "post_publish"
+expected = "scope"
+mutation = "promotion_field"

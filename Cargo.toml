@@ -1,0 +1,83 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/msgriver-core",
+    "crates/msgriver-protocol",
+    "crates/msgriver-store",
+    "crates/msgriver-connectors",
+    "crates/msgriver-client",
+    "crates/msgriver",
+]
+
+# Shared package metadata inherited by every workspace member (A-02.2): the
+# first published version, edition, MSRV, and license are fixed here once.
+# Packages publish only when release metadata is complete, so they remain
+# unpublished while the product has no behavior.
+[workspace.package]
+version = "0.1.0-alpha"
+edition = "2024"
+rust-version = "1.89"
+license = "Apache-2.0"
+publish = false
+
+# The required one-way local dependency graph (A-02.1). Only workspace path
+# dependencies are declared here; every member references them with
+# `<name>.workspace = true`. No third-party crate is admitted in this scaffold
+# layer.
+[workspace.dependencies]
+msgriver-core = { path = "crates/msgriver-core" }
+msgriver-protocol = { path = "crates/msgriver-protocol" }
+msgriver-store = { path = "crates/msgriver-store" }
+msgriver-connectors = { path = "crates/msgriver-connectors" }
+msgriver-client = { path = "crates/msgriver-client" }
+# A-07.1 uses serde only behind the protocol's lexical preflight: serde_json
+# validates complete JSON syntax and its bounded default recursion is retained.
+serde = "1.0"
+serde_json = "1.0"
+# The WhatsApp Cloud driver performs one verified TLS request per attempt;
+# no general HTTP client or ambient proxy behavior is introduced.
+rustls = { version = "=0.23.45", default-features = false, features = ["ring", "std"] }
+webpki-roots = "=1.0.9"
+# A-02.3: one embedded SQLite implementation, pinned and bundled to avoid
+# host-library drift. Store-only; default features stay off intentionally.
+rusqlite = { version = "=0.40.1", default-features = false, features = ["bundled", "backup"] }
+# A-10.2.1 requires a runtime SHA-256 verification of embedded migration SQL.
+# Store-only; this replaces a hand-maintained checksum claim with a standard,
+# auditable implementation.
+sha2 = "=0.10.9"
+# A-04.1 / Task 0013 uses one private HMAC-SHA256 derivation under the
+# host-local journal key. Default features remain disabled; it shares sha2's
+# already locked digest family and exposes no service-facing MAC surface.
+hmac = { version = "=0.12.1", default-features = false }
+# A-13.2 / Task 0007: private fixed-array ownership that clears both samples
+# on every disposal path; derive/serde/default allocation features remain off.
+zeroize = { version = "=1.9.0", default-features = false }
+# A-13.1.1 / Task 0250: parse the closed root-owned bootstrap envelope without
+# serde or document-display features. The feature closure is audited separately.
+toml_edit = { version = "=0.22.27", default-features = false, features = ["parse"] }
+
+# rusqlite 0.40.1 and libsqlite3-sys 0.38.1 use unstable `cfg_select!`, which
+# prevents their declared bundled path from compiling on the project MSRV.
+# These local sources are byte-for-byte upstream except for equivalent stable
+# `#[cfg]` selections. See Task 0002 evidence.
+[patch.crates-io]
+rusqlite = { path = "third_party/cargo-vendor/rusqlite" }
+libsqlite3-sys = { path = "third_party/cargo-vendor/libsqlite3-sys" }
+
+# Shared lint baseline (development-method.md section 4). The authoritative
+# unsafe prohibition is the source attribute `#![forbid(unsafe_code)]` in each
+# crate root; this also denies it at the workspace level. The full production
+# ban on `panic!`/`unwrap`/`todo!`/`expect`/`unimplemented!`/`dbg!` is enforced
+# by clippy with warnings denied plus source analysis once behavior exists; the
+# foundation keeps a small, stable, high-signal set.
+[workspace.lints.rust]
+unsafe_code = "deny"
+rust_2018_idioms = { level = "deny", priority = -1 }
+
+[workspace.lints.clippy]
+all = { level = "deny", priority = -1 }
+
+# Release profile: overflow checks stay enabled (A-02.2). No diagnostic evidence
+# is stripped in the foundation.
+[profile.release]
+overflow-checks = true

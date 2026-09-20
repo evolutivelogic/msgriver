@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-CHECKED-CARRY
+expect: ok
+expect_high_water: 4294967296

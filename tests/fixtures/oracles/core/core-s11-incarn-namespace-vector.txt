@@ -1,0 +1,3 @@
+case_id: CORE-S11-INCARN-NAMESPACE-VECTOR
+expect: ok
+expect_namespace_hex: 1c49798de4fdd848714c7dc610350ebb66ae5ee815275fbe

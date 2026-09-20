@@ -1,0 +1,3 @@
+case_id: CORE-S11-INCARN-WITNESS-KINDS
+expect: ok
+expect_accepted_kinds: 5

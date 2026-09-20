@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-SLOTS-STABLE
+expect: ok
+expect_slot_allocation_digest: stable

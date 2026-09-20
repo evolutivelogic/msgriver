@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-FRESH-HEADER
+expect: ok
+expect_high_water: 0

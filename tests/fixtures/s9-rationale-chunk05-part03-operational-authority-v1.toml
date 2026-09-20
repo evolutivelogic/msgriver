@@ -1,0 +1,197 @@
+# Authority for the future live operation. The causal RED never reads this
+# file while the controller is absent.
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-operational-authority/v1"
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+max_attempts = 1
+tools = []
+window_seconds = 30
+retry = false
+fallback = false
+raw_only = true
+
+[authority]
+preflight_commit = "59d6ec2450d0135ce237e730b29a20e7c109a6ae"
+readiness_commit = "11fef22db0dcda141e4e8528b3b40af145026722"
+guard_contract_commit = "a9dbdb60b189e9642ceed8c4ec26a9e225fe1868"
+guard_implementation_commit = "34d3d908fd939f364f843fb0ec2e1e344c5161b6"
+execution_red_commit = "c4d272841db2fbb550eef46dba5fea80cd4ad51c"
+execution_implementation_commit = "ffba9e5bf891fb219a67b5a631cbf5396e10630f"
+red_base_commit = "6b8b053b93d99ed7589c698155297dbdac92ab58"
+cli_capability_correction_commit = "ae6b2a28c21d5fbc40671c338309b9a69aa39797"
+adapter_source_correction_commit = "edf2cc0c33894e9ee8d8b9942af2f650a3576191"
+adapter_mcp_reopen_correction_commit = "e036a3e11d5e473dfd66848ac6601e599132de8a"
+adapter_implementation_commit = "a552602b6e29bb83c0e763bc2499647e45759940"
+issuer_broker_implementation_commit = "2d59b73c989618514ff0565a19d513482c73e9c4"
+implementation_records = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-implementation-records.json"
+implementation_successor = "issuer-broker"
+implementation_base = "cefaed103b1822055d3998de0092455dff6bc3b4"
+
+[authority.implementation_programs]
+issuer = "scripts/issue_s9_rationale_chunk05_part03_operational.py"
+broker = "scripts/execute_s9_rationale_chunk05_part03_operational.py"
+adapter = "scripts/run_s9_rationale_chunk05_part03_operational.py"
+gateway = "scripts/gateway_s9_rationale_chunk05_part03_operational.py"
+checker = "scripts/check_s9_rationale_chunk05_part03_operational.py"
+
+[runtime]
+root = "/var/lib/msgriver-s9-part03-operational"
+owner = "root:root"
+mode = 457
+state_mode = 384
+state_nlink = 1
+lock_mode = 384
+child_identity = "dedicated-unprivileged"
+clear_groups = true
+no_new_privs = true
+capabilities = []
+inherited_fds = [0, 1, 2]
+workdir = "/"
+network = "private-child-loopback-exact-port-seccomp"
+checker_uid = 61123
+checker_gid = 61124
+
+[receipt]
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-operational-receipt/v1"
+canonical = true
+single_use = true
+key = ["receipt_sha256", "call_id", "readiness_sha256", "authority_sha256"]
+write_ahead = "started-fsync-before-child"
+terminal = ["success", "failure", "unknown"]
+recovery = "never-reinvoke"
+
+[cli]
+# DCO-bound replacement; see operational-cli-2.1.261-correction.md.
+path = "/home/chris/.npm-global/lib/node_modules/@anthropic-ai/claude-code/bin/claude.exe"
+version = "2.1.261"
+bytes = 215641584
+sha256 = "4ae40dd1784e85753e742e09f267d29ecbb82890361ad3817d27560866d364a6"
+max_turns = true
+
+[gateway]
+child_base_url = "http://127.0.0.1:<ephemeral>/api/anthropic"
+child_network_namespace = "private-loopback"
+gateway_network_namespace = "host-retained-child-listener-fd"
+child_seccomp = "deny-af-unix-af-inet6-udp-extra-exec"
+child_capability_env = "ANTHROPIC_AUTH_TOKEN"
+capability_bytes = 32
+capability_ttl_seconds = 30
+capability_binds = ["call_id", "receipt_sha256", "readiness_sha256", "authority_sha256"]
+local_head_path = "/api/anthropic/api/hello"
+local_post_path = "/api/anthropic/v1/messages?beta=true"
+upstream_host = "api.z.ai"
+upstream_post_path = "/api/anthropic/v1/messages?beta=true"
+forwarded_provider_requests = 1
+local_head_upstream_requests = 0
+
+[adapter]
+stdin = "exact-part03-bundle"
+private_profile = true
+empty_mcp = true
+flags = ["-p", "--bare", "--safe-mode", "--strict-mcp-config", "--mcp-config", "<root-private-empty-mcp>", "--tools", "", "--no-session-persistence", "--disable-slash-commands", "--no-chrome", "--model", "glm-5.3", "--output-format", "json", "--permission-mode", "dontAsk", "--max-turns", "1"]
+environment = ["HOME", "LANG", "LC_ALL", "PATH", "ANTHROPIC_BASE_URL", "ANTHROPIC_MODEL", "ANTHROPIC_AUTH_TOKEN"]
+
+[capture]
+spool = "root-sealed-renameat2-noreplace"
+checker = "fd-3-only"
+spool_mode = 488
+file_mode = 288
+checker_fd = 3
+checker_identity = "dedicated-checker"
+records = ["receipt", "receipt-validation", "readiness", "readiness-validation", "authority", "adapter", "envelope", "stderr", "transport", "validation", "ledger-projection"]
+
+[promotion]
+semantic_credit = false
+canonical_ownership_installation = false
+production_rust = false
+service = false
+publication = false
+tag = false
+
+[controller]
+arguments = ["--check", "--fixture-dir"]
+green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL mode=check provider_calls=1 model_calls=1 ledger_delta=1 spool_id=<32hex>"
+pre_reservation_red = "RED S9-RATIONALE-CHUNK05-PART03-OPERATIONAL <code>"
+post_reservation_red = "RED S9-RATIONALE-CHUNK05-PART03-OPERATIONAL <code> spool_id=<32hex>"
+
+[broker]
+arguments = ["--check", "--fixture-dir"]
+state_inspect = ["--inspect-state", "--spool-id"]
+receipt_inspect = ["--inspect-receipt", "--fixture-dir"]
+registry_inspect = ["--inspect-registry"]
+spool_handoff = ["--handoff-spool-fd", "--spool-id", "<32hex>", "--control-fd", "3"]
+state_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-BROKER state spool_id=<32hex> terminal=<terminal> child_invocations=<nonnegative> ledger_delta=<0|1>"
+receipt_absent = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-BROKER receipt state=absent"
+handoff_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-BROKER handoff spool_id=<32hex>"
+registry_green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-BROKER registry entries=<nonnegative> sha256=<64hex>"
+
+[checker]
+arguments = ["--spool-fd", "3"]
+green = "GREEN S9-RATIONALE-CHUNK05-PART03-OPERATIONAL-CHECKER spool_sha256=<64hex>"
+
+[fixture]
+adapter_modes = ["success", "nonzero", "timeout", "network", "extra-exec", "forbidden-path"]
+isolation_surfaces = ["repository", "receipt", "state", "spool", "ledger", "output", "secret"]
+publication_topologies = ["existing", "partial", "file", "final-symlink", "parent-symlink", "race"]
+recovery = ["started-crash", "revoked", "expired"]
+ledger = ["missing", "malformed", "zero", "excess"]
+
+[[case]]
+name = "authority"
+phase = "pre-transport"
+expected = "authority"
+mutation = "authority_drift"
+
+[[case]]
+name = "authorization"
+phase = "pre-transport"
+expected = "authorization"
+mutation = "receipt_drift"
+
+[[case]]
+name = "transport"
+phase = "pre-transport"
+expected = "transport"
+mutation = "adapter_drift"
+
+[[case]]
+name = "reverse-gateway"
+phase = "pre-transport"
+expected = "loopback-only-zai-injection"
+mutation = "gateway_drift"
+
+[[case]]
+name = "replay-concurrency-crash"
+phase = "pre-transport"
+expected = "authorization"
+mutation = "replay_concurrency_crash"
+
+[[case]]
+name = "isolation"
+phase = "post-start"
+expected = "isolation"
+mutation = "isolation_probe"
+
+[[case]]
+name = "ledger"
+phase = "post-start"
+expected = "ledger"
+mutation = "ledger_drift"
+
+[[case]]
+name = "terminal"
+phase = "post-start"
+expected = "raw-failure"
+mutation = "terminal_mode"
+
+[[case]]
+name = "publication"
+phase = "post-start"
+expected = "output_path"
+mutation = "publication_race"
+
+[[case]]
+name = "raw-only"
+phase = "post-publish"
+expected = "scope"
+mutation = "scope_reachability"

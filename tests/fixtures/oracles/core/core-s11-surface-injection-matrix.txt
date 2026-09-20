@@ -1,0 +1,3 @@
+case_id: CORE-S11-SURFACE-INJECTION-MATRIX
+expect: ok
+expect_forbidden_channels: 4

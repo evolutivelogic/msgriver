@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-NONALLOC-STABLE
+expect: ok
+expect_stable: true

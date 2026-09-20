@@ -1,0 +1,86 @@
+# MsgRiver additive CORE-BV edge promotion contract.
+# The predecessor gate remains immutable and is required before and after this
+# five-observable edge slice.
+schema_version = 1
+contract = "core-bv-edges-v1"
+baseline_state = "5-causal-red"
+target_state = "5-contract-pass"
+edge_case_count = 5
+edge_frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_promotion.py"
+role = "predecessor-checker"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+role = "predecessor-selftest"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+role = "predecessor-fixture"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_edges.rs"
+role = "edge-test-target"
+sha256 = "88f444b12b2bb63198782c1f506012709bfa5b0aee96a85ef81b9f6ddc389546"
+
+[[authority]]
+path = "specs/product.md"
+role = "product-contract"
+sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[authority]]
+path = "specs/architecture.md"
+role = "architecture-contract"
+sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[case]]
+case_id = "CORE-BV-EDGE-TAGS-VALID8-MAX32"
+symbol = "core_bv_edge_tags_valid8_max32"
+oracle = "tests/fixtures/oracles/core-bv-edges/tags-valid8-max32.txt"
+oracle_sha256 = "e8150bc2c039ce21be185da33308d070792f2b595fd3ca703c854b15b3ec243b"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BV-EDGE-TAGS-INVALID"
+symbol = "core_bv_edge_tags_invalid"
+oracle = "tests/fixtures/oracles/core-bv-edges/tags-invalid.txt"
+oracle_sha256 = "64387341fe07491a282ec78f32ac1f56a8f26dfdfd459eb9fb4d064b057b050f"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BV-EDGE-TEXT-VALID4096-UTF8"
+symbol = "core_bv_edge_text_valid4096_utf8"
+oracle = "tests/fixtures/oracles/core-bv-edges/text-valid4096-utf8.txt"
+oracle_sha256 = "d36d6c7d52fff1220d8f8c5701e6c9b400fc396ac4920f321469af88759abd0a"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BV-EDGE-TEXT-LIMIT4097"
+symbol = "core_bv_edge_text_limit4097"
+oracle = "tests/fixtures/oracles/core-bv-edges/text-limit4097.txt"
+oracle_sha256 = "e7efa29c3e09e8bd71584cb1a83f8913970b51326ac280405fe4bcc8d588df31"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BV-EDGE-TITLE-BADUTF8"
+symbol = "core_bv_edge_title_badutf8"
+oracle = "tests/fixtures/oracles/core-bv-edges/title-badutf8.txt"
+oracle_sha256 = "cf5070c7b5baee588583f0599a568990c2b67904d9f01405c1b891a09a9acc43"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"

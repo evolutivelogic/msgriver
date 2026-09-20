@@ -1,0 +1,21 @@
+# MsgRiver core oracle — CORE-STATE-STICKY-EFFECT (PR-080).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-STATE-STICKY-EFFECT
+kind: state
+clause: PR-080
+clause_span_digest: 329ee612c00907550ec9e3f04daa62618d34e1997a021b94014bcb68df06f814
+from: delivering
+cancel_requested: false
+effect: true
+duplicate: false
+event: transient_outcome
+expect_state: retry_scheduled
+expect_cancel_requested: false
+expect_effect: true
+expect_duplicate: false
+expect: ok

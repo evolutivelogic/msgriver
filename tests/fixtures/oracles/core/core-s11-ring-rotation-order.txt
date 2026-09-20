@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-ROTATION-ORDER
+expect: ok
+expect_first_failure: selected_origin_integrity

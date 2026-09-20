@@ -1,0 +1,26 @@
+[package]
+name = "msgriver"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+hmac.workspace = true
+msgriver-core.workspace = true
+msgriver-client.workspace = true
+msgriver-store.workspace = true
+msgriver-connectors.workspace = true
+# `alloc` exposes descriptor-relative `Dir` enumeration without enabling Rustix std defaults.
+rustix = { version = "=1.1.4", default-features = false, features = ["alloc", "fs", "process", "rand"] }
+sha2.workspace = true
+serde_json.workspace = true
+toml_edit.workspace = true
+zeroize.workspace = true
+
+[dev-dependencies]
+rustls.workspace = true
+
+[lints]
+workspace = true

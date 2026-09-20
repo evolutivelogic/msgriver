@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-EXHAUST-RECOVERY
+expect: ok
+expect_decision: supported

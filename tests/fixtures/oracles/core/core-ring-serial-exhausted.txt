@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-RING-SERIAL-EXHAUSTED (PR-127).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (checked arithmetic) and never through MsgRiver
+# production code. The case inventory records this file's SHA-256 and its
+# source-clause span digest.
+
+case_id: CORE-RING-SERIAL-EXHAUSTED
+kind: ring_serial_next
+clause: PR-127
+clause_span_digest: cc25cc20c0ee4169cc13a8f41c2f36c2ed90ff100a6dfd07fbf0051347d14020
+high_water: 18446744073709551615
+expect: reject
+expect_class: mac_key_serial_exhausted

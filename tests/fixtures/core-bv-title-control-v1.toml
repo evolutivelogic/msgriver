@@ -1,0 +1,57 @@
+schema_version = 1
+contract = "core-bv-title-control-v1"
+baseline_state = "3-causal-red"
+target_state = "3-contract-pass"
+case_count = 3
+frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_text_empty_promotion.py"
+role = "empty-text-checker"
+sha256 = "4714c375d51b38b483fdeb928f730cf6cfb793aea8fedf202a54c3df1917631b"
+
+[[authority]]
+path = "scripts/check_core_bv_text_empty_promotion_selftest.py"
+role = "empty-text-selftest"
+sha256 = "5937540b78ffecc5d128f845644f6470fcda99d9b9be8d0ce5397b14baef0842"
+
+[[authority]]
+path = "tests/fixtures/core-bv-text-empty-v1.toml"
+role = "empty-text-fixture"
+sha256 = "2a6b37b03dcd6f956dbcfde56b30ba388f82c63a31488acb087e76f07f676bdc"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_title_control.rs"
+role = "title-control-target"
+sha256 = "875cdd5bb886e941d4acc2e9139c0160482811dedb6c8c903acb57bdc5a3b82b"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[case]]
+case_id = "CORE-BV-TITLE-CONTROL-CR"
+symbol = "core_bv_title_control_cr"
+oracle = "tests/fixtures/oracles/core-bv-title-control/title-cr.txt"
+oracle_sha256 = "29bb9c627daa1a330b90f6799a775b8eb315d6dcdc91177f0f8bbc72a8c045f7"
+source = "git:ba606c41431758bdbb7f71cadf650a5fb267b9ce:tasks/0001-bootstrap.md"
+source_sha256 = "a760b05d14115d325d6b87a20eb8c40d7f3c076da66a13a5bfddbb6a927078ac"
+
+[[case]]
+case_id = "CORE-BV-TITLE-CONTROL-LF"
+symbol = "core_bv_title_control_lf"
+oracle = "tests/fixtures/oracles/core-bv-title-control/title-lf.txt"
+oracle_sha256 = "90c1636609fec0aa75a6b887974032844b4de76848630cdba49ef010bbf4da4a"
+source = "git:ba606c41431758bdbb7f71cadf650a5fb267b9ce:tasks/0001-bootstrap.md"
+source_sha256 = "a760b05d14115d325d6b87a20eb8c40d7f3c076da66a13a5bfddbb6a927078ac"
+
+[[case]]
+case_id = "CORE-BV-TITLE-CONTROL-NUL"
+symbol = "core_bv_title_control_nul"
+oracle = "tests/fixtures/oracles/core-bv-title-control/title-nul.txt"
+oracle_sha256 = "d2273dadac33773770e1a5efa10e9b4823b31a765e7533da1a661d50f2bd2083"
+source = "git:ba606c41431758bdbb7f71cadf650a5fb267b9ce:tasks/0001-bootstrap.md"
+source_sha256 = "a760b05d14115d325d6b87a20eb8c40d7f3c076da66a13a5bfddbb6a927078ac"

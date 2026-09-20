@@ -1,0 +1,13 @@
+# MsgRiver core oracle — CORE-BV-TEXT-INTERIOR-TITLE (A-04.2, A-12.3).
+#
+# Hand-authored frozen vector. Expected values are computed independently and
+# never through MsgRiver production code.
+
+case_id: CORE-BV-TEXT-INTERIOR-TITLE
+kind: bv_text
+clause: A-04.2/A-12.3
+text_hex: 68656c6c6f
+title_hex: 6e6f7465
+text_limit: 4096
+title_limit: 256
+expect: ok

@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-PUBLISH-AFTER-ADMIT
+expect: ok
+expect_decision: publish

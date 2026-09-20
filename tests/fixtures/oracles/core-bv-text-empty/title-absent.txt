@@ -1,0 +1,10 @@
+# MsgRiver bounded empty-text oracle — CORE-BV-TEXT-EMPTY-TITLE-ABSENT.
+# Source: bounded empty-text adjudication.
+
+case_id: CORE-BV-TEXT-EMPTY-TITLE-ABSENT
+kind: bv_text
+text_hex:
+text_limit: 4096
+title_limit: 256
+expect: reject
+expect_class: empty_text

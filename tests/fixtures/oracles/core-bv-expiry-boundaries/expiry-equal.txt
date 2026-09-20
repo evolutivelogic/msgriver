@@ -1,0 +1,10 @@
+# MsgRiver bounded expiry oracle — CORE-BV-EXPIRY-EQUAL.
+# Source: PR-061 and PR-062.
+
+case_id: CORE-BV-EXPIRY-EQUAL
+kind: bv_expiry
+clause: PR-061,PR-062
+now: 1000000
+expires: 1000000
+expect: reject
+expect_class: expiry_in_past

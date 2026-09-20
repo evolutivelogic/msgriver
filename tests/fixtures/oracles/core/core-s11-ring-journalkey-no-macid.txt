@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-JOURNALKEY-NO-MACID
+expect: ok
+expect_journal_has_mac_key_id: false

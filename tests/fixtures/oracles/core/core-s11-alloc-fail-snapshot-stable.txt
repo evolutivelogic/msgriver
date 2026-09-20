@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-FAIL-SNAPSHOT-STABLE
+expect: ok
+expect_snapshot_stable: true

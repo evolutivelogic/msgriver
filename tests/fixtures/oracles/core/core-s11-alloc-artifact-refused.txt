@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-ARTIFACT-REFUSED
+expect: ok
+expect_refused_roles: 5

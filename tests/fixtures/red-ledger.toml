@@ -1,0 +1,487 @@
+# MsgRiver RED frontier ledger (layer 2: core).
+#
+# Authoring-partial, like the inventory. Each entry fixes a case's closed,
+# ordered, monotonic frontier chain and current evidence. Initial-frontier
+# fan-in is reported exactly and earns no downstream reachability credit: at
+# RED every behavior case terminates at its registered initial frontier.
+
+schema_version = 1
+suite_state = "authoring-partial"
+complete_for = []
+core_case_count = 53
+
+[[entry]]
+case_id = "CORE-BV-ID-VALID-MAX"
+test_symbol = "core_bv_id_valid_max"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-ID-EMPTY"
+test_symbol = "core_bv_id_empty"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-ID-LEN129"
+test_symbol = "core_bv_id_len129"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-ID-LEADDOT"
+test_symbol = "core_bv_id_leaddot"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-ID-NONASCII"
+test_symbol = "core_bv_id_nonascii"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TOPIC-VALID64"
+test_symbol = "core_bv_topic_valid64"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TOPIC-LEN65"
+test_symbol = "core_bv_topic_len65"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TOPIC-SLASH"
+test_symbol = "core_bv_topic_slash"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TAGS-COUNT9"
+test_symbol = "core_bv_tags_count9"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TEXT-BADUTF8"
+test_symbol = "core_bv_text_badutf8"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-TEXT-TITLE257"
+test_symbol = "core_bv_text_title257"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-BV-EXPIRY-PAST"
+test_symbol = "core_bv_expiry_past"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "validate_bounded_grammar"
+
+[[entry]]
+case_id = "CORE-MATH-UTC-ADD"
+test_symbol = "core_math_utc_add"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "checked_arithmetic"
+
+[[entry]]
+case_id = "CORE-MATH-UTC-OVERFLOW"
+test_symbol = "core_math_utc_overflow"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "checked_arithmetic"
+
+[[entry]]
+case_id = "CORE-MATH-JITTER"
+test_symbol = "core_math_jitter"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "checked_arithmetic"
+
+[[entry]]
+case_id = "CORE-MATH-CAP-FIT"
+test_symbol = "core_math_cap_fit"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "checked_arithmetic"
+
+[[entry]]
+case_id = "CORE-MATH-CAP-OVER"
+test_symbol = "core_math_cap_over"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "checked_arithmetic"
+
+[[entry]]
+case_id = "CORE-CANON-REQUEST"
+test_symbol = "core_canon_request"
+initial_frontier = "canonical_encode"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "canonical_encode"
+
+[[entry]]
+case_id = "CORE-CANON-TAG-SORT"
+test_symbol = "core_canon_tag_sort"
+initial_frontier = "canonical_encode"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "canonical_encode"
+
+[[entry]]
+case_id = "CORE-MAC-FINGERPRINT"
+test_symbol = "core_mac_fingerprint"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "mac_domain_separate"
+
+[[entry]]
+case_id = "CORE-MAC-KEYVERSION"
+test_symbol = "core_mac_keyversion"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "mac_domain_separate"
+
+[[entry]]
+case_id = "CORE-MAC-LOOKUP-DOMAIN"
+test_symbol = "core_mac_lookup_domain"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "mac_domain_separate"
+
+[[entry]]
+case_id = "CORE-BACKOFF-ATTEMPT1"
+test_symbol = "core_backoff_attempt1"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "compute_backoff"
+
+[[entry]]
+case_id = "CORE-BACKOFF-SATURATE"
+test_symbol = "core_backoff_saturate"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "compute_backoff"
+
+[[entry]]
+case_id = "CORE-BACKOFF-RETRYAFTER-MAX"
+test_symbol = "core_backoff_retryafter_max"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "compute_backoff"
+
+[[entry]]
+case_id = "CORE-BACKOFF-RETRYAFTER-CLAMP"
+test_symbol = "core_backoff_retryafter_clamp"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "compute_backoff"
+
+[[entry]]
+case_id = "CORE-STATE-TRANSITION-VALID"
+test_symbol = "core_state_transition_valid"
+initial_frontier = "state_transition"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "state_transition"
+
+[[entry]]
+case_id = "CORE-STATE-TRANSITION-INVALID"
+test_symbol = "core_state_transition_invalid"
+initial_frontier = "state_transition"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "state_transition"
+
+[[entry]]
+case_id = "CORE-STATE-STICKY-EFFECT"
+test_symbol = "core_state_sticky_effect"
+initial_frontier = "state_transition"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "state_transition"
+
+[[entry]]
+case_id = "CORE-STATE-CANCEL-DELIVERING"
+test_symbol = "core_state_cancel_delivering"
+initial_frontier = "state_transition"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "state_transition"
+
+[[entry]]
+case_id = "CORE-PREC-ACCEPT-WINS"
+test_symbol = "core_prec_accept_wins"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-PREC-CANCEL-OVER-EXPIRY"
+test_symbol = "core_prec_cancel_over_expiry"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-PREC-EXPIRY-OVER-EXHAUST"
+test_symbol = "core_prec_expiry_over_exhaust"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-PREC-EXHAUST-FAILED"
+test_symbol = "core_prec_exhaust_failed"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-PREC-TERMINAL-NOOP"
+test_symbol = "core_prec_terminal_noop"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-PREC-LATE-ACK-PROMOTE"
+test_symbol = "core_prec_late_ack_promote"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "terminal_precedence"
+
+[[entry]]
+case_id = "CORE-FENCE-MATCH"
+test_symbol = "core_fence_match"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "fence_arbitrate"
+
+[[entry]]
+case_id = "CORE-FENCE-STALE"
+test_symbol = "core_fence_stale"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "fence_arbitrate"
+
+[[entry]]
+case_id = "CORE-FENCE-AMBIGUITY-OR"
+test_symbol = "core_fence_ambiguity_or"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "fence_arbitrate"
+
+[[entry]]
+case_id = "CORE-FENCE-LEASE-CONFIG"
+test_symbol = "core_fence_lease_config"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "fence_arbitrate"
+
+[[entry]]
+case_id = "CORE-SAFETIME-MAX"
+test_symbol = "core_safetime_max"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "safe_time_high_water"
+
+[[entry]]
+case_id = "CORE-SAFETIME-MONOTONIC"
+test_symbol = "core_safetime_monotonic"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "safe_time_high_water"
+
+[[entry]]
+case_id = "CORE-SAFETIME-PROVEN-EXPIRED"
+test_symbol = "core_safetime_proven_expired"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "safe_time_high_water"
+
+[[entry]]
+case_id = "CORE-SAFETIME-CLOCK-THRESHOLD"
+test_symbol = "core_safetime_clock_threshold"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "safe_time_high_water"
+
+[[entry]]
+case_id = "CORE-GEN-INCREMENT"
+test_symbol = "core_gen_increment"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "generation_arithmetic"
+
+[[entry]]
+case_id = "CORE-GEN-EXHAUST"
+test_symbol = "core_gen_exhaust"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "generation_arithmetic"
+
+[[entry]]
+case_id = "CORE-GEN-LIMBS"
+test_symbol = "core_gen_limbs"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "generation_arithmetic"
+
+[[entry]]
+case_id = "CORE-INCARN-WIRE"
+test_symbol = "core_incarn_wire"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "incarnation_alloc"
+
+[[entry]]
+case_id = "CORE-INCARN-SERIAL-EXHAUST"
+test_symbol = "core_incarn_serial_exhaust"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "incarnation_alloc"
+
+[[entry]]
+case_id = "CORE-INCARN-SERIAL-BURN"
+test_symbol = "core_incarn_serial_burn"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+current_evidence = "behavior_red"
+registered_frontier_reached = "incarnation_alloc"
+
+[[entry]]
+case_id = "CORE-RING-SERIAL-NEXT"
+test_symbol = "core_ring_serial_next"
+initial_frontier = "key_ring_state"
+later_frontiers = []
+current_evidence = "contract_pass"
+registered_frontier_reached = "key_ring_state"
+
+[[entry]]
+case_id = "CORE-READY-BOTH-EXHAUSTED"
+test_symbol = "core_ready_both_exhausted"
+initial_frontier = "readiness_reason"
+later_frontiers = []
+current_evidence = "contract_pass"
+registered_frontier_reached = "readiness_reason"
+
+[[frontier_fan_in]]
+frontier = "validate_bounded_grammar"
+case_count = 12
+
+[[frontier_fan_in]]
+frontier = "checked_arithmetic"
+case_count = 5
+
+[[frontier_fan_in]]
+frontier = "canonical_encode"
+case_count = 2
+
+[[frontier_fan_in]]
+frontier = "mac_domain_separate"
+case_count = 3
+
+[[frontier_fan_in]]
+frontier = "compute_backoff"
+case_count = 4
+
+[[frontier_fan_in]]
+frontier = "state_transition"
+case_count = 4
+
+[[frontier_fan_in]]
+frontier = "terminal_precedence"
+case_count = 6
+
+[[frontier_fan_in]]
+frontier = "fence_arbitrate"
+case_count = 4
+
+[[frontier_fan_in]]
+frontier = "safe_time_high_water"
+case_count = 4
+
+[[frontier_fan_in]]
+frontier = "generation_arithmetic"
+case_count = 3
+
+[[frontier_fan_in]]
+frontier = "incarnation_alloc"
+case_count = 3
+
+[[frontier_fan_in]]
+frontier = "key_ring_state"
+case_count = 2
+
+[[frontier_fan_in]]
+frontier = "readiness_reason"
+case_count = 1
+
+[[entry]]
+case_id = "CORE-RING-SERIAL-EXHAUSTED"
+test_symbol = "core_ring_serial_exhausted"
+initial_frontier = "key_ring_state"
+later_frontiers = []
+current_evidence = "contract_pass"
+registered_frontier_reached = "key_ring_state"

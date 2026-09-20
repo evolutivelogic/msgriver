@@ -1,0 +1,76 @@
+schema_version = 1
+contract = "core-canon-transition-v1"
+baseline_state = "2-causal-red"
+target_state = "2-contract-pass"
+transition_case_count = 2
+transition_frontier = "canonical_encode"
+historical_commit = "6316703a"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_canon_transition.rs"
+role = "transition-target"
+sha256 = "13f1b1706c39f1666cd25fbb0c8c05060fa283b0703e294d94e0ec367d4ae54c"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "specs/architecture.md"
+role = "e1-contract"
+sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[case]]
+case_id = "CORE-CANON-TRANSITION-REQUEST-V1-KAT"
+symbol = "core_canon_transition_request_v1_kat"
+oracle = "tests/fixtures/oracles/core-canon-transition/request-v1-kat.txt"
+oracle_sha256 = "00077d9abef2c6045cb412b5a21d5acd6cc19623bdaf8267eacf7c9520db4e2e"
+source = "specs/architecture.md"
+source_sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[case]]
+case_id = "CORE-CANON-TRANSITION-DEFAULTED-TAGS"
+symbol = "core_canon_transition_defaulted_tags"
+oracle = "tests/fixtures/oracles/core-canon-transition/defaulted-tags.txt"
+oracle_sha256 = "4e28d5d643f678278172a2271c81848deef8e23a40ae6f971ddcaab93da4b1d6"
+source = "specs/architecture.md"
+source_sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion.py"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[historical_authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_edges_promotion.py"
+sha256 = "c186e3d19dc5c691cd8d62da0ed463d58f62e94dc210bdb96052ebc60d52034f"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_edges_promotion_selftest.py"
+sha256 = "fb1ab642c1ced6b112e7bef1ca8113577effbe9d1af4154712ff16607865a8e0"
+
+[[historical_authority]]
+path = "tests/fixtures/core-bv-edges-v1.toml"
+sha256 = "459db156d056a61fc28ae60fbdefef4f7b26070067a6ea4d67fcea9b42d446bd"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_expiry_boundaries_promotion.py"
+sha256 = "156516866c41d5cf37303c98f75306e6012f6ead453217720af6729d36725eee"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_expiry_boundaries_promotion_selftest.py"
+sha256 = "860600ed8d4cd0d440b9fb6db9940c91e6342535d60706713d10bd3f30666b6d"
+
+[[historical_authority]]
+path = "tests/fixtures/core-bv-expiry-boundaries-v1.toml"
+sha256 = "972f89a3a02ed7ba5697d9b3139afab60e4e74ced2d190ad25eee1c44cff1f44"

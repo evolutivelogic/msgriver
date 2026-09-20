@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-MATH-CAP-FIT (PR-150).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-MATH-CAP-FIT
+kind: math_cap
+clause: PR-150
+clause_span_digest: 79264a3ec47686e7f3e5221b0ba1dd5485a6ccf856ff4c897cd0481619b4ffd2
+bytes: 4177920
+entries: 4032
+expect: ok

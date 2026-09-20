@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-ALLOC-DEFECTS
+expect: ok
+expect_defect_class: corruption

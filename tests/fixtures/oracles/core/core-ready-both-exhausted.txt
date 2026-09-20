@@ -1,0 +1,16 @@
+# MsgRiver core oracle — CORE-READY-BOTH-EXHAUSTED (PR-109).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (checked arithmetic) and never through MsgRiver
+# production code. The case inventory records this file's SHA-256 and its
+# source-clause span digest.
+
+case_id: CORE-READY-BOTH-EXHAUSTED
+kind: ready_both_exhausted
+clause: PR-109
+clause_span_digest: c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e
+high_water: 18446744073709551615
+guarded: 18446744073709551615
+expect: ok
+expect_first: incarnation_exhausted
+expect_second: generation_exhausted

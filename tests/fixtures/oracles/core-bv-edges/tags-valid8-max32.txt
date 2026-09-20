@@ -1,0 +1,8 @@
+# MsgRiver bounded edge oracle — CORE-BV-EDGE-TAGS-VALID8-MAX32.
+# Source: PR-063.
+
+case_id: CORE-BV-EDGE-TAGS-VALID8-MAX32
+kind: bv_tags
+clause: PR-063
+tags: a,bb,ccc,dddd,eeeee,ffffff,ggggggg,hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+expect: ok

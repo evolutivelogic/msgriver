@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-BEFORE-CLOCKHOLD
+expect: ok
+expect_decision: incarnation_unavailable

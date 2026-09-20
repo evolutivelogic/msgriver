@@ -1,0 +1,11 @@
+# MsgRiver bounded title-control oracle — CORE-BV-TITLE-CONTROL-CR.
+# Source: bounded title-control adjudication.
+
+case_id: CORE-BV-TITLE-CONTROL-CR
+kind: bv_text
+text_hex: 68656c6c6f
+title_hex: 610d62
+text_limit: 4096
+title_limit: 256
+expect: reject
+expect_class: invalid_title_control

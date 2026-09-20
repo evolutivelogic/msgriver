@@ -1,0 +1,210 @@
+# Closed, provider-free authority for the separately installed one-shot call.
+# The causal RED never reads this fixture.  The later root controller consumes
+# it only through its hermetic synthetic matrix before any owner-visible call.
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-operational-live-call-authority/v1"
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+max_attempts = 1
+tools = []
+window_seconds = 30
+retry = false
+fallback = false
+raw_only = true
+
+[authority.adjudication]
+commit = "fa85e753af846573dd1113b806543337c78749af"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-call-release-adjudication.md"
+bytes = 4221
+sha256 = "b747b02f2ca338185e5eac3d05ad48a92c1d6f20585e453652458ecf96ad6120"
+
+[authority.provenance_correction]
+commit = "9e7d902eb3abf0b4b7aa85d65816cb3551575d4a"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-call-authority-provenance-correction.md"
+bytes = 1369
+sha256 = "451857d5efc816e336a03e2fab33a851ceeb776a6fc47022b160531f880ed79e"
+
+[authority.execution_records]
+commit = "c95542777f57a8acf8b05c112e6f5cb1c0ab48d5"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-operational/operational-live-call-execution-records.json"
+bytes = 3094
+sha256 = "61ef9e4a90f0c79c59753e491b07dd18b1a17bc70194cadad254fca354e041de"
+
+[authority.preflight.bundle]
+commit = "59d6ec2450d0135ce237e730b29a20e7c109a6ae"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-bundle.md"
+bytes = 14881
+sha256 = "98e624913f8f055f183a43779a1553ba3971c83d5487c14038016b76bd632789"
+
+[authority.preflight.plan]
+commit = "59d6ec2450d0135ce237e730b29a20e7c109a6ae"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-plan.json"
+bytes = 2933
+sha256 = "50ba991bb9e01d70731b7a6a49c3e75062f68b60bc33ba3815d5e1b092e826db"
+
+[authority.preflight.validation]
+commit = "59d6ec2450d0135ce237e730b29a20e7c109a6ae"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-preflight/evidence/part-03-authoring-validation.txt"
+bytes = 385
+sha256 = "d590f5ce7bf016531a8ceaa4d64fb7f4ea6b32133f702603b0f4ca983cc8888b"
+
+[authority.readiness.json]
+commit = "cb5058856a9528210f56240d9321c4535b6eae24"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-readiness/evidence/launch-readiness.json"
+bytes = 5756
+sha256 = "d71a04319038e82a96ef145df6a0570fadfc77e2c4e72dc3a32af1509669e24d"
+
+[authority.readiness.validation]
+commit = "cb5058856a9528210f56240d9321c4535b6eae24"
+path = "reviews/04-red-suite/s9-total-ownership-bulk/rationale-authoring/chunk-05/part-03-readiness/evidence/launch-readiness-validation.txt"
+bytes = 385
+sha256 = "12346917678e1c8936ec0543094e3e9a9dbf2d2da2e9237b6ded9a2fc61b1ea9"
+
+[authority.guard]
+commit = "34d3d908fd939f364f843fb0ec2e1e344c5161b6"
+path = "scripts/guard_s9_rationale_chunk05_part03_inference.py"
+bytes = 25021
+sha256 = "85754b1dc0302eff00ecb9866146fd21bf0777b1568ab0d6eceb50f89cf04817"
+
+[authority.cli]
+path = "/home/chris/.npm-global/lib/node_modules/@anthropic-ai/claude-code/bin/claude.exe"
+version = "2.1.261"
+bytes = 215641584
+sha256 = "4ae40dd1784e85753e742e09f267d29ecbb82890361ad3817d27560866d364a6"
+
+[authority.programs.issuer]
+commit = "4504c3bf02ccca564f216295c54993617e40ccfd"
+path = "scripts/issue_s9_rationale_chunk05_part03_operational_live_call.py"
+bytes = 3931
+sha256 = "99dc957a06ca91b14b529fffb1527ca1e6dc17983c1fb4fa59a04bbba625d6a9"
+
+[authority.programs.broker]
+commit = "d3a2a7acf47036e8efec35fc477b2a30804e5854"
+path = "scripts/execute_s9_rationale_chunk05_part03_operational_live_call.py"
+bytes = 14261
+sha256 = "72c32f73c52212d794ebc6e975274db51584bfe29c5003110ce451b005f198af"
+
+[authority.programs.runner]
+commit = "0a811e81189b7597c47428c44604dbbe3b1abb86"
+path = "scripts/run_s9_rationale_chunk05_part03_operational_live_call.py"
+bytes = 30049
+sha256 = "30869e4fa06ce904d3a0a553fe7edbb8a74e7a5c665421a9a048a1327f4e6cdb"
+
+[authority.programs.gateway]
+commit = "83d81d585fe28c5b5e6facdf84a72368587bab89"
+path = "scripts/gateway_s9_rationale_chunk05_part03_operational_live_call.py"
+bytes = 21034
+sha256 = "8b148f5dd8f484dc266e8f3e87020925530f2a66d9a69f3e9d621fd7d8b29e2f"
+
+[authority.programs.checker]
+commit = "5d94bcd4e0e193b69176b2a3fb9b81079dc12002"
+path = "scripts/check_s9_rationale_chunk05_part03_operational_live_call.py"
+bytes = 9991
+sha256 = "0c11e244737de273c9475c58af6cb822051e25c3d94983e1f101dc9b02e4d2ca"
+
+[authority.programs.launcher]
+commit = "61540e5c28f4c76e34fd52539f5015d0225bdc3a"
+path = "scripts/launch_s9_rationale_chunk05_part03_operational_live_call_controller_release.py"
+bytes = 6214
+sha256 = "da4b8649d093ce8d5e23b72a6981c6adebf3db370191ef58458ee2b26ced87bb"
+
+[release]
+roles = ["issuer", "broker", "runner", "gateway", "checker", "launcher"]
+runtime_owner = "root:root"
+runtime_mode = 457
+release_mode = 448
+program_mode = 365
+manifest_mode = 292
+
+[receipt]
+canonical = true
+single_use = true
+state_mode = 384
+key = ["receipt_sha256", "call_id", "readiness_sha256", "authority_sha256", "bundle_sha256"]
+write_ahead = "started-fsync-before-child"
+terminal = ["success", "failure", "unknown"]
+
+[child]
+stdin = "exact-23-row-bundle"
+private_profile = true
+empty_mcp = true
+environment = ["HOME", "LANG", "LC_ALL", "PATH", "ANTHROPIC_BASE_URL", "ANTHROPIC_MODEL", "ANTHROPIC_AUTH_TOKEN"]
+flags = ["-p", "--bare", "--safe-mode", "--strict-mcp-config", "--mcp-config", "<root-empty-mcp>", "--tools", "", "--no-session-persistence", "--disable-slash-commands", "--no-chrome", "--model", "glm-5.3", "--output-format", "json", "--permission-mode", "dontAsk", "--max-turns", "1"]
+network = "private-child-loopback-exact-port-seccomp"
+
+[gateway]
+capability_bytes = 32
+capability_ttl_seconds = 30
+capability_binds = ["call_id", "receipt_sha256", "readiness_sha256", "authority_sha256", "bundle_sha256"]
+local_head_path = "/api/anthropic/api/hello"
+local_post_path = "/api/anthropic/v1/messages?beta=true"
+upstream_host = "api.z.ai"
+upstream_post_path = "/api/anthropic/v1/messages?beta=true"
+forwarded_provider_requests = 1
+local_head_upstream_requests = 0
+
+[capture]
+spool = "root-sealed-renameat2-noreplace"
+checker_fd = 3
+records = ["receipt", "receipt-validation", "readiness", "readiness-validation", "authority", "adapter", "envelope", "stderr", "transport", "validation", "ledger-projection"]
+
+[promotion]
+semantic_credit = false
+canonical_ownership_installation = false
+production_rust = false
+service = false
+publication = false
+tag = false
+
+[[case]]
+name = "positive"
+phase = "post-start"
+expected = "green"
+artifact = "canonical-fixture"
+
+[[case]]
+name = "authority"
+phase = "pre-transport"
+expected = "authority"
+artifact = "release-and-record-drift"
+
+[[case]]
+name = "authorization"
+phase = "pre-transport"
+expected = "authorization"
+artifact = "receipt-expiry-and-replay"
+
+[[case]]
+name = "transport"
+phase = "pre-transport"
+expected = "transport"
+artifact = "adapter-and-gateway-drift"
+
+[[case]]
+name = "isolation"
+phase = "post-start"
+expected = "isolation"
+artifact = "child-probe"
+
+[[case]]
+name = "ledger"
+phase = "post-start"
+expected = "ledger"
+artifact = "synthetic-projection-drift"
+
+[[case]]
+name = "failure-timeout"
+phase = "post-start"
+expected = "terminal"
+artifact = "raw-terminal"
+
+[[case]]
+name = "publication"
+phase = "post-start"
+expected = "output_path"
+artifact = "competitor-topology"
+
+[[case]]
+name = "raw-only"
+phase = "post-publish"
+expected = "scope"
+artifact = "promotion-reachability"

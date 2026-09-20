@@ -1,0 +1,6 @@
+[toolchain]
+# A-02.2: pinned development/release toolchain. The MSRV (1.89) is declared per
+# package via `rust-version`; this pin is the toolchain the workspace gate runs
+# against. Bumps are isolated and tested green before and after.
+channel = "1.96.1"
+components = ["rustfmt", "clippy"]

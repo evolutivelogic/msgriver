@@ -1,0 +1,73 @@
+schema_version = 1
+contract = "core-backoff-transition-v1"
+baseline_state = "4-causal-red"
+target_state = "4-contract-pass"
+transition_case_count = 4
+transition_frontier = "compute_backoff"
+historical_commit = "b7b900f9ba988f7a67bf0f0062aeabf5f475c900"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_backoff_transition.rs"
+role = "transition-target"
+sha256 = "a17e485d32091dc46489caace5d9f0e4f102a25ba911122363a799c26757e11e"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "specs/product.md"
+role = "pr084-product-contract"
+sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[authority]]
+path = "specs/architecture.md"
+role = "a11-3-contract"
+sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[case]]
+case_id = "CORE-BACKOFF-ATTEMPT1"
+symbol = "core_backoff_transition_attempt1"
+oracle = "tests/fixtures/oracles/core/core-backoff-attempt1.txt"
+oracle_sha256 = "ab2ea915e5f6ca4e3726a777a77fb3f152aeecd0751806c24cc23b1054aa5e4a"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BACKOFF-SATURATE"
+symbol = "core_backoff_transition_saturate"
+oracle = "tests/fixtures/oracles/core/core-backoff-saturate.txt"
+oracle_sha256 = "9963017becb2b4f334ee65a2edf8746c18e9d3ac120dfd6e3474470f57077d49"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BACKOFF-RETRYAFTER-MAX"
+symbol = "core_backoff_transition_retry_after_max"
+oracle = "tests/fixtures/oracles/core/core-backoff-retryafter-max.txt"
+oracle_sha256 = "7218358c37c643cadbab3c56196b431af37d3228f70c231bfbef2f9a49e114be"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[case]]
+case_id = "CORE-BACKOFF-RETRYAFTER-CLAMP"
+symbol = "core_backoff_transition_retry_after_clamp"
+oracle = "tests/fixtures/oracles/core/core-backoff-retryafter-clamp.txt"
+oracle_sha256 = "b56d319171dd4e2d4b4e16501e1093b1681d81d58e39f43bd9d0ce16704c1c28"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion.py"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[historical_authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[historical_authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"

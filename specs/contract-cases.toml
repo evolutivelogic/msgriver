@@ -1,0 +1,861 @@
+# MsgRiver atomic contract-case inventory (RED suite, layer 2: core).
+#
+# Versioned, closed schema. The suite is authoring-partial: this provisional
+# core slice is explicitly incomplete alongside every later domain in the global
+# 103 PR / 12 INV / 93 A / 68 AC / 9 NG plus unnumbered-clause inventory,
+# which later authoring layers add. Never treat this file as the full suite.
+
+schema_version = 1
+suite_state = "authoring-partial"
+complete_for = []
+incomplete_for = ["core", "protocol", "store", "connectors", "client", "composition", "traceability"]
+global_totals_claimed = false
+core_case_count = 53
+
+[[case]]
+case_id = "CORE-BV-ID-VALID-MAX"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-061"
+source_span_digest = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+fixture_id = "tests/fixtures/oracles/core/core-bv-id-valid-max.txt"
+oracle_sha256 = "10ac20bee9e4bc6e4a4dee0295c55b8738968969e34eb09f1756617c5cd4a97d"
+final_observable = "accept a 128-character identifier at the grammar ceiling"
+test_symbol = "core_bv_id_valid_max"
+kind = "bv_id"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-ID-EMPTY"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-061"
+source_span_digest = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+fixture_id = "tests/fixtures/oracles/core/core-bv-id-empty.txt"
+oracle_sha256 = "cfa78ebea7ae777e9abc2f3592c4146342796978b81ab189e50d5d314021a598"
+final_observable = "reject an empty identifier with invalid_identifier"
+test_symbol = "core_bv_id_empty"
+kind = "bv_id"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-ID-LEN129"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-061"
+source_span_digest = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+fixture_id = "tests/fixtures/oracles/core/core-bv-id-len129.txt"
+oracle_sha256 = "4e87ec8f523306b0dd52a2707b82ed301a06f590a49b2c84735016d777728cc6"
+final_observable = "reject a 129-character identifier over the ceiling"
+test_symbol = "core_bv_id_len129"
+kind = "bv_id"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-ID-LEADDOT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-061"
+source_span_digest = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+fixture_id = "tests/fixtures/oracles/core/core-bv-id-leaddot.txt"
+oracle_sha256 = "a0d9daa279aba8d702f00217dec7ca3c1b7e89277c66d86605b3d5cde19ede2d"
+final_observable = "reject a leading-dot identifier (first char must be alnum)"
+test_symbol = "core_bv_id_leaddot"
+kind = "bv_id"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-ID-NONASCII"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-061"
+source_span_digest = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+fixture_id = "tests/fixtures/oracles/core/core-bv-id-nonascii.txt"
+oracle_sha256 = "25f4c173ecf9cb076f230a1d7b8ded7222d406abbea645e1e3119ecf073b7e10"
+final_observable = "reject a non-ASCII identifier"
+test_symbol = "core_bv_id_nonascii"
+kind = "bv_id"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-VALID64"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-063"
+source_span_digest = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+fixture_id = "tests/fixtures/oracles/core/core-bv-topic-valid64.txt"
+oracle_sha256 = "a1d1b94e269a5f6e114964e10759c44610668e90ad3e3ff30b20a2893e4364e2"
+final_observable = "accept a 64-character ntfy topic at the ceiling"
+test_symbol = "core_bv_topic_valid64"
+kind = "bv_topic"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-LEN65"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-063"
+source_span_digest = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+fixture_id = "tests/fixtures/oracles/core/core-bv-topic-len65.txt"
+oracle_sha256 = "85994be116fe6b0f836580f0a12972930092200ddc7bd73d2988efad1e15964a"
+final_observable = "reject a 65-character ntfy topic over the ceiling"
+test_symbol = "core_bv_topic_len65"
+kind = "bv_topic"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-SLASH"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-063"
+source_span_digest = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+fixture_id = "tests/fixtures/oracles/core/core-bv-topic-slash.txt"
+oracle_sha256 = "f0f150e0ec217e1093ad6262c8d9e12aee61d8d595a9c43bd8dbb98c286d3c8f"
+final_observable = "reject a path delimiter in an ntfy topic"
+test_symbol = "core_bv_topic_slash"
+kind = "bv_topic"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TAGS-COUNT9"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-063"
+source_span_digest = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+fixture_id = "tests/fixtures/oracles/core/core-bv-tags-count9.txt"
+oracle_sha256 = "e492f607bdaaf0c31fd3eaef555a5f6df6d29ee6331246f1451839ff89c3d7c3"
+final_observable = "reject nine ntfy tags (at most eight)"
+test_symbol = "core_bv_tags_count9"
+kind = "bv_tags"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TEXT-BADUTF8"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-062"
+source_span_digest = "059206ab188a32821424398f681ed07ef54802cafddcfdf0871031235d3670b1"
+fixture_id = "tests/fixtures/oracles/core/core-bv-text-badutf8.txt"
+oracle_sha256 = "28152dd218071403a2107d4bc165092562fdeb4533812d4bb1a7b9a62edd90e9"
+final_observable = "reject invalid UTF-8 text content"
+test_symbol = "core_bv_text_badutf8"
+kind = "bv_text"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-TEXT-TITLE257"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-063"
+source_span_digest = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+fixture_id = "tests/fixtures/oracles/core/core-bv-text-title257.txt"
+oracle_sha256 = "d0b8bb5d7d1d8b486f626ae33e18e3e40a264ed5efbc4ad55a10e8d6d774021d"
+final_observable = "reject a 257-byte title over the 256-byte ceiling"
+test_symbol = "core_bv_text_title257"
+kind = "bv_text"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BV-EXPIRY-PAST"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-062"
+source_span_digest = "059206ab188a32821424398f681ed07ef54802cafddcfdf0871031235d3670b1"
+fixture_id = "tests/fixtures/oracles/core/core-bv-expiry-past.txt"
+oracle_sha256 = "13b5c78299805abc843ce90161210d6cdcb0c8fa18538c567caf9f5e32b4a53e"
+final_observable = "reject an expiry instant at or before now"
+test_symbol = "core_bv_expiry_past"
+kind = "bv_expiry"
+gate_profile = "hermetic"
+initial_frontier = "validate_bounded_grammar"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MATH-UTC-ADD"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-math-utc-add.txt"
+oracle_sha256 = "45a876181689657d366c89a4496be594c2cf148245bfca3591717329168d6eda"
+final_observable = "checked UTC millisecond addition without wrap"
+test_symbol = "core_math_utc_add"
+kind = "math_utc"
+gate_profile = "hermetic"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MATH-UTC-OVERFLOW"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-math-utc-overflow.txt"
+oracle_sha256 = "2ab7f955806b1c2a52d255a89c3cf5b400bd2f767f2c9c079076ef35d06f75a3"
+final_observable = "reject i64 overflow in checked UTC arithmetic"
+test_symbol = "core_math_utc_overflow"
+kind = "math_utc"
+gate_profile = "hermetic"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MATH-JITTER"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-084"
+source_span_digest = "7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b"
+fixture_id = "tests/fixtures/oracles/core/core-math-jitter.txt"
+oracle_sha256 = "531ec271b713456e5d4781ecb36311e37648bc9c797c43b981d6f86fea499d17"
+final_observable = "deterministic fixed-point jitter multiplier in [500,1500] milli"
+test_symbol = "core_math_jitter"
+kind = "math_jitter"
+gate_profile = "hermetic"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MATH-CAP-FIT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-150"
+source_span_digest = "79264a3ec47686e7f3e5221b0ba1dd5485a6ccf856ff4c897cd0481619b4ffd2"
+fixture_id = "tests/fixtures/oracles/core/core-math-cap-fit.txt"
+oracle_sha256 = "900c42bc6cfb4be27cbfb97073d8fdde84c48ba153b018384804134d23aebb6e"
+final_observable = "accept a checkpoint exactly within the 4MiB-16KiB/4032-entry budget"
+test_symbol = "core_math_cap_fit"
+kind = "math_cap"
+gate_profile = "hermetic"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MATH-CAP-OVER"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-150"
+source_span_digest = "79264a3ec47686e7f3e5221b0ba1dd5485a6ccf856ff4c897cd0481619b4ffd2"
+fixture_id = "tests/fixtures/oracles/core/core-math-cap-over.txt"
+oracle_sha256 = "9266d1c670bb9904caf763b82350cac48953c0fb3006ce93b7c278b0568bf3b8"
+final_observable = "reject a checkpoint over the 4032-entry budget with control_capacity"
+test_symbol = "core_math_cap_over"
+kind = "math_cap"
+gate_profile = "hermetic"
+initial_frontier = "checked_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-CANON-REQUEST"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-074"
+source_span_digest = "bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5"
+fixture_id = "tests/fixtures/oracles/core/core-canon-request.txt"
+oracle_sha256 = "e84b1fd9257715cd269237372d8e1dae6615637a0d31637b1e64a52c58bec5d8"
+final_observable = "the fixed-order length-prefixed v1 canonical bytes"
+test_symbol = "core_canon_request"
+kind = "canon"
+gate_profile = "hermetic"
+initial_frontier = "canonical_encode"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-CANON-TAG-SORT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-074"
+source_span_digest = "bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5"
+fixture_id = "tests/fixtures/oracles/core/core-canon-tag-sort.txt"
+oracle_sha256 = "903c6d1032fb6a73656c7cbacbf9aea0ed92edf5ae9dfb3ae35418766dbb0c52"
+final_observable = "deduplicated+sorted set-like option fields compare equal"
+test_symbol = "core_canon_tag_sort"
+kind = "canon"
+gate_profile = "hermetic"
+initial_frontier = "canonical_encode"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MAC-FINGERPRINT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-074"
+source_span_digest = "bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5"
+fixture_id = "tests/fixtures/oracles/core/core-mac-fingerprint.txt"
+oracle_sha256 = "b0215cf5bcb6bc8e5e86975b4242615c1ef699972d6bbc71b479da23d9b62292"
+final_observable = "the domain-separated semantic fingerprint MAC tag and key version 1"
+test_symbol = "core_mac_fingerprint"
+kind = "mac_fingerprint"
+gate_profile = "hermetic"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MAC-KEYVERSION"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-074"
+source_span_digest = "bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5"
+fixture_id = "tests/fixtures/oracles/core/core-mac-keyversion.txt"
+oracle_sha256 = "6055d09d31bae50579b4895f653415f5021ca175b6e8e50b48f5e164fe35e9cc"
+final_observable = "the MAC tag carries the active key version 2"
+test_symbol = "core_mac_keyversion"
+kind = "mac_fingerprint"
+gate_profile = "hermetic"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-MAC-LOOKUP-DOMAIN"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-074"
+source_span_digest = "bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5"
+fixture_id = "tests/fixtures/oracles/core/core-mac-lookup-domain.txt"
+oracle_sha256 = "0e8d98468359079e9076d0e21b8a1a5f0eb563314bb3107ef2edcc61a7e84606"
+final_observable = "the distinct domain-separated (principal,key) lookup digest"
+test_symbol = "core_mac_lookup_domain"
+kind = "mac_lookup"
+gate_profile = "hermetic"
+initial_frontier = "mac_domain_separate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BACKOFF-ATTEMPT1"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-084"
+source_span_digest = "7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b"
+fixture_id = "tests/fixtures/oracles/core/core-backoff-attempt1.txt"
+oracle_sha256 = "ab2ea915e5f6ca4e3726a777a77fb3f152aeecd0751806c24cc23b1054aa5e4a"
+final_observable = "attempt-0 backoff = base * factor^0 * 1.0 = 1000 ms"
+test_symbol = "core_backoff_attempt1"
+kind = "backoff"
+gate_profile = "hermetic"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BACKOFF-SATURATE"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-084"
+source_span_digest = "7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b"
+fixture_id = "tests/fixtures/oracles/core/core-backoff-saturate.txt"
+oracle_sha256 = "9963017becb2b4f334ee65a2edf8746c18e9d3ac120dfd6e3474470f57077d49"
+final_observable = "backoff saturates at the 15-minute maximum"
+test_symbol = "core_backoff_saturate"
+kind = "backoff"
+gate_profile = "hermetic"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BACKOFF-RETRYAFTER-MAX"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-084"
+source_span_digest = "7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b"
+fixture_id = "tests/fixtures/oracles/core/core-backoff-retryafter-max.txt"
+oracle_sha256 = "7218358c37c643cadbab3c56196b431af37d3228f70c231bfbef2f9a49e114be"
+final_observable = "combine as max(backoff, retry_after) = 30000 ms"
+test_symbol = "core_backoff_retryafter_max"
+kind = "backoff_retryafter"
+gate_profile = "hermetic"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-BACKOFF-RETRYAFTER-CLAMP"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-084"
+source_span_digest = "7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b"
+fixture_id = "tests/fixtures/oracles/core/core-backoff-retryafter-clamp.txt"
+oracle_sha256 = "b56d319171dd4e2d4b4e16501e1093b1681d81d58e39f43bd9d0ce16704c1c28"
+final_observable = "retry_after above 1h clamps to 1h and combines as max"
+test_symbol = "core_backoff_retryafter_clamp"
+kind = "backoff_retryafter"
+gate_profile = "hermetic"
+initial_frontier = "compute_backoff"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-STATE-TRANSITION-VALID"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-080"
+source_span_digest = "329ee612c00907550ec9e3f04daa62618d34e1997a021b94014bcb68df06f814"
+fixture_id = "tests/fixtures/oracles/core/core-state-transition-valid.txt"
+oracle_sha256 = "359c11ffaa82fcccaf88ce647256567f2ecacae79ebcdbe3aae253c9b3f6504c"
+final_observable = "queued + fair_claim -> delivering with no sticky flags"
+test_symbol = "core_state_transition_valid"
+kind = "state"
+gate_profile = "hermetic"
+initial_frontier = "state_transition"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-STATE-TRANSITION-INVALID"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-080"
+source_span_digest = "329ee612c00907550ec9e3f04daa62618d34e1997a021b94014bcb68df06f814"
+fixture_id = "tests/fixtures/oracles/core/core-state-transition-invalid.txt"
+oracle_sha256 = "699b71d5da70815596bf07f37c38b26ec037a0a459f906957eff88ac1d41b14e"
+final_observable = "provider_accepted + fair_claim is an invalid transition"
+test_symbol = "core_state_transition_invalid"
+kind = "state"
+gate_profile = "hermetic"
+initial_frontier = "state_transition"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-STATE-STICKY-EFFECT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-080"
+source_span_digest = "329ee612c00907550ec9e3f04daa62618d34e1997a021b94014bcb68df06f814"
+fixture_id = "tests/fixtures/oracles/core/core-state-sticky-effect.txt"
+oracle_sha256 = "ace3cfdcffb99d4b148490fb1d7dc2a31b71700a349c55d8d5850d6348a3fd66"
+final_observable = "effect_may_have_occurred stays sticky once true"
+test_symbol = "core_state_sticky_effect"
+kind = "state"
+gate_profile = "hermetic"
+initial_frontier = "state_transition"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-STATE-CANCEL-DELIVERING"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-state-cancel-delivering.txt"
+oracle_sha256 = "9f83252ae91789049b408c34b9261fe00478258f2a3eb0faa4a3a8a8b2525591"
+final_observable = "cancel during delivering sets cancel_requested, state unchanged"
+test_symbol = "core_state_cancel_delivering"
+kind = "state"
+gate_profile = "hermetic"
+initial_frontier = "state_transition"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-ACCEPT-WINS"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-prec-accept-wins.txt"
+oracle_sha256 = "5ba9ac68222b2f93d095219399c5617a2fb205e4a8140c85d5feca27dd87b8ef"
+final_observable = "known provider acceptance wins over cancel and expiry"
+test_symbol = "core_prec_accept_wins"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-CANCEL-OVER-EXPIRY"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-prec-cancel-over-expiry.txt"
+oracle_sha256 = "6e0e6f69200a45a6773370ca2d6bbe1ac049efa6f7ee3f41153bd6d19ca20e24"
+final_observable = "a committed cancel wins over newly eligible expiry"
+test_symbol = "core_prec_cancel_over_expiry"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-EXPIRY-OVER-EXHAUST"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-prec-expiry-over-exhaust.txt"
+oracle_sha256 = "d9eefa8a28e6b62706ab7673e1e32f692b0a59fc3861cebf97f61cdedeb16f58"
+final_observable = "expiry wins over attempt exhaustion"
+test_symbol = "core_prec_expiry_over_exhaust"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-EXHAUST-FAILED"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-prec-exhaust-failed.txt"
+oracle_sha256 = "bb1efb07779ae8fb255730d2d8e31e7652041c0f55c4f2f4ceb5277b9db18858"
+final_observable = "attempt exhaustion alone yields failed"
+test_symbol = "core_prec_exhaust_failed"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-TERMINAL-NOOP"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-087"
+source_span_digest = "ca9d67f4c2ed433db370db45cca8a3848e303407501f26e5465a9d5b3220fb42"
+fixture_id = "tests/fixtures/oracles/core/core-prec-terminal-noop.txt"
+oracle_sha256 = "8bc13ef95d6dbafacb10967216d44a654e8d61b9ecd6c7db0b81294b83803e43"
+final_observable = "a later non-acceptance guard is a no-op against acceptance"
+test_symbol = "core_prec_terminal_noop"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-PREC-LATE-ACK-PROMOTE"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-081"
+source_span_digest = "d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7"
+fixture_id = "tests/fixtures/oracles/core/core-prec-late-ack-promote.txt"
+oracle_sha256 = "9dc2cab7f770f6965d513807d5d5547880ea2d3a44eb15f609b582b426441a62"
+final_observable = "a late verifiable acknowledgement promotes to provider_accepted"
+test_symbol = "core_prec_late_ack_promote"
+kind = "precedence"
+gate_profile = "hermetic"
+initial_frontier = "terminal_precedence"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-FENCE-MATCH"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-081"
+source_span_digest = "d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7"
+fixture_id = "tests/fixtures/oracles/core/core-fence-match.txt"
+oracle_sha256 = "adcade366c70c802dbb0aaae843ef8f142bd791e880e504509f458ac2f58adfa"
+final_observable = "a matching fence/lease applies the outcome"
+test_symbol = "core_fence_match"
+kind = "fence_arbitrate"
+gate_profile = "hermetic"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-FENCE-STALE"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-081"
+source_span_digest = "d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7"
+fixture_id = "tests/fixtures/oracles/core/core-fence-stale.txt"
+oracle_sha256 = "0506f19a7c1531327abd138893aae3c07cd52c644795e6ea3ad47bc38b0933fe"
+final_observable = "a stale fence is rejected with zero attempt delta"
+test_symbol = "core_fence_stale"
+kind = "fence_arbitrate"
+gate_profile = "hermetic"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-FENCE-AMBIGUITY-OR"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-081"
+source_span_digest = "d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7"
+fixture_id = "tests/fixtures/oracles/core/core-fence-ambiguity-or.txt"
+oracle_sha256 = "fc63c12b6f07fb6ec116c12eb56b0ae6eadb10ee99632d1be91335796b618f30"
+final_observable = "stale ambiguity ORs sticky flags without replacing scheduling"
+test_symbol = "core_fence_ambiguity_or"
+kind = "fence_arbitrate"
+gate_profile = "hermetic"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-FENCE-LEASE-CONFIG"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-081"
+source_span_digest = "d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7"
+fixture_id = "tests/fixtures/oracles/core/core-fence-lease-config.txt"
+oracle_sha256 = "b7820ed9c3281deff342dcc1736f7c3d300d17f478b435425332f90ed538e706"
+final_observable = "exact lease_ttl == timeout + margin equality is invalid"
+test_symbol = "core_fence_lease_config"
+kind = "fence_lease"
+gate_profile = "hermetic"
+initial_frontier = "fence_arbitrate"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-SAFETIME-MAX"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-safetime-max.txt"
+oracle_sha256 = "f125a15f4d8975736b00acc615787a7dcd3e2452052a2cedb031ae57267dc644"
+final_observable = "effective high-water is max(fixed_root, selected)"
+test_symbol = "core_safetime_max"
+kind = "safetime_max"
+gate_profile = "hermetic"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-SAFETIME-MONOTONIC"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-safetime-monotonic.txt"
+oracle_sha256 = "ee1c30fdbaaf776fe97976ca9fe01f3c1494e798460e3c4749a1e854d24b140d"
+final_observable = "advancing a high-water never decreases it"
+test_symbol = "core_safetime_monotonic"
+kind = "safetime_mono"
+gate_profile = "hermetic"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-SAFETIME-PROVEN-EXPIRED"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-safetime-proven-expired.txt"
+oracle_sha256 = "762b3fe6f4eb8cb23ea3ccd0ce823328fef4fe623159cb40109ccbdaf0d65769"
+final_observable = "a boundary at or below the high-water is proven expired"
+test_symbol = "core_safetime_proven_expired"
+kind = "safetime_expired"
+gate_profile = "hermetic"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-SAFETIME-CLOCK-THRESHOLD"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-149"
+source_span_digest = "121498544b590bef66a864267a419292a8cae131eaf14332cb32c9a1125d6e05"
+fixture_id = "tests/fixtures/oracles/core/core-safetime-clock-threshold.txt"
+oracle_sha256 = "def176935a21d1718b6dc46ce26362c6064c67bae77a315884cca7bb2bb5390f"
+final_observable = "an absolute deviation beyond 30s enters the clock hold"
+test_symbol = "core_safetime_clock_threshold"
+kind = "safetime_clock"
+gate_profile = "hermetic"
+initial_frontier = "safe_time_high_water"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-GEN-INCREMENT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-gen-increment.txt"
+oracle_sha256 = "7012907203594f539d333d52463aa4c5751b7d0631f6981c64bec137c4fd684f"
+final_observable = "MAX-1 increments to MAX with checked arithmetic"
+test_symbol = "core_gen_increment"
+kind = "gen_increment"
+gate_profile = "hermetic"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-GEN-EXHAUST"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-gen-exhaust.txt"
+oracle_sha256 = "8972152eca2d8ca7c063774ec870ed75c011dcc824acd124bac1c96490d38c2d"
+final_observable = "a writer at MAX returns state_generation_exhausted"
+test_symbol = "core_gen_exhaust"
+kind = "gen_increment"
+gate_profile = "hermetic"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-GEN-LIMBS"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-gen-limbs.txt"
+oracle_sha256 = "1128f722c9c8e8437e857ab65332ff4438f42992a99883108741c7bbfe0bd681"
+final_observable = "MAX splits into two 0xFFFFFFFF u32 limbs"
+test_symbol = "core_gen_limbs"
+kind = "gen_limbs"
+gate_profile = "hermetic"
+initial_frontier = "generation_arithmetic"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-INCARN-WIRE"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-incarn-wire.txt"
+oracle_sha256 = "25b579b983fc0e0cd93794def20993f17ad35c6a689f2fdad8d0bf4a4066da5d"
+final_observable = "canonical lowercase 64-hex incarnation wire encoding"
+test_symbol = "core_incarn_wire"
+kind = "incarn_wire"
+gate_profile = "hermetic"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-INCARN-SERIAL-EXHAUST"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-incarn-serial-exhaust.txt"
+oracle_sha256 = "a30326aaac0665fd7c95fdd816b74bf32fdea31bd8eeb20eab27ed00ae5d1314"
+final_observable = "branch_serial high-water at MAX derives incarnation_exhausted"
+test_symbol = "core_incarn_serial_exhaust"
+kind = "incarn_serial_exhaust"
+gate_profile = "hermetic"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-INCARN-SERIAL-BURN"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-incarn-serial-burn.txt"
+oracle_sha256 = "07952e95761df086f1552b85b34e7612301a48eae53b2605b8140b4e30f99757"
+final_observable = "allocating advances and burns exactly one serial"
+test_symbol = "core_incarn_serial_burn"
+kind = "incarn_serial_burn"
+gate_profile = "hermetic"
+initial_frontier = "incarnation_alloc"
+later_frontiers = []
+evidence_state = "behavior_red"
+
+[[case]]
+case_id = "CORE-RING-SERIAL-NEXT"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-127"
+source_span_digest = "cc25cc20c0ee4169cc13a8f41c2f36c2ed90ff100a6dfd07fbf0051347d14020"
+fixture_id = "tests/fixtures/oracles/core/core-ring-serial-next.txt"
+oracle_sha256 = "20ba17ee42d16aee2fcf23c0ec0cb3dd9c0bff688729158db29e87b70fdfd60d"
+final_observable = "the next per-purpose retained-ring MAC serial advances the high-water by exactly one without wrap or slot release"
+test_symbol = "core_ring_serial_next"
+kind = "ring_serial_next"
+gate_profile = "hermetic"
+initial_frontier = "key_ring_state"
+later_frontiers = []
+evidence_state = "contract_pass"
+
+[[case]]
+case_id = "CORE-READY-BOTH-EXHAUSTED"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-109"
+source_span_digest = "c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e"
+fixture_id = "tests/fixtures/oracles/core/core-ready-both-exhausted.txt"
+oracle_sha256 = "43fe634d8f3aacd1d64a3a0df0c71cde71f8d01a1e80503975d22d2d5141049f"
+final_observable = "simultaneous fixed-root incarnation and guarded-generation exhaustion reports the ordered incarnation-first reason pair"
+test_symbol = "core_ready_both_exhausted"
+kind = "ready_both_exhausted"
+gate_profile = "hermetic"
+initial_frontier = "readiness_reason"
+later_frontiers = []
+evidence_state = "contract_pass"
+
+[[case]]
+case_id = "CORE-RING-SERIAL-EXHAUSTED"
+domain = "core"
+canonical_doc = "specs/product.md"
+definition_id = "PR-127"
+source_span_digest = "cc25cc20c0ee4169cc13a8f41c2f36c2ed90ff100a6dfd07fbf0051347d14020"
+fixture_id = "tests/fixtures/oracles/core/core-ring-serial-exhausted.txt"
+oracle_sha256 = "1256987913cf557af881b8c99846d0efdf305dc4d1edf2034dfe10459a0145c3"
+final_observable = "advancing a per-purpose retained-ring MAC serial at the u64 ceiling rejects with the stable mac_key_serial_exhausted code before any effect, without wrap, saturation, or slot release"
+test_symbol = "core_ring_serial_exhausted"
+kind = "ring_serial_next"
+gate_profile = "hermetic"
+initial_frontier = "key_ring_state"
+later_frontiers = []
+evidence_state = "contract_pass"

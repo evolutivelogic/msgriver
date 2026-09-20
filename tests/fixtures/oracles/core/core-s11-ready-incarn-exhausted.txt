@@ -1,0 +1,3 @@
+case_id: CORE-S11-READY-INCARN-EXHAUSTED
+expect: ok
+expect_reason: incarnation_exhausted

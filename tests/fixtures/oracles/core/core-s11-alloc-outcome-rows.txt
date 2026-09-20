@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-OUTCOME-ROWS
+expect: ok
+expect_rows: incarnation_unavailable,clock_hold,control_capacity

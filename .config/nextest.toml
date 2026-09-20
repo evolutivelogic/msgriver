@@ -1,0 +1,24 @@
+# MsgRiver cargo-nextest foundation (reviews/04-red-suite/authoring-plan.md).
+#
+# The frozen RED suite reserves six named profiles -- `structural`, `hermetic`,
+# `privileged`, `reference-sol`, `release-storage`, and `live-ntfy` -- each with
+# an exact case filter, wall ceiling, and required capability. Those profiles
+# are intentionally NOT defined here yet: their atomic case inventory does not
+# exist in this scaffold layer, and claiming a filter now would invent coverage
+# that has not been authored. Profiles and their filters are added in a later
+# authoring layer, alongside `specs/contract-cases.toml` and the harness-side
+# frontier protocol. Only contributor-wide defaults that hold for every profile
+# are stated here.
+
+[store]
+dir = "target/nextest"
+
+[profile.default]
+# A retry is treated as evidence tampering, not flakiness tolerance: every
+# failure must be reproducible from the exact lockfile.
+retries = 0
+# A failing case must not stop the rest of an inventory from being listed/run.
+fail-fast = false
+# Ordinary deterministic cases are expected to finish well within this bound.
+# A timeout is a terminal failure and never acceptable RED evidence.
+slow-timeout = { period = "120s", terminate-after = 1 }

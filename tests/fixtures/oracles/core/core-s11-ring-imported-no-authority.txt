@@ -1,0 +1,5 @@
+case_id: CORE-S11-RING-IMPORTED-NO-AUTHORITY
+expect: ok
+expect_local_allocator_witness: false
+expect_purpose_high_water_evidence: false
+expect_fixed_root_corruption: false

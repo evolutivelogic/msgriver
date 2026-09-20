@@ -1,0 +1,17 @@
+# MsgRiver core oracle — CORE-MAC-LOOKUP-DOMAIN (PR-074).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-MAC-LOOKUP-DOMAIN
+kind: mac_lookup
+clause: PR-074
+clause_span_digest: bb8ad557ee897802a332764fc1463e79cbe20ed127c96d3fd8fc95ad66fce1d5
+principal: principal-1
+key: req-key-1
+mac_key_hex: 0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a
+key_version: 1
+expect: ok
+expect_tag_hex: 356f1f146c42869a01b334e1d266476722a4ce8f0cfb5b4af526d96dca5b42fa

@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-RESTORE-SERIAL-ONE
+expect: ok
+expect_serial: 1

@@ -1,0 +1,13 @@
+# MsgRiver bounded edge oracle — CORE-BV-EDGE-TITLE-BADUTF8.
+# Source: PR-062.
+
+case_id: CORE-BV-EDGE-TITLE-BADUTF8
+kind: bv_text
+clause: PR-062
+text_unit_hex: 78
+text_repeat: 1
+title_hex: ff
+text_limit: 4096
+title_limit: 256
+expect: reject
+expect_class: invalid_utf8

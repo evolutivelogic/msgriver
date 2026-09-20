@@ -1,0 +1,19 @@
+# MsgRiver core oracle — CORE-FENCE-MATCH (PR-081).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-FENCE-MATCH
+kind: fence_arbitrate
+clause: PR-081
+clause_span_digest: d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7
+cur_lease: 5
+cur_fence: 340282366920938463463374607431768211455
+upd_lease: 5
+upd_fence: 340282366920938463463374607431768211455
+outcome: accepted
+expect_arbitration: applied
+expect: ok
+expect_outcome: accepted

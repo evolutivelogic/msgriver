@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-BV-TAGS-COUNT9 (PR-063).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-BV-TAGS-COUNT9
+kind: bv_tags
+clause: PR-063
+clause_span_digest: 909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3
+tags: t0,t1,t2,t3,t4,t5,t6,t7,t8
+expect: reject
+expect_class: too_many_tags

@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-COLLISION-REFUSAL
+expect: ok
+expect_selection: false

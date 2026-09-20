@@ -1,0 +1,7 @@
+case_id: CORE-S11-RETRY-PERMANENT-STOP
+kind: retry_disposition
+expect: ok
+rows: accepted,transient,rate_limited,permanent,authentication_configuration,ambiguous
+permanent_eligible: false
+transient_eligible: true
+authentication_configuration_eligible: false

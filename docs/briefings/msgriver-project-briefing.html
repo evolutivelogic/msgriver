@@ -1,0 +1,87 @@
+<!--artefato
+titulo: MsgRiver — produto, fases e andamento
+resumo: Visao executiva da plataforma, do recorte Phase 0 e do caminho ate o alpha publico.
+data: 2026-09-18
+etiquetas: msgriver, roadmap, fase 0, whatsapp, ntfy
+fonte: repos/msgriver/docs/briefings/msgriver-project-briefing.html
+-->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MsgRiver — produto, fases e andamento</title>
+  <style>
+    :root { --ink:#102033; --muted:#5b6875; --paper:#f5f7fa; --card:#fff; --blue:#1663c7; --cyan:#0a9bb5; --green:#16845b; --amber:#d98500; --line:#dbe3eb; --dark:#0d2437; }
+    * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    .hero { color:#fff; background:radial-gradient(circle at 82% 15%,#1682bf 0,transparent 29%),linear-gradient(135deg,#09243b,#114d75); padding:72px max(24px,calc((100% - 1120px)/2)); }
+    .eyebrow { color:#8be0ed; font-size:.78rem; letter-spacing:.12em; font-weight:800; text-transform:uppercase; } h1 { max-width:900px; margin:.2em 0; font-size:clamp(2.35rem,7vw,5.5rem); line-height:.98; letter-spacing:-.055em; } h2 { margin:0 0 .45em; font-size:clamp(1.65rem,3.2vw,2.55rem); line-height:1.08; letter-spacing:-.035em; } h3 { margin:.1em 0 .35em; font-size:1.05rem; } .lead { max-width:760px; font-size:clamp(1.08rem,2vw,1.36rem); color:#d5e9f5; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:28px; } .pill { padding:5px 11px; border:1px solid #8dc7e0; border-radius:999px; font-size:.82rem; }
+    main { width:min(1120px,calc(100% - 40px)); margin:0 auto; padding:38px 0 70px; } section { margin:0 0 26px; padding:36px; background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 7px 22px #1020330a; } .kicker { color:var(--blue); font-weight:800; text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; } .grid.two { grid-template-columns:repeat(2,1fr); } .tile { padding:20px; border:1px solid var(--line); border-radius:13px; background:#fbfcfe; } .tile strong { display:block; font-size:1.65rem; line-height:1.05; color:var(--blue); margin-bottom:6px; } .tile p { margin:0; color:var(--muted); }
+    .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; align-items:stretch; margin-top:22px; } .node { display:flex; align-items:center; justify-content:center; min-height:92px; text-align:center; padding:12px; font-size:.9rem; font-weight:700; color:#fff; background:var(--dark); border-radius:12px; } .node:nth-child(2),.node:nth-child(4) { background:var(--blue); } .node:nth-child(3) { background:var(--cyan); } .node:nth-child(5) { background:var(--green); } .arrow { color:#7d8b97; text-align:center; font-weight:800; margin-top:8px; }
+    ul { padding-left:1.2em; } li+li { margin-top:.35em; } .callout { padding:18px 20px; border-left:5px solid var(--amber); border-radius:0 10px 10px 0; background:#fff8e8; } .callout strong { color:#7d4a00; }
+    table { width:100%; border-collapse:collapse; font-size:.94rem; } th { text-align:left; color:#40505d; font-size:.76rem; text-transform:uppercase; letter-spacing:.06em; } th,td { padding:13px 10px; vertical-align:top; border-bottom:1px solid var(--line); } .state { display:inline-block; border-radius:999px; padding:3px 8px; font-size:.75rem; font-weight:800; white-space:nowrap; } .done { background:#dff5e9; color:#08754d; } .now { background:#e2f0ff; color:#0757a5; } .later { background:#edf0f4; color:#526171; } .gate { background:#fff0d5; color:#8a5200; }
+    .timeline { position:relative; margin:22px 0 0; padding-left:31px; } .timeline:before { content:""; position:absolute; left:8px; top:5px; bottom:5px; width:2px; background:#cdd8e4; } .step { position:relative; padding:0 0 22px 20px; } .step:before { content:""; position:absolute; left:-27px; top:5px; width:14px; height:14px; border:3px solid var(--blue); border-radius:50%; background:#fff; } .step.current:before { background:var(--blue); } .step h3 { margin:0; } .step p { margin:3px 0; color:var(--muted); }
+    .split { display:grid; grid-template-columns:1.1fr .9fr; gap:28px; } .no { color:#a33b2e; } footer { color:#687786; text-align:center; padding:10px 20px 32px; font-size:.83rem; } code { padding:2px 5px; border-radius:4px; background:#edf2f6; color:#28445f; }
+    @media (max-width:760px) { .hero { padding:52px 24px; } main { width:min(100% - 24px,1120px); padding-top:12px; } section { padding:25px 19px; border-radius:14px; } .grid,.grid.two,.split { grid-template-columns:1fr; } .flow { grid-template-columns:1fr; } .arrow { transform:rotate(90deg); height:15px; margin:0; } table { font-size:.84rem; } th,td { padding:10px 6px; } }
+    @media print { body { background:#fff; } .hero { padding:36px 7%; } main { width:94%; padding:12px 0; } section { break-inside:avoid; box-shadow:none; margin-bottom:13px; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">Evolutive Logic · briefing executivo</div>
+    <h1>MsgRiver</h1>
+    <p class="lead">Uma fronteira de comunicação auto-hospedada, durável e auditável: envia por canais oficiais, preserva evidências honestas e permite recuperação após falhas — sem virar CRM, inbox ou plataforma de campanhas.</p>
+    <div class="meta"><span class="pill">Atualizado em 18 set 2026</span><span class="pill">Fase ativa: 0B</span><span class="pill">Estado: desenvolvimento com suíte RED congelada</span></div>
+  </header>
+  <main>
+    <section>
+      <div class="kicker">01 · A plataforma pronta</div><h2>O que o MsgRiver fará</h2>
+      <div class="split"><div><p>Aplicações e agentes entregam uma mensagem já autorizada a um único serviço local. O operador escolhe e protege os conectores; o MsgRiver faz a persistência, tentativa, evidência, recuperação e exposição segura do estado.</p><p>O valor não é “ter mais canais”. É conseguir responder, depois de um incidente: <em>o que foi autorizado, o que o provedor aceitou ou reportou, o que foi recebido, o que foi respondido por uma pessoa e o que ainda é incerto?</em></p></div><div class="callout"><strong>Posicionamento:</strong> um limite de comunicação de baixo acoplamento para sistemas que conservam seus próprios clientes e regras de negócio. A trilha de auditoria é exportável e fica sob controle do operador.</div></div>
+      <div class="flow"><div class="node">Aplicação<br>ou agente</div><div class="node">Comando<br>resolvido</div><div class="node">MsgRiver<br>durável</div><div class="node">Canal oficial<br>configurado</div><div class="node">Evidência segura<br>e recuperável</div></div>
+    </section>
+    <section>
+      <div class="kicker">02 · Limites deliberados</div><h2>Pequeno por desenho, forte onde importa</h2>
+      <div class="grid"><div class="tile"><strong>Não é CRM</strong><p>Clientes, consentimento, preferências e conteúdo continuam pertencendo à aplicação.</p></div><div class="tile"><strong>Não é inbox</strong><p>A Fase 0 registra resposta verificada e alerta local; não cria conversas, presença ou fila humana.</p></div><div class="tile"><strong>Não é automação livre</strong><p>Um evento de entrada nunca aciona envio automático. Toda resposta futura exige ação autenticada e política específica do canal.</p></div></div>
+    </section>
+    <section>
+      <div class="kicker">03 · Entrega inicial</div><h2>Fase 0B: referência útil no Sol</h2>
+      <p>O primeiro produto em uso combina o caminho local <strong>ntfy</strong> já previsto com <strong>um único remetente oficial do WhatsApp Business Cloud</strong>. É propositalmente limitado para provar valor antes de expandir.</p>
+      <div class="flow"><div class="node">Template aprovado<br>do WhatsApp</div><div class="node">Aceitação<br>durável</div><div class="node">Status ou reply<br>verificado</div><div class="node">Evidência imutável<br>e deduplicada</div><div class="node">Alerta ntfy<br>com referência segura</div></div>
+      <div class="grid two" style="margin-top:18px"><div class="tile"><h3>Inclui</h3><ul><li>Handshake e assinatura do callback antes de qualquer mutação.</li><li>Status, reply correlacionado e janela de atendimento como evidência.</li><li>Persistência, deduplicação, reinício/replay, retenção, exportação e rollback.</li><li>Um alerta ntfy local sem conteúdo ou segredo.</li></ul></div><div class="tile"><h3 class="no">Ainda não inclui</h3><ul><li>Envio de resposta, bot ou gatilho por mensagem recebida.</li><li>Telegram, e-mail, SMS, Slack, Teams ou segundo adaptador.</li><li>Dashboard, SaaS, multi-tenant, campanhas, workflow ou CRM.</li></ul></div></div>
+    </section>
+    <section>
+      <div class="kicker">04 · Fases do produto</div><h2>Expansão condicionada por evidência</h2>
+      <table><thead><tr><th>Fase</th><th>Entrega</th><th>Decisão para avançar</th><th>Estado</th></tr></thead><tbody>
+        <tr><td>0A · autoridade</td><td>Contrato de produto, ameaça, onboarding e plano RED.</td><td>Fonte revisada e preparação oficial.</td><td><span class="state done">feito / aceito</span></td></tr>
+        <tr><td>0B · referência</td><td>Loop WhatsApp → status/reply verificado → evidência → ntfy, seguro após restart/replay.</td><td>Prova real, rollback e avaliação externa.</td><td><span class="state now">em execução</span></td></tr>
+        <tr><td>1 · produto repetível</td><td>Pacote, documentação, backup/restore, retenção/exportação e recuperação para outro operador.</td><td>Duas instalações reproduzíveis com valor auditável demonstrado.</td><td><span class="state later">condicional</span></td></tr>
+        <tr><td>2 · resposta WhatsApp</td><td>Uma resposta explícita, autorizada e vinculada à evidência recebida.</td><td>Demanda nominada, revisão de consentimento/segurança e prova ao vivo.</td><td><span class="state gate">gate de produto</span></td></tr>
+        <tr><td>3–4 · Telegram e e-mail</td><td>Um adaptador por vez, com contrato, ameaça e recuperação próprios.</td><td>Nova ambiguidade relevante e economia/demanda comprovadas.</td><td><span class="state later">opções</span></td></tr>
+        <tr><td>5 · núcleo comum</td><td>Só termos de evidência com semântica igual em adaptadores já provados.</td><td>Conformidade cruzada e migração reversível.</td><td><span class="state later">opção</span></td></tr>
+        <tr><td>6 · alpha público</td><td>Release assinado, exemplos, segurança, rollback e instalação independente.</td><td>Auto-hospedagem e rollback independentes.</td><td><span class="state later">planejado</span></td></tr>
+      </tbody></table>
+    </section>
+    <section>
+      <div class="kicker">05 · Andamento real</div><h2>O que já existe e o que está sendo fechado</h2>
+      <div class="timeline"><div class="step"><h3>Direção de produto e fronteiras</h3><p>Fase 0 aceita: WhatsApp oficial + ntfy local, com inbound como evidência e não como inbox. Pesquisa de categoria recomenda a diferenciação por auditabilidade, recuperação e controle do operador.</p></div><div class="step"><h3>Contratos e modelo de ameaça</h3><p>Especificações de produto, arquitetura, operações e rastreabilidade descrevem o ciclo de mensagem, as fronteiras de credencial, a política de callback e os critérios de release.</p></div><div class="step current"><h3>Suíte RED e núcleo Rust</h3><p>O fluxo está congelando e levando a GREEN os casos privados do loop. O Task 0279 concluiu o tratamento estreito de exaustão de serial do ring; sua aceitação final ainda passa por revisão externa e gates completos.</p></div><div class="step"><h3>Implementação do loop de referência</h3><p>Falta transformar os contratos congelados em callback oficial, armazenamento de evidência, correlação, outbox ntfy e provas de reinício/replay.</p></div><div class="step"><h3>Prova no Sol e avaliação</h3><p>Depois vêm provisionamento fora do Git, serviço, runbook, rollback, template/status/reply reais e um self-hoster avaliando o ganho de recuperação.</p></div></div>
+      <div class="callout"><strong>Importante:</strong> a suíte de contratos e a base Rust são investimento de segurança e durabilidade; por si sós não significam que WhatsApp ou o serviço já estão em produção.</div>
+    </section>
+    <section>
+      <div class="kicker">06 · Próximos marcos e prazo</div><h2>Previsão recalibrada por marco</h2>
+      <div class="grid three"><div class="tile"><strong>dias</strong><p>Fechar a aceitação do slice atual de núcleo: revisão independente e duas rodadas completas de gates.</p></div><div class="tile"><strong>5–9 semanas</strong><p>Primeira versão operacional no Sol: WhatsApp oficial, ntfy, callback, replay/restart, rollback e prova real.</p></div><div class="tile"><strong>3–5 meses</strong><p>Alpha público: pacote reprodutível, segurança, instalação/rollback independente e publicação.</p></div></div>
+      <p style="color:var(--muted);margin-top:18px">A faixa de 0B inclui a estimativa de engenharia de 4–6 semanas do plano e a incerteza real de onboarding Meta, evidência operacional e avaliação. Fases posteriores não são pré-requisito para colocar a referência inicial em uso.</p>
+    </section>
+    <section>
+      <div class="kicker">07 · Critério de continuidade</div><h2>O projeto não cresce por inércia</h2>
+      <div class="grid two"><div class="tile"><h3>Prova de sucesso da Fase 0</h3><p>Um template chega a <code>delivered</code>; uma reply humana é verificada, deduplicada e correlacionada; após restart/replay, o ntfy recebe exatamente uma intenção durável e segura.</p></div><div class="tile"><h3>Critério de parada</h3><p>A expansão pausa se o onboarding não viabilizar o loop em três semanas de trabalho ativo ou se um self-hoster não encontrar vantagem material de auditoria/recuperação frente às alternativas.</p></div></div>
+    </section>
+    <section>
+      <div class="kicker">08 · Visão de chegada</div><h2>Uma infraestrutura open source relevante — sem virar uma plataforma inchada</h2>
+      <p>Se a hipótese for validada, o MsgRiver será uma peça auto-hospedada para aplicações, automações e agentes que precisam enviar por canais oficiais e manter uma trilha honesta de evidências. WhatsApp, Telegram e e-mail poderão coexistir, mas cada adaptador carregará a sua própria semântica, segurança e recuperação. A aplicação continuará dona das pessoas e decisões; o operador continuará dono dos limites e dados; o MsgRiver continuará dono da entrega e da prova.</p>
+    </section>
+  </main>
+  <footer>Fonte: contratos de produto e arquitetura do MsgRiver, Tasks 0173 e 0188, e checkpoint técnico ativo em 18 set 2026. Esta página distingue explicitamente “feito”, “em execução” e “condicional”.</footer>
+</body>
+</html>

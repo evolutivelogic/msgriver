@@ -1,0 +1,2 @@
+case_id: CORE-S11-SAFETIME-HIGH-WATER-FULL-DOMAIN
+expect: ok

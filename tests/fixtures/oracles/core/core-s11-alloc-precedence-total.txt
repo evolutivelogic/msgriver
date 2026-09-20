@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-PRECEDENCE-TOTAL
+expect: ok
+expect_order: recovery,forbidden_hold,incarnation_unavailable,clock_hold,control_capacity,conflict,publish

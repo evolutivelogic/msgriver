@@ -1,0 +1,25 @@
+# Closed activation contract for the one owner-authorized S9 operation.
+# The initial RED never reads this fixture: no credential or provider surface
+# exists until the separate controller is implemented and independently tested.
+format = "msgriver/s9-total-ownership-rationale-chunk05-part03-operational-single-call/v1"
+provider = "zai-coding-plan-max"
+model = "glm-5.3"
+max_attempts = 1
+tools = []
+retry = false
+fallback = false
+raw_only = true
+
+[operation]
+bundle = "part-03-fixed-23-row"
+receipt_window_seconds = 30
+credential = "root-environment-file-only"
+transport = "dedicated-root-gateway"
+
+[promotion]
+semantic_credit = false
+canonical_ownership_installation = false
+production_rust = false
+service = false
+publication = false
+tag = false

@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-KEYID-DUAL-PURPOSE
+expect: ok
+expect_paths_distinct: true

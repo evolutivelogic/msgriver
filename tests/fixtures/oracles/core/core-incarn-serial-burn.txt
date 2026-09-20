@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-INCARN-SERIAL-BURN (PR-109).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-INCARN-SERIAL-BURN
+kind: incarn_serial_burn
+clause: PR-109
+clause_span_digest: c0980e85cfae228f7daffd384e7bfe83c74d938fe97b5ceeb93cfa9072636c6e
+high_water: 5
+expect: ok
+expect_value: 6

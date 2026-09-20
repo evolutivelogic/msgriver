@@ -1,0 +1,41 @@
+schema_version = 1
+contract = "core-bv-normative-submit-title-v1"
+baseline_state = "1-causal-red"
+target_state = "1-contract-pass"
+case_count = 1
+frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_text_interior_accept_promotion.py"
+role = "interior-text-checker"
+sha256 = "b7fb775108af6519fc5f23483d29afe068f1542441ac8dbfc3af1d95c0c29339"
+
+[[authority]]
+path = "scripts/check_core_bv_text_interior_accept_promotion_selftest.py"
+role = "interior-text-selftest"
+sha256 = "93dfd231da838675fa191c88143dbd17e4054e6be7b3051794d39d02bcf8bf8b"
+
+[[authority]]
+path = "tests/fixtures/core-bv-text-interior-accept-v1.toml"
+role = "interior-text-fixture"
+sha256 = "44b929260438910c523a70e7ed97756b5344eca1a8a57622703d2a9bbb37a140"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_normative_submit_title.rs"
+role = "normative-submit-title-target"
+sha256 = "6d6781babb67249b3e60dda69ebe9c1f9f6ca8fc27daeed0e1719f90c1d9d627"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[case]]
+case_id = "CORE-BV-NORMATIVE-SUBMIT-TITLE"
+symbol = "core_bv_normative_submit_title_backup"
+oracle = "tests/fixtures/oracles/core-bv-normative-submit-title/normative-submit-title.txt"
+oracle_sha256 = "a6c23b8a1f0dd3db47adc9547db474fc8eff0d0ec615a7e1f96f0bfc77b2ed1f"
+source = "git:06c1d8efbd3fc770f18d2f07baea1449b1183799:tasks/0001-bootstrap.md"
+source_sha256 = "4208d7c58e36aff24fda5d9c92939dc12f9b20691a057b3f744d42bd2e694339"

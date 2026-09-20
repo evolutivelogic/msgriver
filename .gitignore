@@ -1,0 +1,18 @@
+/target/
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*.db
+*.db-shm
+*.db-wal
+*.log
+.env
+.env.*
+!.env.example
+/dist/
+graphify-out/
+reviews/**/raw/*.runner.log
+
+# Python bytecode cache (scripts run in-place)
+__pycache__/

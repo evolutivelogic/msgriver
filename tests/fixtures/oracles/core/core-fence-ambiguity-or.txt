@@ -1,0 +1,20 @@
+# MsgRiver core oracle — CORE-FENCE-AMBIGUITY-OR (PR-081).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-FENCE-AMBIGUITY-OR
+kind: fence_arbitrate
+clause: PR-081
+clause_span_digest: d8bb7db4cc09597e77754a864ad42a7d5f06899d11252b5c06fcb8222a1e57f7
+cur_lease: 5
+cur_fence: 42545019821625471762289291853581503060
+upd_lease: 4
+upd_fence: 12345
+outcome: ambiguous
+expect_arbitration: stale
+expect: ok
+expect_ambiguity_orred: true
+expect_attempt_delta: 0

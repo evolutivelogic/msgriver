@@ -1,0 +1,3 @@
+case_id: CORE-S11-INCARN-CLASSIFY-TRANSITION
+expect: ok
+expect_allocating_count: 3

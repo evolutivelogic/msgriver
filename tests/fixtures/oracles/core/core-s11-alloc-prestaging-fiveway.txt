@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-PRESTAGING-FIVEWAY
+expect: ok
+expect_collision: true

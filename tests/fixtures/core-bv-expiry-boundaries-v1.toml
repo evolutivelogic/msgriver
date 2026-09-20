@@ -1,0 +1,87 @@
+# MsgRiver additive CORE-BV expiry-boundary promotion contract.
+# Both predecessor gates remain immutable and are required before and after this
+# two-observable boundary slice.
+schema_version = 1
+contract = "core-bv-expiry-boundaries-v1"
+baseline_state = "2-causal-red"
+target_state = "2-contract-pass"
+expiry_case_count = 2
+expiry_frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_promotion.py"
+role = "v1-checker"
+sha256 = "340465078db6735fd47df1e80297ad01089e964770ac0654e9b0e53224c2202f"
+
+[[authority]]
+path = "scripts/check_core_bv_promotion_selftest.py"
+role = "v1-selftest"
+sha256 = "6475ac82f01ce174c0cc6c1a14d0a326f8ef197bfe7704e79b4d15347dfe5b85"
+
+[[authority]]
+path = "tests/fixtures/core-bv-promotion-v1.toml"
+role = "v1-fixture"
+sha256 = "5b9ac6818fffa925084286e825c5a068ef8eb1e5bcf7b6398d8b16612ef726f1"
+
+[[authority]]
+path = "scripts/check_core_bv_edges_promotion.py"
+role = "edges-checker"
+sha256 = "c186e3d19dc5c691cd8d62da0ed463d58f62e94dc210bdb96052ebc60d52034f"
+
+[[authority]]
+path = "scripts/check_core_bv_edges_promotion_selftest.py"
+role = "edges-selftest"
+sha256 = "fb1ab642c1ced6b112e7bef1ca8113577effbe9d1af4154712ff16607865a8e0"
+
+[[authority]]
+path = "tests/fixtures/core-bv-edges-v1.toml"
+role = "edges-fixture"
+sha256 = "459db156d056a61fc28ae60fbdefef4f7b26070067a6ea4d67fcea9b42d446bd"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_edges.rs"
+role = "edge-test-target"
+sha256 = "88f444b12b2bb63198782c1f506012709bfa5b0aee96a85ef81b9f6ddc389546"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_expiry_boundaries.rs"
+role = "expiry-test-target"
+sha256 = "b5cc6eadb6347fe2744b77d080e3329da80af68b437fe95b0bff1cf7306c5ce6"
+
+[[authority]]
+path = "specs/contract-cases.toml"
+role = "canonical-expiry-inventory"
+sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[authority]]
+path = "specs/product.md"
+role = "product-contract"
+sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"
+
+[[authority]]
+path = "specs/architecture.md"
+role = "architecture-contract"
+sha256 = "7c7f593bf3c19cc264221591c741fab2c171c20a21309649e2015e14bdcd3cb3"
+
+[[case]]
+case_id = "CORE-BV-EXPIRY-EQUAL"
+symbol = "core_bv_expiry_equal"
+oracle = "tests/fixtures/oracles/core-bv-expiry-boundaries/expiry-equal.txt"
+oracle_sha256 = "7ebac5e4bd45c5206d3e4e17cbf9217ec01d3d79cdb0352e1502e386e1a03c46"
+source = "specs/contract-cases.toml"
+source_sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[case]]
+case_id = "CORE-BV-EXPIRY-FUTURE"
+symbol = "core_bv_expiry_future"
+oracle = "tests/fixtures/oracles/core-bv-expiry-boundaries/expiry-future.txt"
+oracle_sha256 = "cd3869179c8747dcd7d2cf734d39a264efaa52dce75d7ab60913787eb0e77ac3"
+source = "specs/product.md"
+source_sha256 = "c6e909ad11c77ebcbcdf793f3ef24f8e0cbda04cb0a33b9fc73916e9da27b71d"

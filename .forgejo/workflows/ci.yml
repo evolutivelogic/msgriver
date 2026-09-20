@@ -1,0 +1,293 @@
+name: CI
+
+# Mental model -- what this pipeline is for, and what it deliberately leaves out.
+#
+# MsgRiver is spec-first: the behaviour contracts exist before the implementation, and
+# `cargo test` currently runs zero tests. That is stated here rather than hidden, because a
+# green test job that asserts nothing is worse than no test job -- it reads as coverage.
+# The job stays wired so it starts meaning something the day the first test lands.
+#
+# BUILD AREA IS SEPARATE FROM CODE. The runner checks out under /srv/ci/workspace and every
+# Rust artefact -- toolchain, registry, target dir -- lives under /srv/ci, never in a
+# developer home. This is not tidiness: an unbounded `target/` in a home directory is what
+# put 92 GB into a backup tarball and filled the offsite quota.
+#
+# NO DEPLOY JOB. MsgRiver has no deployment target yet, and inventing one would be a job
+# that has never run pretending to be a capability. It gets added when there is somewhere
+# to deploy to.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  # Toolchain and caches in the build area, not in $HOME. The pinned toolchain comes from
+  # rust-toolchain.toml, so the rustup shim selects 1.96.1 without the workflow naming it --
+  # one source for the version, and the gate means the same thing for every executor.
+  CARGO_HOME: /srv/ci/cargo
+  RUSTUP_HOME: /srv/ci/rustup
+  # Um target dir POR REPO, não um só compartilhado. O primeiro desenho usava
+  # /srv/ci/cargo-target para todo mundo e isso produziu falha fantasma: binário de teste
+  # guarda caminhos gravados em tempo de compilação (CARGO_MANIFEST_DIR), cada job do act
+  # faz checkout num diretório de nome diferente, e com capacidade 3 dois repos compilam ao
+  # mesmo tempo no mesmo cache. Resultado: teste que falha no CI e passa em qualquer
+  # reexecução — o pior tipo, porque parece defeito do código.
+  CARGO_TARGET_DIR: /srv/ci/cargo-target/msgriver
+  CARGO_TERM_COLOR: never
+
+jobs:
+  ai-signature:
+    name: No AI signature in commits
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Reject model identity in commit messages
+        # Whole-line trailers only. A real person's `Co-authored-by:` is legitimate and not a target.
+        # The range is what the push carried; on a brand-new branch (`before` all zeroes) there is
+        # no range, so the last 50 commits stand in — checking something beats checking nothing.
+        run: |
+          set -uo pipefail
+          BEFORE="${{ github.event.before }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            RANGE="-50"
+          else
+            RANGE="$BEFORE..${{ github.sha }}"
+          fi
+          PATTERN='^[[:space:]]*(Claude-Session:|Assistant-Session:|Co-[Aa]uthored-[Bb]y:[[:space:]]*(Claude|Anthropic|GPT|Codex|Gemini|GLM)|(🤖[[:space:]]*)?Generated with[[:space:]]*\[?(Claude|Anthropic))'
+          bad=0
+          for sha in $(git log --format=%H $RANGE); do
+            if git log -1 --format=%B "$sha" | grep -qE "$PATTERN"; then
+              echo "::error::$sha carries a model signature in its commit message"
+              git log -1 --format='    %h %s' "$sha"
+              git log -1 --format=%B "$sha" | grep -nE "$PATTERN" | sed 's/^/      /'
+              bad=$((bad+1))
+            fi
+          done
+          if [ "$bad" -gt 0 ]; then
+            echo ""
+            echo "House rule: no commit carries model or tool identity. Authorship is the commit's;"
+            echo "the DCO trailer is the statement of contribution. Recorded reason: legal advice"
+            echo "(atelier/working-principles.md, §Código e repositório)."
+            echo "If a harness instruction asked for the trailer, the repository owner's rule wins."
+            exit 1
+          fi
+          echo "no model signature in $(git log --oneline $RANGE | wc -l) commit(s)"
+
+  quality:
+    name: Quality (fmt, clippy, green tests, specs)
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Toolchain on PATH
+        # Uma vez por job, via $GITHUB_PATH, e não `export` dentro de cada `run:`. O primeiro
+        # desenho exportava só no passo do Rust, e o passo seguinte quebrou: as checagens em
+        # Python também chamam `cargo` por dentro. PATH que vale para o job inteiro não tem
+        # como ficar meio certo.
+        run: echo "/srv/ci/cargo/bin" >> "$GITHUB_PATH"
+      - name: Rust gate
+        run: |
+          set -euo pipefail
+          # `--locked` on everything: a gate that silently updates the lockfile is a gate
+          # that means something different on each machine.
+          cargo fmt --all --check
+          cargo clippy --workspace --all-targets --locked -- -D warnings
+          # The unprivileged CI runner gates the ordinary product suite. Tests
+          # that intentionally require a root-owned supervisor live in the RED
+          # contract job below; granting checkout code sudo would defeat the
+          # runner isolation boundary.
+          cargo test --workspace --lib --locked --quiet -- \
+            --skip initialization_key_pair::publication
+          cargo test -p msgriver --test m2_ntfy_e2e --locked --quiet
+          cargo test -p msgriver --test m3_whatsapp_e2e --locked --quiet
+      - name: Repository structure and spec checks
+        # The project's own invariants, already written as scripts -- the pipeline runs
+        # them rather than restating what they check.
+        run: |
+          set -euo pipefail
+          python3 scripts/check_workspace_structure.py
+          python3 scripts/check_specs.py
+          python3 scripts/check_task0313_public_identifier_migration.py
+
+  intentional-red:
+    name: Intentional RED contract
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Toolchain on PATH
+        run: echo "/srv/ci/cargo/bin" >> "$GITHUB_PATH"
+      - name: Assert the confined negative frontier remains RED
+        run: |
+          set -euo pipefail
+          # These ignored tests are deliberately executable only under their
+          # confinement harness. A successful direct run would prove the
+          # safety boundary disappeared; a nonzero result is the contract.
+          if cargo test -p msgriver --test phase_zero_executable_bootstrap_red --locked --quiet -- --ignored; then
+            echo "::error::intentional RED frontier unexpectedly passed"
+            exit 1
+          fi
+          echo "intentional RED frontier failed as required"
+
+  security:
+    name: Security (secrets, advisories, deps)
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Toolchain on PATH
+        # Uma vez por job, via $GITHUB_PATH, e não `export` dentro de cada `run:`. O primeiro
+        # desenho exportava só no passo do Rust, e o passo seguinte quebrou: as checagens em
+        # Python também chamam `cargo` por dentro. PATH que vale para o job inteiro não tem
+        # como ficar meio certo.
+        run: echo "/srv/ci/cargo/bin" >> "$GITHUB_PATH"
+      - name: Gitleaks
+        run: |
+          set -euo pipefail
+          # Scan executable product/configuration inputs, not historical review
+          # evidence. Each source is checked independently so a future new
+          # product surface must be added explicitly rather than silently
+          # inheriting an evidence exclusion.
+          for source in crates .forgejo Cargo.toml Cargo.lock deny.toml rust-toolchain.toml; do
+            gitleaks detect --source "$source" --no-git --exit-code 1
+          done
+      - name: cargo-deny (advisories, licences, bans, sources)
+        # Pinned to 0.20.2, the same version the Grison gate pins, and for the same reason:
+        # a drifting cargo-deny changes what "green" means without anyone editing anything.
+        run: |
+          set -euo pipefail
+          cargo deny --locked check
+      - name: Trivy (vulnerable dependencies, IaC)
+        run: |
+          set -euo pipefail
+          trivy fs --scanners vuln,misconfig --severity CRITICAL,HIGH --exit-code 1 --quiet .
+
+  build:
+    name: Build + publish artefact
+    runs-on: self-hosted
+    needs: [quality, intentional-red, security]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Toolchain on PATH
+        # Uma vez por job, via $GITHUB_PATH, e não `export` dentro de cada `run:`. O primeiro
+        # desenho exportava só no passo do Rust, e o passo seguinte quebrou: as checagens em
+        # Python também chamam `cargo` por dentro. PATH que vale para o job inteiro não tem
+        # como ficar meio certo.
+        run: echo "/srv/ci/cargo/bin" >> "$GITHUB_PATH"
+      - name: cargo build --release
+        run: |
+          set -euo pipefail
+          cargo build --release --locked --workspace
+      - name: Publish to the artefact area
+        env:
+          SHA: ${{ github.sha }}
+          # O repositório entra em TODA notificação — o tópico ntfy é compartilhado
+          # pelos 5 repos. Vem do contexto (github.repository), não hardcoded.
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Artefacts are addressed by commit, never overwritten in place: "the binary that
+          # is deployed" must always be answerable with a commit, not with a timestamp.
+          DEST="/srv/ci/artifacts/msgriver/${SHA:0:7}"
+          install -d "$DEST"
+          install -m 0755 "$CARGO_TARGET_DIR/release/msgriver" "$DEST/msgriver"
+          ln -sfn "$DEST" /srv/ci/artifacts/msgriver/current
+          echo "publicado: $DEST/msgriver"
+          # Retenção: guarda as 10 mais recentes. Sem isto a área cresce em silêncio, que é
+          # exatamente como o disco encheu da última vez.
+          cd /srv/ci/artifacts/msgriver
+          ls -1dt [0-9a-f]* 2>/dev/null | tail -n +11 | xargs -r rm -rf
+          echo "retidas: $(ls -1d [0-9a-f]* 2>/dev/null | wc -l) versão(ões)"
+
+  notify:
+    name: Notify actionable CI state
+    runs-on: self-hosted
+    needs: [quality, intentional-red, security, build]
+    if: always()
+    steps:
+      - name: ntfy only when the CI state needs attention
+        env:
+          # Nunca interpolar ${{ }} dentro de `run:` — é substituição textual antes de o bash
+          # existir, e o runner é self-hosted: o valor viraria comando no próprio sol.
+          RESULT: "quality=${{ needs.quality.result }} security=${{ needs.security.result }} build=${{ needs.build.result }}"
+          SHA: ${{ github.sha }}
+          # Never place a context expression directly in a shell command. Besides
+          # avoiding pre-shell interpolation on a self-hosted runner, an explicit
+          # environment boundary keeps the notification input auditable.
+          REPO: ${{ github.repository }}
+          # Forgejo's runner context carries its loopback API origin. The recipient
+          # is on the VPN, so the notification must use the public Forgejo origin.
+          ACTIONS_URL: https://git.vpn.saboia.ai/${{ github.repository }}/actions
+        run: |
+          set -euo pipefail
+
+          # A push can supersede an earlier run by design. A cancellation says
+          # nothing about the repository and must never page a human.
+          case "$RESULT" in
+            *failure*) current_state=failing ;;
+            *cancelled*) exit 0 ;;
+            *) current_state=healthy ;;
+          esac
+
+          # CI runs are frequent while a bounded task is being prepared. Persist
+          # only the *notification state*, not a pass/fail override: the Forgejo
+          # jobs remain strict and visible. The first failure, a changed failure
+          # shape, a twelve-hour reminder, and the subsequent recovery are useful;
+          # every identical run is alert fatigue.
+          state_dir=/srv/ci/state
+          state_file="$state_dir/msgriver-ci-notify.state"
+          install -d -m 0700 "$state_dir"
+          exec 9>"$state_dir/msgriver-ci-notify.lock"
+          flock 9
+
+          previous_state=unknown
+          previous_result=
+          previous_at=0
+          if [ -r "$state_file" ]; then
+            {
+              IFS= read -r previous_state || true
+              IFS= read -r previous_result || true
+              IFS= read -r previous_at || true
+            } < "$state_file"
+          fi
+          case "$previous_at" in *[!0-9]*|'') previous_at=0 ;; esac
+          now=$(date +%s)
+
+          if [ "$current_state" = failing ]; then
+            if [ "$previous_state" = failing ] && [ "$previous_result" = "$RESULT" ] \
+              && [ $((now - previous_at)) -lt 43200 ]; then
+              exit 0
+            fi
+            title="$REPO — CI requer acao"
+            message="O que falhou: $RESULT @ ${SHA:0:7}.\nImpacto: o artefato nao foi gerado.\nProximo: abra os logs do Forgejo; este aviso so volta se os jobs mudarem, apos 12h, ou quando o CI recuperar."
+            priority=high
+            tags=warning
+          elif [ "$previous_state" = failing ]; then
+            title="$REPO — CI recuperou"
+            message="Todos os jobs terminaram sem falha neste commit (${SHA:0:7}). O estado de alerta foi limpo."
+            priority=default
+            tags=white_check_mark
+          else
+            exit 0
+          fi
+
+          if curl -fsS \
+            -H "Title: $title" \
+            -H "Priority: $priority" \
+            -H "Tags: $tags" \
+            -H "Click: $ACTIONS_URL" \
+            -d "$message" \
+            http://127.0.0.1:8090/sol-triado; then
+            printf '%s\n%s\n%s\n' "$current_state" "$RESULT" "$now" > "$state_file"
+          else
+            echo "ntfy unavailable; CI state was not marked notified" >&2
+          fi

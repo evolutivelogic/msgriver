@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-MATH-JITTER (PR-084).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-MATH-JITTER
+kind: math_jitter
+clause: PR-084
+clause_span_digest: 7c104f68da9bd2ca8321e64f9c317fe57d0cb35834820dc4fba59a96f9851f9b
+seed_hex: 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
+expect: ok
+expect_value: 926

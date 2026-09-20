@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-CLOCK-BEFORE-CAPACITY
+expect: ok
+expect_decision: clock_hold

@@ -1,0 +1,12 @@
+manifest_version = 1
+canonicalization = "utf8-newlines-v1"
+
+[[document]]
+path = "specs/product.md"
+version = "0.3.46"
+sha256 = "59f52b79c50a3a36abd7b7b68bdede7fd91b7cf4f596910febbeda3e88c338e3"
+
+[[document]]
+path = "specs/architecture.md"
+version = "0.3.62"
+sha256 = "4cd460c0f034a4c803dcd65cc8a5a437f60ee1245eecaa257073928b5aa4d519"

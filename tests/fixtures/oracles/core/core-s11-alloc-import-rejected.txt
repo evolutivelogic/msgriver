@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-IMPORT-REJECTED
+expect: ok
+expect_admissible: false

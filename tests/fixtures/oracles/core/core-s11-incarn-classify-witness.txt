@@ -1,0 +1,3 @@
+case_id: CORE-S11-INCARN-CLASSIFY-WITNESS
+expect: ok
+expect_local_kinds: 5

@@ -1,0 +1,48 @@
+schema_version = 1
+contract = "core-bv-title-length-v1"
+baseline_state = "1-contract-pass-1-causal-red"
+target_state = "2-contract-pass"
+case_count = 2
+frontier = "validate_bounded_grammar"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "scripts/check_core_bv_title_control_promotion.py"
+role = "title-control-checker"
+sha256 = "9bb085f4312b471deb37c5b8b57d68e5f670d066bf08039d5234107455f21482"
+
+[[authority]]
+path = "scripts/check_core_bv_title_control_promotion_selftest.py"
+role = "title-control-selftest"
+sha256 = "35b8da067db051312c331ecdea91133c787d286cbde21c2a36c8a5ea882d01a7"
+
+[[authority]]
+path = "tests/fixtures/core-bv-title-control-v1.toml"
+role = "title-control-fixture"
+sha256 = "3c32b439e0f1054ed6bd2155aac72564c09409d998dd9dfc900152eb5bc7f845"
+
+[[authority]]
+path = "crates/msgriver-core/tests/core_bv_title_length.rs"
+role = "title-length-target"
+sha256 = "857fdab39bb585fad269b42106656c231e56130776c8b9296cdb10fb0906f5bd"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "shared-sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[case]]
+case_id = "CORE-BV-TITLE-LENGTH-256"
+symbol = "core_bv_title_length_256"
+oracle = "tests/fixtures/oracles/core-bv-title-length/title-256.txt"
+oracle_sha256 = "df52d78809cf6a2d1d30e16fb967748778d852023986946a421c97ec7134962d"
+source = "git:6d611cc2d7610b89da9db6bb8364ff91635b9076:tasks/0001-bootstrap.md"
+source_sha256 = "e0e8365b6bbf0c893c4d65bffef919f5d3d4a63d84bd1884e166e38d5a58d1eb"
+[[case]]
+case_id = "CORE-BV-TITLE-LENGTH-257"
+symbol = "core_bv_title_length_257"
+oracle = "tests/fixtures/oracles/core-bv-title-length/title-257.txt"
+oracle_sha256 = "c07beaf6792dff777e3f1ad942801f2a84a501d1dbee0dd2cac147e1034bafec"
+source = "git:6d611cc2d7610b89da9db6bb8364ff91635b9076:tasks/0001-bootstrap.md"
+source_sha256 = "e0e8365b6bbf0c893c4d65bffef919f5d3d4a63d84bd1884e166e38d5a58d1eb"

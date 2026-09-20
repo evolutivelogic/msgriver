@@ -1,0 +1,134 @@
+# MsgRiver core bounded-value promotion RED contract.
+# This is a closed, implementation-independent selector for the first Rust
+# promotion slice. It does not alter the existing oracle or case inventory.
+schema_version = 1
+contract = "core-bv-promotion-v1"
+baseline_state = "behavior-red"
+target_state = "12-contract-pass-38-causal-red"
+selected_case_count = 12
+control_case_count = 38
+selected_frontier = "validate_bounded_grammar"
+selected_gate = "hermetic"
+expected_red_exit = 10
+expected_cargo_exit = 101
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/main.rs"
+role = "typed-test-entry"
+sha256 = "f068915307089bf27cbab79ffdcb69cb43830e898e6dc99106551ea10cba05dd"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/cases.rs"
+role = "typed-case-authority"
+sha256 = "cdc60d99422ef46843880e3a513ac3ed196dbcf66a95cfc7d10d95c17dd0ed75"
+
+[[authority]]
+path = "crates/msgriver-core/tests/red_core/harness.rs"
+role = "sidecar-protocol"
+sha256 = "8c96079d3b63b25cb83c596acc2965b466364b11becc520fa23136011918d847"
+
+[[authority]]
+path = "specs/contract-cases.toml"
+role = "canonical-case-inventory"
+sha256 = "4cd6e0eb9abbd381e53c7a67bbcc682ee29938af08bb4b162fdeaa4091484856"
+
+[[authority]]
+path = "tests/fixtures/red-ledger.toml"
+role = "canonical-red-ledger"
+sha256 = "41df9c9e95ad776fbbedf20b03e2eda9b760c2e1827c0d848ab1c7e9e678a672"
+
+[[case]]
+case_id = "CORE-BV-ID-VALID-MAX"
+symbol = "core_bv_id_valid_max"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-id-valid-max.txt"
+oracle_sha256 = "10ac20bee9e4bc6e4a4dee0295c55b8738968969e34eb09f1756617c5cd4a97d"
+source_span_sha256 = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+
+[[case]]
+case_id = "CORE-BV-ID-EMPTY"
+symbol = "core_bv_id_empty"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-id-empty.txt"
+oracle_sha256 = "cfa78ebea7ae777e9abc2f3592c4146342796978b81ab189e50d5d314021a598"
+source_span_sha256 = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+
+[[case]]
+case_id = "CORE-BV-ID-LEN129"
+symbol = "core_bv_id_len129"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-id-len129.txt"
+oracle_sha256 = "4e87ec8f523306b0dd52a2707b82ed301a06f590a49b2c84735016d777728cc6"
+source_span_sha256 = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+
+[[case]]
+case_id = "CORE-BV-ID-LEADDOT"
+symbol = "core_bv_id_leaddot"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-id-leaddot.txt"
+oracle_sha256 = "a0d9daa279aba8d702f00217dec7ca3c1b7e89277c66d86605b3d5cde19ede2d"
+source_span_sha256 = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+
+[[case]]
+case_id = "CORE-BV-ID-NONASCII"
+symbol = "core_bv_id_nonascii"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-id-nonascii.txt"
+oracle_sha256 = "25f4c173ecf9cb076f230a1d7b8ded7222d406abbea645e1e3119ecf073b7e10"
+source_span_sha256 = "7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-VALID64"
+symbol = "core_bv_topic_valid64"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-topic-valid64.txt"
+oracle_sha256 = "a1d1b94e269a5f6e114964e10759c44610668e90ad3e3ff30b20a2893e4364e2"
+source_span_sha256 = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-LEN65"
+symbol = "core_bv_topic_len65"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-topic-len65.txt"
+oracle_sha256 = "85994be116fe6b0f836580f0a12972930092200ddc7bd73d2988efad1e15964a"
+source_span_sha256 = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+
+[[case]]
+case_id = "CORE-BV-TOPIC-SLASH"
+symbol = "core_bv_topic_slash"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-topic-slash.txt"
+oracle_sha256 = "f0f150e0ec217e1093ad6262c8d9e12aee61d8d595a9c43bd8dbb98c286d3c8f"
+source_span_sha256 = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+
+[[case]]
+case_id = "CORE-BV-TAGS-COUNT9"
+symbol = "core_bv_tags_count9"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-tags-count9.txt"
+oracle_sha256 = "e492f607bdaaf0c31fd3eaef555a5f6df6d29ee6331246f1451839ff89c3d7c3"
+source_span_sha256 = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+
+[[case]]
+case_id = "CORE-BV-TEXT-BADUTF8"
+symbol = "core_bv_text_badutf8"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-text-badutf8.txt"
+oracle_sha256 = "28152dd218071403a2107d4bc165092562fdeb4533812d4bb1a7b9a62edd90e9"
+source_span_sha256 = "059206ab188a32821424398f681ed07ef54802cafddcfdf0871031235d3670b1"
+
+[[case]]
+case_id = "CORE-BV-TEXT-TITLE257"
+symbol = "core_bv_text_title257"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-text-title257.txt"
+oracle_sha256 = "d0b8bb5d7d1d8b486f626ae33e18e3e40a264ed5efbc4ad55a10e8d6d774021d"
+source_span_sha256 = "909094e7a19256a62905b42e2b3c186ee7824a7369b181be95130d24a47252c3"
+
+[[case]]
+case_id = "CORE-BV-EXPIRY-PAST"
+symbol = "core_bv_expiry_past"
+frontier = "validate_bounded_grammar"
+oracle = "tests/fixtures/oracles/core/core-bv-expiry-past.txt"
+oracle_sha256 = "13b5c78299805abc843ce90161210d6cdcb0c8fa18538c567caf9f5e32b4a53e"
+source_span_sha256 = "059206ab188a32821424398f681ed07ef54802cafddcfdf0871031235d3670b1"

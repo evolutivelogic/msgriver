@@ -1,0 +1,1683 @@
+{
+  "catalog_version": 1,
+  "codec_count": 107,
+  "codec_reference_count": 133,
+  "codec_references": [
+    {
+      "codec_id": "query.provider_list.v1",
+      "direction": "request",
+      "operation_id": "provider.list"
+    },
+    {
+      "codec_id": "json.provider_page.v1",
+      "direction": "response",
+      "operation_id": "provider.list"
+    },
+    {
+      "codec_id": "path.provider_id.v1",
+      "direction": "request",
+      "operation_id": "provider.show"
+    },
+    {
+      "codec_id": "json.provider.v1",
+      "direction": "response",
+      "operation_id": "provider.show"
+    },
+    {
+      "codec_id": "path.provider_schema_id.v1",
+      "direction": "request",
+      "operation_id": "provider.schema"
+    },
+    {
+      "codec_id": "json.provider_schema.v1",
+      "direction": "response",
+      "operation_id": "provider.schema"
+    },
+    {
+      "codec_id": "json.message_submit.v1",
+      "direction": "request",
+      "operation_id": "message.submit"
+    },
+    {
+      "codec_id": "json.message_acceptance.v1",
+      "direction": "response",
+      "operation_id": "message.submit"
+    },
+    {
+      "codec_id": "query.message_list.v1",
+      "direction": "request",
+      "operation_id": "message.list"
+    },
+    {
+      "codec_id": "json.message_page.v1",
+      "direction": "response",
+      "operation_id": "message.list"
+    },
+    {
+      "codec_id": "path.message_id.v1",
+      "direction": "request",
+      "operation_id": "message.show"
+    },
+    {
+      "codec_id": "json.message_status.v1",
+      "direction": "response",
+      "operation_id": "message.show"
+    },
+    {
+      "codec_id": "query.message_attempt_list.v1",
+      "direction": "request",
+      "operation_id": "message.attempt.list"
+    },
+    {
+      "codec_id": "json.attempt_page.v1",
+      "direction": "response",
+      "operation_id": "message.attempt.list"
+    },
+    {
+      "codec_id": "json.message_cancel.v1",
+      "direction": "request",
+      "operation_id": "message.cancel"
+    },
+    {
+      "codec_id": "json.message_status.v1",
+      "direction": "response",
+      "operation_id": "message.cancel"
+    },
+    {
+      "codec_id": "query.dead_letter_list.v1",
+      "direction": "request",
+      "operation_id": "dead_letter.list"
+    },
+    {
+      "codec_id": "json.dead_letter_page.v1",
+      "direction": "response",
+      "operation_id": "dead_letter.list"
+    },
+    {
+      "codec_id": "json.dead_letter_replay.v1",
+      "direction": "request",
+      "operation_id": "dead_letter.replay"
+    },
+    {
+      "codec_id": "json.message_acceptance.v1",
+      "direction": "response",
+      "operation_id": "dead_letter.replay"
+    },
+    {
+      "codec_id": "json.payload_purge.v1",
+      "direction": "request",
+      "operation_id": "payload.purge"
+    },
+    {
+      "codec_id": "json.payload_purge_result.v1",
+      "direction": "response",
+      "operation_id": "payload.purge"
+    },
+    {
+      "codec_id": "query.queue_list.v1",
+      "direction": "request",
+      "operation_id": "queue.list"
+    },
+    {
+      "codec_id": "json.queue_page.v1",
+      "direction": "response",
+      "operation_id": "queue.list"
+    },
+    {
+      "codec_id": "query.connector_list.v1",
+      "direction": "request",
+      "operation_id": "connector.list"
+    },
+    {
+      "codec_id": "json.connector_page.v1",
+      "direction": "response",
+      "operation_id": "connector.list"
+    },
+    {
+      "codec_id": "path.connector_id.v1",
+      "direction": "request",
+      "operation_id": "connector.show"
+    },
+    {
+      "codec_id": "json.connector_status.v1",
+      "direction": "response",
+      "operation_id": "connector.show"
+    },
+    {
+      "codec_id": "query.audit_list.v1",
+      "direction": "request",
+      "operation_id": "audit.list"
+    },
+    {
+      "codec_id": "json.audit_page.v1",
+      "direction": "response",
+      "operation_id": "audit.list"
+    },
+    {
+      "codec_id": "json.admission.v1",
+      "direction": "response",
+      "operation_id": "admission.show"
+    },
+    {
+      "codec_id": "json.admission_set.v1",
+      "direction": "request",
+      "operation_id": "admission.set"
+    },
+    {
+      "codec_id": "json.admission.v1",
+      "direction": "response",
+      "operation_id": "admission.set"
+    },
+    {
+      "codec_id": "json.drain.v1",
+      "direction": "request",
+      "operation_id": "drain.start"
+    },
+    {
+      "codec_id": "json.drain_result.v1",
+      "direction": "response",
+      "operation_id": "drain.start"
+    },
+    {
+      "codec_id": "json.clock_status.v1",
+      "direction": "response",
+      "operation_id": "clock.show"
+    },
+    {
+      "codec_id": "json.clock_acknowledgement.v1",
+      "direction": "request",
+      "operation_id": "clock.acknowledge"
+    },
+    {
+      "codec_id": "json.clock_status.v1",
+      "direction": "response",
+      "operation_id": "clock.acknowledge"
+    },
+    {
+      "codec_id": "query.principal_list.v1",
+      "direction": "request",
+      "operation_id": "principal.list"
+    },
+    {
+      "codec_id": "json.principal_page.v1",
+      "direction": "response",
+      "operation_id": "principal.list"
+    },
+    {
+      "codec_id": "json.principal_create.v1",
+      "direction": "request",
+      "operation_id": "principal.create"
+    },
+    {
+      "codec_id": "json.principal.v1",
+      "direction": "response",
+      "operation_id": "principal.create"
+    },
+    {
+      "codec_id": "path.principal_id.v1",
+      "direction": "request",
+      "operation_id": "principal.show"
+    },
+    {
+      "codec_id": "json.principal.v1",
+      "direction": "response",
+      "operation_id": "principal.show"
+    },
+    {
+      "codec_id": "json.principal_update.v1",
+      "direction": "request",
+      "operation_id": "principal.update"
+    },
+    {
+      "codec_id": "json.principal.v1",
+      "direction": "response",
+      "operation_id": "principal.update"
+    },
+    {
+      "codec_id": "json.generation_guarded_action.v1",
+      "direction": "request",
+      "operation_id": "principal.enable"
+    },
+    {
+      "codec_id": "json.principal.v1",
+      "direction": "response",
+      "operation_id": "principal.enable"
+    },
+    {
+      "codec_id": "json.generation_guarded_action.v1",
+      "direction": "request",
+      "operation_id": "principal.disable"
+    },
+    {
+      "codec_id": "json.principal.v1",
+      "direction": "response",
+      "operation_id": "principal.disable"
+    },
+    {
+      "codec_id": "query.grant_list.v1",
+      "direction": "request",
+      "operation_id": "grant.list"
+    },
+    {
+      "codec_id": "json.grant_page.v1",
+      "direction": "response",
+      "operation_id": "grant.list"
+    },
+    {
+      "codec_id": "json.grant_set.v1",
+      "direction": "request",
+      "operation_id": "grant.put"
+    },
+    {
+      "codec_id": "json.grant.v1",
+      "direction": "response",
+      "operation_id": "grant.put"
+    },
+    {
+      "codec_id": "json.generation_guarded_action.v1",
+      "direction": "request",
+      "operation_id": "grant.delete"
+    },
+    {
+      "codec_id": "json.grant_delete_result.v1",
+      "direction": "response",
+      "operation_id": "grant.delete"
+    },
+    {
+      "codec_id": "query.api_key_list.v1",
+      "direction": "request",
+      "operation_id": "api_key.list"
+    },
+    {
+      "codec_id": "json.api_key_page.v1",
+      "direction": "response",
+      "operation_id": "api_key.list"
+    },
+    {
+      "codec_id": "json.api_key_issue.v1",
+      "direction": "request",
+      "operation_id": "api_key.issue"
+    },
+    {
+      "codec_id": "json.api_key_secret_once.v1",
+      "direction": "response",
+      "operation_id": "api_key.issue"
+    },
+    {
+      "codec_id": "json.api_key_rotate.v1",
+      "direction": "request",
+      "operation_id": "api_key.rotate"
+    },
+    {
+      "codec_id": "json.api_key_secret_once.v1",
+      "direction": "response",
+      "operation_id": "api_key.rotate"
+    },
+    {
+      "codec_id": "json.admin_action.v1",
+      "direction": "request",
+      "operation_id": "api_key.revoke"
+    },
+    {
+      "codec_id": "json.api_key_revoke_result.v1",
+      "direction": "response",
+      "operation_id": "api_key.revoke"
+    },
+    {
+      "codec_id": "query.peer_mapping_list.v1",
+      "direction": "request",
+      "operation_id": "peer_mapping.list"
+    },
+    {
+      "codec_id": "json.peer_mapping_page.v1",
+      "direction": "response",
+      "operation_id": "peer_mapping.list"
+    },
+    {
+      "codec_id": "json.peer_mapping_create.v1",
+      "direction": "request",
+      "operation_id": "peer_mapping.create"
+    },
+    {
+      "codec_id": "json.peer_mapping.v1",
+      "direction": "response",
+      "operation_id": "peer_mapping.create"
+    },
+    {
+      "codec_id": "path.peer_mapping_id.v1",
+      "direction": "request",
+      "operation_id": "peer_mapping.show"
+    },
+    {
+      "codec_id": "json.peer_mapping.v1",
+      "direction": "response",
+      "operation_id": "peer_mapping.show"
+    },
+    {
+      "codec_id": "json.peer_mapping_update.v1",
+      "direction": "request",
+      "operation_id": "peer_mapping.update"
+    },
+    {
+      "codec_id": "json.peer_mapping.v1",
+      "direction": "response",
+      "operation_id": "peer_mapping.update"
+    },
+    {
+      "codec_id": "json.admin_action.v1",
+      "direction": "request",
+      "operation_id": "peer_mapping.delete"
+    },
+    {
+      "codec_id": "json.peer_mapping_delete_result.v1",
+      "direction": "response",
+      "operation_id": "peer_mapping.delete"
+    },
+    {
+      "codec_id": "json.configuration.v1",
+      "direction": "response",
+      "operation_id": "configuration.show"
+    },
+    {
+      "codec_id": "bytes.configuration_candidate.v1",
+      "direction": "request",
+      "operation_id": "configuration.validate"
+    },
+    {
+      "codec_id": "json.configuration_validation.v1",
+      "direction": "response",
+      "operation_id": "configuration.validate"
+    },
+    {
+      "codec_id": "bytes.configuration_activation.v1",
+      "direction": "request",
+      "operation_id": "configuration.activate"
+    },
+    {
+      "codec_id": "json.configuration_activation.v1",
+      "direction": "response",
+      "operation_id": "configuration.activate"
+    },
+    {
+      "codec_id": "query.state_key_list.v1",
+      "direction": "request",
+      "operation_id": "state_key.list"
+    },
+    {
+      "codec_id": "json.state_key_page.v1",
+      "direction": "response",
+      "operation_id": "state_key.list"
+    },
+    {
+      "codec_id": "json.state_key_rotate.v1",
+      "direction": "request",
+      "operation_id": "state_key.rotate"
+    },
+    {
+      "codec_id": "json.state_key_rotation.v1",
+      "direction": "response",
+      "operation_id": "state_key.rotate"
+    },
+    {
+      "codec_id": "json.key_retirement.v1",
+      "direction": "request",
+      "operation_id": "state_key.retire"
+    },
+    {
+      "codec_id": "json.key_retirement_result.v1",
+      "direction": "response",
+      "operation_id": "state_key.retire"
+    },
+    {
+      "codec_id": "query.recovery_key_list.v1",
+      "direction": "request",
+      "operation_id": "recovery_key.list"
+    },
+    {
+      "codec_id": "json.recovery_key_page.v1",
+      "direction": "response",
+      "operation_id": "recovery_key.list"
+    },
+    {
+      "codec_id": "json.recovery_key_generate_phase.v1",
+      "direction": "request",
+      "operation_id": "recovery_key.generate"
+    },
+    {
+      "codec_id": "json.recovery_key_generate_phase_result.v1",
+      "direction": "response",
+      "operation_id": "recovery_key.generate"
+    },
+    {
+      "codec_id": "json.recovery_key_import.v1",
+      "direction": "request",
+      "operation_id": "recovery_key.import"
+    },
+    {
+      "codec_id": "json.recovery_key_metadata.v1",
+      "direction": "response",
+      "operation_id": "recovery_key.import"
+    },
+    {
+      "codec_id": "json.key_retirement.v1",
+      "direction": "request",
+      "operation_id": "recovery_key.retire"
+    },
+    {
+      "codec_id": "json.key_retirement_result.v1",
+      "direction": "response",
+      "operation_id": "recovery_key.retire"
+    },
+    {
+      "codec_id": "query.backup_list.v1",
+      "direction": "request",
+      "operation_id": "backup.list"
+    },
+    {
+      "codec_id": "json.backup_page.v1",
+      "direction": "response",
+      "operation_id": "backup.list"
+    },
+    {
+      "codec_id": "json.backup_create.v1",
+      "direction": "request",
+      "operation_id": "backup.create"
+    },
+    {
+      "codec_id": "json.backup_job.v1",
+      "direction": "response",
+      "operation_id": "backup.create"
+    },
+    {
+      "codec_id": "path.backup_id.v1",
+      "direction": "request",
+      "operation_id": "backup.show"
+    },
+    {
+      "codec_id": "json.backup_job.v1",
+      "direction": "response",
+      "operation_id": "backup.show"
+    },
+    {
+      "codec_id": "path.backup_id.v1",
+      "direction": "request",
+      "operation_id": "backup.manifest"
+    },
+    {
+      "codec_id": "json.backup_manifest.v1",
+      "direction": "response",
+      "operation_id": "backup.manifest"
+    },
+    {
+      "codec_id": "path.backup_id.v1",
+      "direction": "request",
+      "operation_id": "backup.download"
+    },
+    {
+      "codec_id": "stream.backup_artifact.v1",
+      "direction": "response",
+      "operation_id": "backup.download"
+    },
+    {
+      "codec_id": "json.admin_action.v1",
+      "direction": "request",
+      "operation_id": "backup.cancel"
+    },
+    {
+      "codec_id": "json.backup_job.v1",
+      "direction": "response",
+      "operation_id": "backup.cancel"
+    },
+    {
+      "codec_id": "json.bootstrap.v1",
+      "direction": "request",
+      "operation_id": "bootstrap.create"
+    },
+    {
+      "codec_id": "json.bootstrap_result.v1",
+      "direction": "response",
+      "operation_id": "bootstrap.create"
+    },
+    {
+      "codec_id": "stream.restore_artifact.v1",
+      "direction": "request",
+      "operation_id": "restore.create"
+    },
+    {
+      "codec_id": "json.restore_job.v1",
+      "direction": "response",
+      "operation_id": "restore.create"
+    },
+    {
+      "codec_id": "path.restore_id.v1",
+      "direction": "request",
+      "operation_id": "restore.show"
+    },
+    {
+      "codec_id": "json.restore_job.v1",
+      "direction": "response",
+      "operation_id": "restore.show"
+    },
+    {
+      "codec_id": "query.restore_report_page.v1",
+      "direction": "request",
+      "operation_id": "restore.report"
+    },
+    {
+      "codec_id": "json.restore_report_page.v1",
+      "direction": "response",
+      "operation_id": "restore.report"
+    },
+    {
+      "codec_id": "json.restore_resume.v1",
+      "direction": "request",
+      "operation_id": "restore.resume"
+    },
+    {
+      "codec_id": "json.restore_resume_result.v1",
+      "direction": "response",
+      "operation_id": "restore.resume"
+    },
+    {
+      "codec_id": "query.state_generation_list.v1",
+      "direction": "request",
+      "operation_id": "state_generation.list"
+    },
+    {
+      "codec_id": "json.state_generation_page.v1",
+      "direction": "response",
+      "operation_id": "state_generation.list"
+    },
+    {
+      "codec_id": "json.state_generation_delete.v1",
+      "direction": "request",
+      "operation_id": "state_generation.delete"
+    },
+    {
+      "codec_id": "json.state_generation_delete_result.v1",
+      "direction": "response",
+      "operation_id": "state_generation.delete"
+    },
+    {
+      "codec_id": "json.upgrade_status.v1",
+      "direction": "response",
+      "operation_id": "upgrade.show"
+    },
+    {
+      "codec_id": "json.upgrade_prepare.v1",
+      "direction": "request",
+      "operation_id": "upgrade.prepare"
+    },
+    {
+      "codec_id": "json.upgrade_status.v1",
+      "direction": "response",
+      "operation_id": "upgrade.prepare"
+    },
+    {
+      "codec_id": "json.upgrade_migrate.v1",
+      "direction": "request",
+      "operation_id": "upgrade.migrate"
+    },
+    {
+      "codec_id": "json.upgrade_status.v1",
+      "direction": "response",
+      "operation_id": "upgrade.migrate"
+    },
+    {
+      "codec_id": "json.upgrade_activate.v1",
+      "direction": "request",
+      "operation_id": "upgrade.activate"
+    },
+    {
+      "codec_id": "json.upgrade_status.v1",
+      "direction": "response",
+      "operation_id": "upgrade.activate"
+    },
+    {
+      "codec_id": "json.upgrade_rollback.v1",
+      "direction": "request",
+      "operation_id": "upgrade.rollback"
+    },
+    {
+      "codec_id": "json.upgrade_status.v1",
+      "direction": "response",
+      "operation_id": "upgrade.rollback"
+    },
+    {
+      "codec_id": "json.health.v1",
+      "direction": "response",
+      "operation_id": "system.health"
+    },
+    {
+      "codec_id": "json.readiness.v1",
+      "direction": "response",
+      "operation_id": "system.readiness"
+    },
+    {
+      "codec_id": "text.metrics.v1",
+      "direction": "response",
+      "operation_id": "system.metrics"
+    },
+    {
+      "codec_id": "json.shutdown.v1",
+      "direction": "request",
+      "operation_id": "system.shutdown"
+    },
+    {
+      "codec_id": "json.shutdown_accepted.v1",
+      "direction": "response",
+      "operation_id": "system.shutdown"
+    }
+  ],
+  "format": "msgriver/protocol-catalog-oracle/v1",
+  "operation_count": 70,
+  "operations": [
+    {
+      "authorization": "authenticated_catalog",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "provider list",
+      "id": "provider.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/providers",
+      "request_codec": "query.provider_list.v1",
+      "response_codec": "json.provider_page.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "authenticated_catalog",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "provider show",
+      "id": "provider.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/providers/{provider_id}",
+      "request_codec": "path.provider_id.v1",
+      "response_codec": "json.provider.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "authenticated_catalog",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "provider schema",
+      "id": "provider.schema",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/providers/{provider_id}/schemas/{schema_id}",
+      "request_codec": "path.provider_schema_id.v1",
+      "response_codec": "json.provider_schema.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "submit",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "send",
+      "id": "message.submit",
+      "idempotency": "domain_key",
+      "method": "POST",
+      "path": "/v1/messages",
+      "request_codec": "json.message_submit.v1",
+      "response_codec": "json.message_acceptance.v1",
+      "risk": "external_effect"
+    },
+    {
+      "authorization": "status_own_or_operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "message list",
+      "id": "message.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/messages",
+      "request_codec": "query.message_list.v1",
+      "response_codec": "json.message_page.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "status_own_or_operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "message show",
+      "id": "message.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/messages/{message_id}",
+      "request_codec": "path.message_id.v1",
+      "response_codec": "json.message_status.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "status_own_or_operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "message attempts",
+      "id": "message.attempt.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/messages/{message_id}/attempts",
+      "request_codec": "query.message_attempt_list.v1",
+      "response_codec": "json.attempt_page.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "cancel_own_or_operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "message cancel",
+      "id": "message.cancel",
+      "idempotency": "idempotent_action",
+      "method": "POST",
+      "path": "/v1/messages/{message_id}/cancel",
+      "request_codec": "json.message_cancel.v1",
+      "response_codec": "json.message_status.v1",
+      "risk": "mutation"
+    },
+    {
+      "authorization": "operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "dead-letter list",
+      "id": "dead_letter.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/dead-letters",
+      "request_codec": "query.dead_letter_list.v1",
+      "response_codec": "json.dead_letter_page.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "dead-letter replay",
+      "id": "dead_letter.replay",
+      "idempotency": "domain_key",
+      "method": "POST",
+      "path": "/v1/dead-letters/{message_id}/replays",
+      "request_codec": "json.dead_letter_replay.v1",
+      "response_codec": "json.message_acceptance.v1",
+      "risk": "external_effect"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "payload purge",
+      "id": "payload.purge",
+      "idempotency": "idempotent_action",
+      "method": "DELETE",
+      "path": "/v1/messages/{message_id}/payload",
+      "request_codec": "json.payload_purge.v1",
+      "response_codec": "json.payload_purge_result.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "queue list",
+      "id": "queue.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/queue",
+      "request_codec": "query.queue_list.v1",
+      "response_codec": "json.queue_page.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "connector list",
+      "id": "connector.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/connectors",
+      "request_codec": "query.connector_list.v1",
+      "response_codec": "json.connector_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "connector show",
+      "id": "connector.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/connectors/{connector_id}",
+      "request_codec": "path.connector_id.v1",
+      "response_codec": "json.connector_status.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "audit list",
+      "id": "audit.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/audit-events",
+      "request_codec": "query.audit_list.v1",
+      "response_codec": "json.audit_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "admission show",
+      "id": "admission.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/admission",
+      "request_codec": "none",
+      "response_codec": "json.admission.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "admission set",
+      "id": "admission.set",
+      "idempotency": "generation_guarded",
+      "method": "PUT",
+      "path": "/v1/admin/admission",
+      "request_codec": "json.admission_set.v1",
+      "response_codec": "json.admission.v1",
+      "risk": "reversible_control"
+    },
+    {
+      "authorization": "operator",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp"
+      ],
+      "cli": "drain",
+      "id": "drain.start",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/drains",
+      "request_codec": "json.drain.v1",
+      "response_codec": "json.drain_result.v1",
+      "risk": "reversible_control"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "clock show",
+      "id": "clock.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/clock",
+      "request_codec": "none",
+      "response_codec": "json.clock_status.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "clock acknowledge",
+      "id": "clock.acknowledge",
+      "idempotency": "addressed_state",
+      "method": "POST",
+      "path": "/v1/admin/clock-acknowledgements",
+      "request_codec": "json.clock_acknowledgement.v1",
+      "response_codec": "json.clock_status.v1",
+      "risk": "safety_override"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal list",
+      "id": "principal.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/principals",
+      "request_codec": "query.principal_list.v1",
+      "response_codec": "json.principal_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal create",
+      "id": "principal.create",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/principals",
+      "request_codec": "json.principal_create.v1",
+      "response_codec": "json.principal.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal show",
+      "id": "principal.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/principals/{principal_id}",
+      "request_codec": "path.principal_id.v1",
+      "response_codec": "json.principal.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal update",
+      "id": "principal.update",
+      "idempotency": "command_key",
+      "method": "PATCH",
+      "path": "/v1/admin/principals/{principal_id}",
+      "request_codec": "json.principal_update.v1",
+      "response_codec": "json.principal.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal enable",
+      "id": "principal.enable",
+      "idempotency": "generation_guarded",
+      "method": "POST",
+      "path": "/v1/admin/principals/{principal_id}/enable",
+      "request_codec": "json.generation_guarded_action.v1",
+      "response_codec": "json.principal.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal disable",
+      "id": "principal.disable",
+      "idempotency": "generation_guarded",
+      "method": "POST",
+      "path": "/v1/admin/principals/{principal_id}/disable",
+      "request_codec": "json.generation_guarded_action.v1",
+      "response_codec": "json.principal.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal grant list",
+      "id": "grant.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/principals/{principal_id}/provider-grants",
+      "request_codec": "query.grant_list.v1",
+      "response_codec": "json.grant_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal grant set",
+      "id": "grant.put",
+      "idempotency": "generation_guarded",
+      "method": "PUT",
+      "path": "/v1/admin/principals/{principal_id}/provider-grants/{provider_id}",
+      "request_codec": "json.grant_set.v1",
+      "response_codec": "json.grant.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "principal grant revoke",
+      "id": "grant.delete",
+      "idempotency": "generation_guarded",
+      "method": "DELETE",
+      "path": "/v1/admin/principals/{principal_id}/provider-grants/{provider_id}",
+      "request_codec": "json.generation_guarded_action.v1",
+      "response_codec": "json.grant_delete_result.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "api-key list",
+      "id": "api_key.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/api-keys",
+      "request_codec": "query.api_key_list.v1",
+      "response_codec": "json.api_key_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "api-key issue",
+      "id": "api_key.issue",
+      "idempotency": "one_time_secret",
+      "method": "POST",
+      "one_time_mode": "single_phase",
+      "path": "/v1/admin/api-keys",
+      "request_codec": "json.api_key_issue.v1",
+      "response_codec": "json.api_key_secret_once.v1",
+      "risk": "credential_issue"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "api-key rotate",
+      "id": "api_key.rotate",
+      "idempotency": "one_time_secret",
+      "method": "POST",
+      "one_time_mode": "single_phase",
+      "path": "/v1/admin/api-keys/{key_id}/rotations",
+      "request_codec": "json.api_key_rotate.v1",
+      "response_codec": "json.api_key_secret_once.v1",
+      "risk": "credential_issue"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "api-key revoke",
+      "id": "api_key.revoke",
+      "idempotency": "idempotent_action",
+      "method": "DELETE",
+      "path": "/v1/admin/api-keys/{key_id}",
+      "request_codec": "json.admin_action.v1",
+      "response_codec": "json.api_key_revoke_result.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "peer-mapping list",
+      "id": "peer_mapping.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/peer-mappings",
+      "request_codec": "query.peer_mapping_list.v1",
+      "response_codec": "json.peer_mapping_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "peer-mapping create",
+      "id": "peer_mapping.create",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/peer-mappings",
+      "request_codec": "json.peer_mapping_create.v1",
+      "response_codec": "json.peer_mapping.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "peer-mapping show",
+      "id": "peer_mapping.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/peer-mappings/{mapping_id}",
+      "request_codec": "path.peer_mapping_id.v1",
+      "response_codec": "json.peer_mapping.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "peer-mapping update",
+      "id": "peer_mapping.update",
+      "idempotency": "command_key",
+      "method": "PATCH",
+      "path": "/v1/admin/peer-mappings/{mapping_id}",
+      "request_codec": "json.peer_mapping_update.v1",
+      "response_codec": "json.peer_mapping.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "peer-mapping delete",
+      "id": "peer_mapping.delete",
+      "idempotency": "idempotent_action",
+      "method": "DELETE",
+      "path": "/v1/admin/peer-mappings/{mapping_id}",
+      "request_codec": "json.admin_action.v1",
+      "response_codec": "json.peer_mapping_delete_result.v1",
+      "risk": "authorization_change"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "config show",
+      "id": "configuration.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/configuration",
+      "request_codec": "none",
+      "response_codec": "json.configuration.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "config check",
+      "id": "configuration.validate",
+      "idempotency": "safe_calculation",
+      "method": "POST",
+      "path": "/v1/admin/config-validations",
+      "request_codec": "bytes.configuration_candidate.v1",
+      "response_codec": "json.configuration_validation.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance config activate",
+      "id": "configuration.activate",
+      "idempotency": "command_key",
+      "method": "PUT",
+      "path": "/v1/admin/configuration",
+      "request_codec": "bytes.configuration_activation.v1",
+      "response_codec": "json.configuration_activation.v1",
+      "risk": "configuration_change"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance state-key list",
+      "id": "state_key.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/state-keys",
+      "request_codec": "query.state_key_list.v1",
+      "response_codec": "json.state_key_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance state-key rotate",
+      "id": "state_key.rotate",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/state-keys/{purpose}/rotations",
+      "request_codec": "json.state_key_rotate.v1",
+      "response_codec": "json.state_key_rotation.v1",
+      "risk": "cryptographic_change"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance state-key retire",
+      "id": "state_key.retire",
+      "idempotency": "command_key",
+      "method": "DELETE",
+      "path": "/v1/admin/state-keys/{purpose}/{generation_id}",
+      "request_codec": "json.key_retirement.v1",
+      "response_codec": "json.key_retirement_result.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance recovery-key list",
+      "id": "recovery_key.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/recovery-keys",
+      "request_codec": "query.recovery_key_list.v1",
+      "response_codec": "json.recovery_key_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance recovery-key generate",
+      "id": "recovery_key.generate",
+      "idempotency": "one_time_secret",
+      "method": "POST",
+      "one_time_mode": "escrow_acknowledgement",
+      "path": "/v1/admin/recovery-keys",
+      "request_codec": "json.recovery_key_generate_phase.v1",
+      "response_codec": "json.recovery_key_generate_phase_result.v1",
+      "risk": "credential_issue"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance recovery-key import",
+      "id": "recovery_key.import",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/recovery-key-imports",
+      "request_codec": "json.recovery_key_import.v1",
+      "response_codec": "json.recovery_key_metadata.v1",
+      "risk": "cryptographic_change"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance recovery-key retire",
+      "id": "recovery_key.retire",
+      "idempotency": "command_key",
+      "method": "DELETE",
+      "path": "/v1/admin/recovery-keys/{generation_id}",
+      "request_codec": "json.key_retirement.v1",
+      "response_codec": "json.key_retirement_result.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup list",
+      "id": "backup.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/backups",
+      "request_codec": "query.backup_list.v1",
+      "response_codec": "json.backup_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup create",
+      "id": "backup.create",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/backups",
+      "request_codec": "json.backup_create.v1",
+      "response_codec": "json.backup_job.v1",
+      "risk": "resource_intensive"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup show",
+      "id": "backup.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/backups/{backup_id}",
+      "request_codec": "path.backup_id.v1",
+      "response_codec": "json.backup_job.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup manifest",
+      "id": "backup.manifest",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/backups/{backup_id}/manifest",
+      "request_codec": "path.backup_id.v1",
+      "response_codec": "json.backup_manifest.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup download",
+      "id": "backup.download",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/backups/{backup_id}/artifact",
+      "request_codec": "path.backup_id.v1",
+      "response_codec": "stream.backup_artifact.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "backup cancel",
+      "id": "backup.cancel",
+      "idempotency": "idempotent_action",
+      "method": "POST",
+      "path": "/v1/admin/backups/{backup_id}/cancel",
+      "request_codec": "json.admin_action.v1",
+      "response_codec": "json.backup_job.v1",
+      "risk": "mutation"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance bootstrap",
+      "id": "bootstrap.create",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/bootstrap",
+      "request_codec": "json.bootstrap.v1",
+      "response_codec": "json.bootstrap_result.v1",
+      "risk": "configuration_change"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance restore",
+      "id": "restore.create",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/restores",
+      "request_codec": "stream.restore_artifact.v1",
+      "response_codec": "json.restore_job.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance restore show",
+      "id": "restore.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/restores/{restore_id}",
+      "request_codec": "path.restore_id.v1",
+      "response_codec": "json.restore_job.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "restore report",
+      "id": "restore.report",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/restores/current",
+      "request_codec": "query.restore_report_page.v1",
+      "response_codec": "json.restore_report_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_recovery_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "restore resume",
+      "id": "restore.resume",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/restores/current/resume",
+      "request_codec": "json.restore_resume.v1",
+      "response_codec": "json.restore_resume_result.v1",
+      "risk": "safety_override"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance state-generation list",
+      "id": "state_generation.list",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/state-generations",
+      "request_codec": "query.state_generation_list.v1",
+      "response_codec": "json.state_generation_page.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance state-generation delete",
+      "id": "state_generation.delete",
+      "idempotency": "command_key",
+      "method": "DELETE",
+      "path": "/v1/admin/state-generations/{generation_id}",
+      "request_codec": "json.state_generation_delete.v1",
+      "response_codec": "json.state_generation_delete_result.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "upgrade show",
+      "id": "upgrade.show",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/admin/upgrade",
+      "request_codec": "none",
+      "response_codec": "json.upgrade_status.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "upgrade prepare",
+      "id": "upgrade.prepare",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/upgrades",
+      "request_codec": "json.upgrade_prepare.v1",
+      "response_codec": "json.upgrade_status.v1",
+      "risk": "safety_control"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance upgrade migrate",
+      "id": "upgrade.migrate",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/upgrades/{upgrade_id}/migration",
+      "request_codec": "json.upgrade_migrate.v1",
+      "response_codec": "json.upgrade_status.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "upgrade activate",
+      "id": "upgrade.activate",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/upgrades/{upgrade_id}/activation",
+      "request_codec": "json.upgrade_activate.v1",
+      "response_codec": "json.upgrade_status.v1",
+      "risk": "safety_override"
+    },
+    {
+      "authorization": "state_owner_peer",
+      "bindings": [
+        "maintenance_uds"
+      ],
+      "cli": "maintenance upgrade rollback",
+      "id": "upgrade.rollback",
+      "idempotency": "command_key",
+      "method": "POST",
+      "path": "/v1/admin/upgrades/{upgrade_id}/rollback",
+      "request_codec": "json.upgrade_rollback.v1",
+      "response_codec": "json.upgrade_status.v1",
+      "risk": "destructive"
+    },
+    {
+      "authorization": "probe_by_binding",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp",
+        "maintenance_uds"
+      ],
+      "cli": "health",
+      "id": "system.health",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/system/health",
+      "request_codec": "none",
+      "response_codec": "json.health.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "probe_by_binding",
+      "bindings": [
+        "normal_uds",
+        "normal_tcp",
+        "maintenance_uds"
+      ],
+      "cli": "readiness",
+      "id": "system.readiness",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/system/readiness",
+      "request_codec": "none",
+      "response_codec": "json.readiness.v1",
+      "risk": "read"
+    },
+    {
+      "authorization": "local_operator",
+      "bindings": [
+        "normal_uds"
+      ],
+      "cli": "metrics",
+      "id": "system.metrics",
+      "idempotency": "safe",
+      "method": "GET",
+      "path": "/v1/system/metrics",
+      "request_codec": "none",
+      "response_codec": "text.metrics.v1",
+      "risk": "sensitive_read"
+    },
+    {
+      "authorization": "local_operator_or_state_owner_peer",
+      "bindings": [
+        "normal_uds",
+        "maintenance_uds"
+      ],
+      "cli": "shutdown",
+      "id": "system.shutdown",
+      "idempotency": "addressed_state",
+      "method": "POST",
+      "path": "/v1/system/shutdown",
+      "request_codec": "json.shutdown.v1",
+      "response_codec": "json.shutdown_accepted.v1",
+      "risk": "safety_control"
+    }
+  ],
+  "operations_source_sha256": "ec509cfe81b6f07ba1cf1917b22b41a4e22e68a675f3ba40c5a91d46280229ec"
+}

@@ -1,0 +1,11 @@
+# MsgRiver bounded edge oracle — CORE-BV-EDGE-TEXT-VALID4096-UTF8.
+# Source: PR-063 and A-12.3.
+
+case_id: CORE-BV-EDGE-TEXT-VALID4096-UTF8
+kind: bv_text
+clause: PR-063,A-12.3
+text_unit_hex: c3a9
+text_repeat: 2048
+text_limit: 4096
+title_limit: 256
+expect: ok

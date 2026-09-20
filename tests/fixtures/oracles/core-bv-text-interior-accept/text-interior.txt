@@ -1,0 +1,9 @@
+# MsgRiver bounded interior text-acceptance oracle — CORE-BV-TEXT-INTERIOR-ACCEPT.
+# Source: bounded interior text-acceptance contract adjudication.
+
+case_id: CORE-BV-TEXT-INTERIOR-ACCEPT
+kind: bv_text
+text_hex: 68656c6c6f
+text_limit: 4096
+title_limit: 256
+expect: ok

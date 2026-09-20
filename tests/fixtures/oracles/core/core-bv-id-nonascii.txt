@@ -1,0 +1,14 @@
+# MsgRiver core oracle — CORE-BV-ID-NONASCII (PR-061).
+#
+# Hand-authored frozen vector. Expected values are computed offline with the
+# Python standard library (length-prefixed encoding, HMAC-SHA256, checked
+# arithmetic) and never through MsgRiver production code. The case inventory
+# records this file's SHA-256 and its source-clause span digest.
+
+case_id: CORE-BV-ID-NONASCII
+kind: bv_id
+clause: PR-061
+clause_span_digest: 7c87631166eaed5d84d156ab17486d336a462d8f407c0769f57e9ca8779c5b69
+input: café
+expect: reject
+expect_class: invalid_identifier

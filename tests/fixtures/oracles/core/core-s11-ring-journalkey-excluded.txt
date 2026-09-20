@@ -1,0 +1,3 @@
+case_id: CORE-S11-RING-JOURNALKEY-EXCLUDED
+expect: ok
+expect_ring_contains_journal_key: false

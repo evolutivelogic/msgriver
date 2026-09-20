@@ -1,0 +1,3 @@
+case_id: CORE-S11-ALLOC-REPLAY-REUSE
+expect: ok
+expect_decision: reuse
