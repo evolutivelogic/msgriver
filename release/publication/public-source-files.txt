@@ -191,6 +191,7 @@ crates/msgriver/src/state_mac_key_snapshot.rs
 crates/msgriver/tests/m2_ntfy_e2e.rs
 crates/msgriver/tests/m3_whatsapp_e2e.rs
 crates/msgriver/tests/m4_whatsapp_inbound_e2e.rs
+crates/msgriver/tests/m6_operations_e2e.rs
 crates/msgriver/tests/phase_zero_executable_bootstrap_red.rs
 crates/msgriver/tests/red_linux_root_refusal.rs
 crates/msgriver/tests/red_linux_startup_policy.rs

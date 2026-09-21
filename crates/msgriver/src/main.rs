@@ -13,8 +13,8 @@ use msgriver_connectors::{
     },
 };
 use msgriver_store::{
-    M2Accepted, M2Submission, M3Submission, M4InboundSubmission, MigrationProvenance, Store,
-    StoreOpenConfig,
+    M2Accepted, M2Submission, M3Submission, M4InboundSubmission, M6MessageStatus, M6QueueSummary,
+    MigrationProvenance, Store, StoreOpenConfig,
 };
 use sha2::Sha256;
 use std::{
@@ -81,6 +81,9 @@ enum IncomingRequest {
     Ntfy(IncomingMessage),
     Whatsapp(IncomingWhatsappMessage),
     InboundControl(bool),
+    Status,
+    MessageStatus(String),
+    MessageRetry(String),
 }
 
 enum LocalRoute {
@@ -88,6 +91,9 @@ enum LocalRoute {
     Whatsapp,
     InboundEnable,
     InboundDisable,
+    Status,
+    MessageStatus(String),
+    MessageRetry(String),
 }
 
 fn main() {
@@ -103,13 +109,15 @@ fn main() {
 
 fn run(arguments: Vec<std::ffi::OsString>) -> Result<(), &'static str> {
     let Some(command) = arguments.first().and_then(|value| value.to_str()) else {
-        return Err("expected `serve`, `send`, or `inbound`");
+        return Err("expected `serve`, `send`, `inbound`, `status`, or `message`");
     };
     match command {
         "serve" => serve(parse_service_config(&arguments[1..])?),
         "send" => send(&arguments[1..]),
         "inbound" => inbound_control(&arguments[1..]),
-        _ => Err("expected `serve`, `send`, or `inbound`"),
+        "status" => status(&arguments[1..]),
+        "message" => message_control(&arguments[1..]),
+        _ => Err("expected `serve`, `send`, `inbound`, `status`, or `message`"),
     }
 }
 
@@ -180,24 +188,80 @@ fn inbound_control(arguments: &[std::ffi::OsString]) -> Result<(), &'static str>
     let socket = arguments[2]
         .to_str()
         .ok_or("invalid inbound control arguments")?;
-    let mut stream = UnixStream::connect(socket).map_err(|_| "inbound control unavailable")?;
+    let (status, _) = local_post(socket, &format!("/v1/inbound/{action}"))
+        .map_err(|_| "inbound control unavailable")?;
+    (status == 200)
+        .then_some(())
+        .ok_or("inbound control refused")
+}
+
+fn status(arguments: &[std::ffi::OsString]) -> Result<(), &'static str> {
+    if arguments.len() != 2 || arguments[0] != "--socket" {
+        return Err("invalid status arguments");
+    }
+    let socket = arguments[1].to_str().ok_or("invalid status arguments")?;
+    let (status, body) = local_post(socket, "/v1/status").map_err(|_| "status unavailable")?;
+    if status != 200 {
+        return Err("status refused");
+    }
+    println!("{body}");
+    Ok(())
+}
+
+fn message_control(arguments: &[std::ffi::OsString]) -> Result<(), &'static str> {
+    if arguments.len() != 5
+        || !matches!(arguments[0].to_str(), Some("status" | "retry"))
+        || arguments[1] != "--socket"
+        || arguments[3] != "--message-id"
+    {
+        return Err("invalid message arguments");
+    }
+    let action = arguments[0].to_str().ok_or("invalid message arguments")?;
+    let socket = arguments[2].to_str().ok_or("invalid message arguments")?;
+    let message_id = arguments[4].to_str().ok_or("invalid message arguments")?;
+    if !valid_message_id(message_id) {
+        return Err("invalid message arguments");
+    }
+    let path = format!("/v1/messages/{message_id}/{action}");
+    let (status, body) = local_post(socket, &path).map_err(|_| "message control unavailable")?;
+    if (action == "status" && status == 200) || (action == "retry" && status == 202) {
+        println!("{body}");
+        return Ok(());
+    }
+    if action == "retry" && status == 409 {
+        println!("{body}");
+        return Err("message retry refused");
+    }
+    Err("message control refused")
+}
+
+fn local_post(socket: &str, path: &str) -> Result<(u16, String), &'static str> {
+    let mut stream = UnixStream::connect(socket).map_err(|_| "local control unavailable")?;
     stream
         .set_read_timeout(Some(Duration::from_secs(2)))
-        .map_err(|_| "inbound control unavailable")?;
+        .and_then(|()| stream.set_write_timeout(Some(Duration::from_secs(2))))
+        .map_err(|_| "local control unavailable")?;
     let request = format!(
-        "POST /v1/inbound/{action} HTTP/1.1\r\nHost: local\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+        "POST {path} HTTP/1.1\r\nHost: local\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
     );
     stream
         .write_all(request.as_bytes())
-        .map_err(|_| "inbound control unavailable")?;
+        .and_then(|()| stream.flush())
+        .map_err(|_| "local control unavailable")?;
     let mut response = String::new();
     stream
         .read_to_string(&mut response)
-        .map_err(|_| "inbound control unavailable")?;
-    response
-        .starts_with("HTTP/1.1 200 OK\r\n")
-        .then_some(())
-        .ok_or("inbound control refused")
+        .map_err(|_| "local control unavailable")?;
+    let (head, body) = response
+        .split_once("\r\n\r\n")
+        .ok_or("local control unavailable")?;
+    let status = head
+        .split("\r\n")
+        .next()
+        .and_then(|line| line.split_ascii_whitespace().nth(1))
+        .and_then(|value| value.parse::<u16>().ok())
+        .ok_or("local control unavailable")?;
+    Ok((status, body.to_owned()))
 }
 
 fn send(arguments: &[std::ffi::OsString]) -> Result<(), &'static str> {
@@ -643,6 +707,52 @@ fn handle_request(
                 }
             }
         }
+        Some(IncomingRequest::Status) => match store.m6_queue_summary() {
+            Ok(summary) => {
+                write_response(stream, 200, &json_queue_summary(summary))?;
+                return Ok(());
+            }
+            Err(_) => {
+                write_response(stream, 409, "{\"error\":\"request refused\"}")?;
+                return Ok(());
+            }
+        },
+        Some(IncomingRequest::MessageStatus(message_id)) => {
+            match store.m6_message_status(&message_id) {
+                Ok(Some(status)) => {
+                    write_response(stream, 200, &json_message_status(&message_id, &status))?;
+                    return Ok(());
+                }
+                Ok(None) => {
+                    write_response(stream, 404, "{\"error\":\"not found\"}")?;
+                    return Ok(());
+                }
+                Err(_) => {
+                    write_response(stream, 409, "{\"error\":\"request refused\"}")?;
+                    return Ok(());
+                }
+            }
+        }
+        Some(IncomingRequest::MessageRetry(message_id)) => {
+            match store.m6_requeue_failed(&message_id, now_unix_ms()?) {
+                Ok(Some(true)) => {
+                    write_response(stream, 202, &json_retry(&message_id, true))?;
+                    return Ok(());
+                }
+                Ok(Some(false)) => {
+                    write_response(stream, 409, &json_retry(&message_id, false))?;
+                    return Ok(());
+                }
+                Ok(None) => {
+                    write_response(stream, 404, "{\"error\":\"not found\"}")?;
+                    return Ok(());
+                }
+                Err(_) => {
+                    write_response(stream, 409, "{\"error\":\"request refused\"}")?;
+                    return Ok(());
+                }
+            }
+        }
         None => {
             write_response(stream, 400, "{\"error\":\"invalid request\"}")?;
             return Ok(());
@@ -697,16 +807,29 @@ fn read_request(stream: &mut UnixStream) -> Result<Option<IncomingRequest>, &'st
             if bytes.len() != separator + 4 + content_length {
                 return Ok(None);
             }
-            if matches!(
-                route,
-                LocalRoute::InboundEnable | LocalRoute::InboundDisable
-            ) {
-                return Ok(
-                    (content_length == 0).then_some(IncomingRequest::InboundControl(matches!(
-                        route,
-                        LocalRoute::InboundEnable
-                    ))),
-                );
+            match route {
+                LocalRoute::InboundEnable | LocalRoute::InboundDisable => {
+                    return Ok(
+                        (content_length == 0).then_some(IncomingRequest::InboundControl(matches!(
+                            route,
+                            LocalRoute::InboundEnable
+                        ))),
+                    );
+                }
+                LocalRoute::Status => {
+                    return Ok((content_length == 0).then_some(IncomingRequest::Status));
+                }
+                LocalRoute::MessageStatus(message_id) => {
+                    return Ok(
+                        (content_length == 0).then_some(IncomingRequest::MessageStatus(message_id))
+                    );
+                }
+                LocalRoute::MessageRetry(message_id) => {
+                    return Ok(
+                        (content_length == 0).then_some(IncomingRequest::MessageRetry(message_id))
+                    );
+                }
+                LocalRoute::Ntfy | LocalRoute::Whatsapp => {}
             }
             let Some(value) =
                 serde_json::from_slice::<serde_json::Value>(&bytes[separator + 4..]).ok()
@@ -721,7 +844,11 @@ fn read_request(stream: &mut UnixStream) -> Result<Option<IncomingRequest>, &'st
                 LocalRoute::Whatsapp => {
                     parse_whatsapp_request(object).map(IncomingRequest::Whatsapp)
                 }
-                LocalRoute::InboundEnable | LocalRoute::InboundDisable => None,
+                LocalRoute::InboundEnable
+                | LocalRoute::InboundDisable
+                | LocalRoute::Status
+                | LocalRoute::MessageStatus(_)
+                | LocalRoute::MessageRetry(_) => None,
             });
         }
     }
@@ -1043,12 +1170,14 @@ fn canonical_whatsapp_payload(request: &IncomingWhatsappMessage) -> Result<Strin
 
 fn content_length(head: &str) -> Option<(LocalRoute, usize)> {
     let mut lines = head.split("\r\n");
-    let route = match lines.next()? {
+    let request_line = lines.next()?;
+    let route = match request_line {
         "POST /v1/messages HTTP/1.1" => LocalRoute::Ntfy,
         "POST /v1/whatsapp/messages HTTP/1.1" => LocalRoute::Whatsapp,
         "POST /v1/inbound/enable HTTP/1.1" => LocalRoute::InboundEnable,
         "POST /v1/inbound/disable HTTP/1.1" => LocalRoute::InboundDisable,
-        _ => return None,
+        "POST /v1/status HTTP/1.1" => LocalRoute::Status,
+        _ => message_route(request_line)?,
     };
     let mut length = None;
     for line in lines {
@@ -1061,6 +1190,21 @@ fn content_length(head: &str) -> Option<(LocalRoute, usize)> {
         }
     }
     length.map(|length| (route, length))
+}
+
+fn message_route(request_line: &str) -> Option<LocalRoute> {
+    let path = request_line
+        .strip_prefix("POST /v1/messages/")?
+        .strip_suffix(" HTTP/1.1")?;
+    let (message_id, action) = path.split_once('/')?;
+    if !valid_message_id(message_id) || action.contains('/') {
+        return None;
+    }
+    match action {
+        "status" => Some(LocalRoute::MessageStatus(message_id.to_owned())),
+        "retry" => Some(LocalRoute::MessageRetry(message_id.to_owned())),
+        _ => None,
+    }
 }
 
 fn dispatch_due(
@@ -1186,6 +1330,41 @@ fn write_response(stream: &mut UnixStream, status: u16, body: &str) -> Result<()
 
 fn json_result(message_id: &str, deduplicated: bool) -> String {
     format!("{{\"message_id\":\"{message_id}\",\"deduplicated\":{deduplicated}}}")
+}
+
+fn json_queue_summary(summary: M6QueueSummary) -> String {
+    format!(
+        "{{\"counts\":{{\"queued\":{},\"retry_scheduled\":{},\"sending\":{},\"provider_accepted\":{},\"failed\":{},\"ambiguous\":{}}}}}",
+        summary.queued,
+        summary.retry_scheduled,
+        summary.sending,
+        summary.provider_accepted,
+        summary.failed,
+        summary.ambiguous,
+    )
+}
+
+fn json_message_status(message_id: &str, status: &M6MessageStatus) -> String {
+    let recovery = match status.state.as_str() {
+        "failed" => "retry_after_configuration_check",
+        "ambiguous" => "manual_resolution_required",
+        _ => "none",
+    };
+    format!(
+        "{{\"message_id\":\"{message_id}\",\"state\":\"{}\",\"attempts\":{},\"recovery\":\"{recovery}\"}}",
+        status.state, status.attempts
+    )
+}
+
+fn json_retry(message_id: &str, requeued: bool) -> String {
+    format!("{{\"message_id\":\"{message_id}\",\"requeued\":{requeued}}}")
+}
+
+fn valid_message_id(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || matches!(byte, b'a'..=b'f'))
 }
 
 fn now_unix_ms() -> Result<i64, &'static str> {

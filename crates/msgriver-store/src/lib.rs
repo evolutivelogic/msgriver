@@ -308,6 +308,26 @@ pub struct M2Delivery {
     pub attempt: u8,
 }
 
+/// A bounded, redacted snapshot for local operator queue monitoring.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct M6QueueSummary {
+    pub queued: u64,
+    pub retry_scheduled: u64,
+    pub sending: u64,
+    pub provider_accepted: u64,
+    pub failed: u64,
+    pub ambiguous: u64,
+}
+
+/// The minimal durable information an operator needs to decide a recovery
+/// action. It intentionally excludes payload, destination, provider evidence,
+/// and error text.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct M6MessageStatus {
+    pub state: String,
+    pub attempts: u64,
+}
+
 type ClaimedM3Row = (
     String,
     String,
@@ -937,6 +957,89 @@ impl Store {
             .map_err(|_| StoreError::Delivery)
     }
 
+    /// Read the closed durable-state counters without exposing delivery data.
+    pub fn m6_queue_summary(&self) -> Result<M6QueueSummary, StoreError> {
+        let connection = self.connection.as_ref().ok_or(StoreError::Delivery)?;
+        Ok(M6QueueSummary {
+            queued: m6_state_count(connection, "queued")?,
+            retry_scheduled: m6_state_count(connection, "retry_scheduled")?,
+            sending: m6_state_count(connection, "sending")?,
+            provider_accepted: m6_state_count(connection, "provider_accepted")?,
+            failed: m6_state_count(connection, "failed")?,
+            ambiguous: m6_state_count(connection, "ambiguous")?,
+        })
+    }
+
+    /// Read one locally known message's durable recovery facts, without its
+    /// payload, route, acknowledgement, or provider response.
+    pub fn m6_message_status(
+        &self,
+        message_id: &str,
+    ) -> Result<Option<M6MessageStatus>, StoreError> {
+        if !valid_message_id(message_id) {
+            return Err(StoreError::Delivery);
+        }
+        let row: Option<(String, i64)> = self
+            .connection
+            .as_ref()
+            .ok_or(StoreError::Delivery)?
+            .query_row(
+                "SELECT state, attempts FROM m3_messages WHERE message_id = ?1",
+                [message_id],
+                |row| Ok((row.get(0)?, row.get(1)?)),
+            )
+            .optional()
+            .map_err(|_| StoreError::Delivery)?;
+        row.map(|(state, attempts)| {
+            let attempts = u64::try_from(attempts).map_err(|_| StoreError::Delivery)?;
+            Ok(M6MessageStatus { state, attempts })
+        })
+        .transpose()
+    }
+
+    /// Requeue only a definite provider rejection after an operator has
+    /// corrected its cause. Attempt count remains cumulative for auditability
+    /// and bounded work; ambiguous effects are deliberately not eligible.
+    pub fn m6_requeue_failed(
+        &mut self,
+        message_id: &str,
+        now_unix_ms: i64,
+    ) -> Result<Option<bool>, StoreError> {
+        if !valid_message_id(message_id) {
+            return Err(StoreError::Delivery);
+        }
+        let connection = self.connection.as_ref().ok_or(StoreError::Delivery)?;
+        let transaction = Transaction::new_unchecked(connection, TransactionBehavior::Immediate)
+            .map_err(|_| StoreError::Delivery)?;
+        let state: Option<String> = transaction
+            .query_row(
+                "SELECT state FROM m3_messages WHERE message_id = ?1",
+                [message_id],
+                |row| row.get(0),
+            )
+            .optional()
+            .map_err(|_| StoreError::Delivery)?;
+        let Some(state) = state else {
+            transaction.commit().map_err(|_| StoreError::Delivery)?;
+            return Ok(None);
+        };
+        if state != "failed" {
+            transaction.commit().map_err(|_| StoreError::Delivery)?;
+            return Ok(Some(false));
+        }
+        let changed = transaction
+            .execute(
+                "UPDATE m3_messages SET state = 'queued', next_attempt_at_unix_ms = ?2, last_error = NULL, updated_at_unix_ms = ?2 WHERE message_id = ?1 AND state = 'failed'",
+                (message_id, now_unix_ms),
+            )
+            .map_err(|_| StoreError::Delivery)?;
+        if changed != 1 {
+            return Err(StoreError::Delivery);
+        }
+        transaction.commit().map_err(|_| StoreError::Delivery)?;
+        Ok(Some(true))
+    }
+
     fn m2_transition_sending(
         &self,
         message_id: &str,
@@ -973,6 +1076,24 @@ fn valid_idempotency_key(value: &str) -> bool {
         && value
             .bytes()
             .all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'-' | b'_' | b'.'))
+}
+
+fn valid_message_id(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || matches!(byte, b'a'..=b'f'))
+}
+
+fn m6_state_count(connection: &Connection, state: &str) -> Result<u64, StoreError> {
+    let count: i64 = connection
+        .query_row(
+            "SELECT COUNT(*) FROM m3_messages WHERE state = ?1",
+            [state],
+            |row| row.get(0),
+        )
+        .map_err(|_| StoreError::Delivery)?;
+    u64::try_from(count).map_err(|_| StoreError::Delivery)
 }
 
 fn valid_topic(value: &str) -> bool {

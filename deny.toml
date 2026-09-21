@@ -15,9 +15,10 @@ no-default-features = false
 yanked = "deny"
 
 [licenses]
-# MIT is the project license. Apache-2.0, Unlicense, ISC, and
-# CDLA-Permissive-2.0 occur only in the reviewed dependency closures used for
-# protocol JSON syntax and verified WhatsApp Cloud TLS egress.
+# MIT is the project license; Apache-2.0 and Unlicense are required only by the
+# reviewed serde_json dependency closure used for protocol JSON syntax. ISC and
+# CDLA-Permissive-2.0 are required only by the reviewed rustls/WebPKI TLS
+# closure that enforces verified WhatsApp Cloud egress.
 allow = ["Apache-2.0", "MIT", "Unlicense", "ISC", "CDLA-Permissive-2.0"]
 # Task 0013: hmac 0.12.1's required digest-MAC utility. Keep this versioned so
 # no other BSD-3-Clause package becomes admissible by policy drift.

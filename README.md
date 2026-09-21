@@ -45,6 +45,28 @@ msgriver send --socket /var/lib/msgriver/msgriver.sock \
   --title MsgRiver --body 'A durable message was accepted.'
 ```
 
+## Operator monitoring and recovery
+
+The local socket also provides a bounded operational view. It reveals only
+durable-state counts, a message's state and cumulative attempt count, and the
+safe recovery disposition; it never returns message content, destination,
+provider endpoint, acknowledgement, credentials, or provider response.
+
+```sh
+msgriver status --socket /var/lib/msgriver/msgriver.sock
+msgriver message status --socket /var/lib/msgriver/msgriver.sock \
+  --message-id <message-id>
+msgriver message retry --socket /var/lib/msgriver/msgriver.sock \
+  --message-id <message-id>
+```
+
+`message retry` requeues only a definite `failed` delivery after an operator
+has corrected its cause. It preserves the cumulative attempt count and refuses
+`ambiguous` deliveries: their provider effect may already have happened and
+must be resolved without a blind resend. The equivalent local HTTP requests
+are `POST /v1/status`, `POST /v1/messages/<message-id>/status`, and
+`POST /v1/messages/<message-id>/retry`, each with an empty body.
+
 See [`deploy/msgriver.service.example`](deploy/msgriver.service.example) for a
 minimal systemd unit. Stop the unit before replacing the binary; the SQLite
 state directory is separate from the release binary, so rollback means
