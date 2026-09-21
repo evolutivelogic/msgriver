@@ -111,6 +111,8 @@ jobs:
             --skip initialization_key_pair::publication
           cargo test -p msgriver --test m2_ntfy_e2e --locked --quiet
           cargo test -p msgriver --test m3_whatsapp_e2e --locked --quiet
+          cargo test -p msgriver --test m4_whatsapp_inbound_e2e --locked --quiet
+          cargo test -p msgriver --test m6_operations_e2e --locked --quiet
       - name: Repository structure and spec checks
         # The project's own invariants, already written as scripts -- the pipeline runs
         # them rather than restating what they check.

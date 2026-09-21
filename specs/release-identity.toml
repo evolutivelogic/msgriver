@@ -9,4 +9,4 @@ sha256 = "59f52b79c50a3a36abd7b7b68bdede7fd91b7cf4f596910febbeda3e88c338e3"
 [[document]]
 path = "specs/architecture.md"
 version = "0.3.62"
-sha256 = "4cd460c0f034a4c803dcd65cc8a5a437f60ee1245eecaa257073928b5aa4d519"
+sha256 = "0202b26c2d683570cafeeef7dc3467cc37182ca13bf2e86ff940c976fd856289"
