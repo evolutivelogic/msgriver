@@ -8809,7 +8809,7 @@ rationale = "Descriptive descriptive_context context for dc865ca24d4da85833406a8
 [[ownership]]
 unit_id = "0f176cc20abc8c344f3007910ff067ad"
 classification = "layer:platform"
-rationale = "Apache-2.0."
+rationale = "MIT."
 
 [[ownership]]
 unit_id = "8ea265fc86ee22cbd21e47e00c8647ab"

@@ -5,7 +5,7 @@ issue before implementation, then update the living specification in the same ch
 
 ## Contribution contract
 
-- Contributions are licensed under Apache-2.0.
+- Contributions are licensed under MIT.
 - This project uses the [Developer Certificate of Origin](DCO.txt), not a CLA.
 - Sign every commit with `git commit -s` to add a `Signed-off-by` trailer.
 - Never commit credentials, private recipient data, or real message payloads.

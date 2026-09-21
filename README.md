@@ -83,6 +83,6 @@ No credential is included in this repository.
 
 ## Contributing and security
 
-MsgRiver is Apache-2.0 licensed and uses the Developer Certificate of Origin.
+MsgRiver is MIT licensed and uses the Developer Certificate of Origin.
 Read [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and
 [GOVERNANCE.md](GOVERNANCE.md) before contributing or reporting a vulnerability.

@@ -186,7 +186,7 @@ publication.
   tag whose exact name is also `0.1.0-alpha` on a clean reviewed commit.
 - MSRV: Rust 1.89, required for the standard-library file-lock API.
 - Pinned development/release toolchain: Rust 1.96.1; bumps are isolated and tested green before/after.
-- License metadata: Apache-2.0; packages publish only when release metadata is complete.
+- License metadata: MIT; packages publish only when release metadata is complete.
 - `Cargo.lock` is committed; every gate and release command uses `--locked`.
 - Release profile enables overflow checks and strips no evidence needed for supported diagnostics.
 - Direct dependency additions require a written rationale and `cargo deny` license/advisory/source

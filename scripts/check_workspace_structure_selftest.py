@@ -91,7 +91,7 @@ def _m_msrv(root: Path) -> None:
 
 @mutation("license")
 def _m_license(root: Path) -> None:
-    _replace(root / "Cargo.toml", 'license = "Apache-2.0"', 'license = "MIT"')
+    _replace(root / "Cargo.toml", 'license = "MIT"', 'license = "Apache-2.0"')
 
 
 @mutation("publish")
@@ -130,7 +130,7 @@ def _m_unlisted_seventh(root: Path) -> None:
     )
     (extra / "Cargo.toml").write_text(
         "[package]\nname = \"msgriver-unlisted\"\nversion = \"0.1.0-alpha\"\n"
-        "edition = \"2024\"\nrust-version = \"1.89\"\nlicense = \"Apache-2.0\"\n"
+        "edition = \"2024\"\nrust-version = \"1.89\"\nlicense = \"MIT\"\n"
         "publish = false\n",
         encoding="utf-8",
     )
