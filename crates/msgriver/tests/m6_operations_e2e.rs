@@ -68,7 +68,7 @@ fn operator_can_inspect_and_retry_only_a_definite_failure() {
     let accepted = submit(
         &socket,
         SubmitRequest {
-            idempotency_key: "m6-operations-1",
+            idempotency_key: "m6a",
             body: "inspect and recover",
             title: None,
         },
@@ -154,7 +154,7 @@ fn operator_cannot_requeue_an_ambiguous_delivery() {
     let accepted = submit(
         &socket,
         SubmitRequest {
-            idempotency_key: "m6-ambiguous-1",
+            idempotency_key: "m6b",
             body: "ambiguous must not retry",
             title: None,
         },
